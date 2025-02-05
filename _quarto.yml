@@ -12,6 +12,8 @@ book:
       url: https://yo5uke.github.io/
   date: 2025-02-05
   date-format: "YYYY年M月D日"
+  google-analytics: "G-KN42DSQ0YN"
+  site-url: https://life-with-r.netlify.app/
   sharing: 
     - twitter
     - facebook
