@@ -24,6 +24,9 @@ book:
     center: |
       © 2025 Life with R
 
+execute: 
+  freeze: auto
+
 format:
   html:
     theme: styles.scss
