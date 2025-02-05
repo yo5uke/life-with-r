@@ -1,0 +1,30 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+
+# User-specific files
+.Ruserdata
+
+# RStudio files
+.Rproj.user/
+
+# Quarto and R Markdown
+*_cache/
+/cache/
+*_files/
+
+# R Environment Variables
+.Renviron
+
+# Quarto
+/.quarto/
+
+# Publishing
+/_book/
+
+# Other
+settings.json
+*.Identifier

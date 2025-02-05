@@ -1,0 +1,35 @@
+project:
+  type: book
+  output-dir: _book
+  resources: 
+    - figures/
+
+book:
+  title: "Life with R"
+  author: 
+    - name: 阿部洋輔
+      affiliation: OSIPP
+      url: https://yo5uke.github.io/
+  date: 2025-02-05
+  date-format: "YYYY年M月D日"
+  sharing: 
+    - twitter
+    - facebook
+  chapters:
+    - index.qmd
+    - install.qmd
+    - try_rstudio.qmd
+    - try_positron.qmd
+  page-footer:
+    center: |
+      © 2025 Life with R
+
+format:
+  html:
+    theme: styles.scss
+    toc: true
+    fig-align: center
+    link-external-newwindow: true
+
+
+

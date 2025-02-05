@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 223cdc54-b179-4a1f-acab-18193cee6bc7
+      url: https://majestic-faloodeh-3c87e5.netlify.app
