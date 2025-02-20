@@ -4,7 +4,7 @@
 
 インストールしたばかりのRStudioは以下のようなレイアウトになっています。
 
-![RStudio](assets/try_rstudio/rstudio.png)
+![RStudio](figures/try_rstudio/rstudio.png)
 
 - 左上：ソースコード画面
     - Rのスクリプトを書く画面

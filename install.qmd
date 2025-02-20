@@ -16,7 +16,7 @@
 
 1. [こちら](https://cran.rstudio.com/)にアクセスし、Linux, Windows, Macから自分の環境に合わせて「Download R for ~」をクリックします。
 
-![私はWindowsを使用しているのでDownload for Windowsを選択しました](assets/images/install/download_r.png){width="70%"}
+![私はWindowsを使用しているのでDownload for Windowsを選択しました](figures/install/download_r.png){width="70%"}
 
 2. 「install R for the first time」をクリック、さらに上部に出てくる「Download R-x.y.z for ~」^[`x.y.z`は（基本的に最新の）Rのバージョンです。2025年1月30日現在では4.4.2です。]をクリックしてインストーラーをダウンロードします。
 
@@ -59,7 +59,7 @@ PositronはPosit社によるRとPythonの両立を目指した新しいIDEで、
 
 インストールしてみたらわかりますが、操作感はかなりVSCodeと似ています。また、UIはVSCodeにRStudioを付け加えたようなものになっています。
 
-![Positronの画面](assets/images/install/positron.png){width="70%"}
+![Positronの画面](figures/install/positron.png){width="70%"}
 
 VSCodeに比べて使える拡張機能が少ないのでその点不便なところもあるかもしれませんが、VSCodeとは違ってRとPython両方にフォーカスした仕様になっていますし、キーボードショートカットもRStudioに近しいものになっているので、比較的移行のハードルも低いのではないかと思います。
 
