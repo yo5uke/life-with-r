@@ -1,8 +1,6 @@
 project:
   type: book
   output-dir: _book
-  resources: 
-    - figures/
 
 book:
   title: "Life with R"
@@ -31,7 +29,9 @@ execute:
 
 format:
   html:
-    theme: styles.scss
+    theme: 
+      - sandstone
+      - styles.scss
     toc: true
     fig-align: center
     link-external-newwindow: true
