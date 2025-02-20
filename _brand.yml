@@ -1,26 +1,3 @@
-color:
-  palette:
-    white: "#FFFFFF"
-    black: "#151515"
-    neutral: "#F9F7F1"
-    blue: "#447099"
-    orange: "#EE6331"
-    green: "#72994E"
-    teal: "#419599"
-    burgundy: "#9A4665"
-
-  foreground: black
-  background: neutral
-  primary: blue
-  secondary: "#707073"
-  tertiary: "#C2C2C4"
-  success: green
-  info: teal
-  warning: orange
-  danger: burgundy
-  light: white
-  dark: "#404041"
-
 typography:
   fonts:
     - family: Zen Maru Gothic
