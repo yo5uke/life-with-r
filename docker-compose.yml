@@ -1,0 +1,14 @@
+services:
+  rstudio:
+    build:
+      context: .
+    environment:
+      - DISABLE_AUTH=true
+      - TZ=Asia/Tokyo
+    volumes:
+      - .:/home/rstudio/life_with_r
+      - cache:/home/rstudio/.cache
+
+volumes:
+  cache:
+    external: true
