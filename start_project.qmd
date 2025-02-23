@@ -1,0 +1,216 @@
+---
+editor: visual
+---
+
+# プロジェクトを始める
+
+## 作業を始めるその前に
+
+Rがインストールできたら早速作業に入りましょう。
+
+しかしその前に、**自分がしたい仕事についてどう進めるか考えることをお勧めします**。そして、場合によっては（というよりもほとんどの場合において）Rプロジェクトを作成して進めるべきです。
+
+まずRプロジェクトとは何かという話ですが、一言でまとめると「**RStudio上で作業するための作業スペース**」です。この作業スペースを作成し、その中で作業をすることによって他のフォルダやファイルから作業スペースを隔離し、独立したスペースで仕事をすることができるようになります。
+
+試しに少しコードを打って回す、という程度であればわざわざプロジェクトを作成する必要もないのかもしれませんが、大抵の場合において何らかの計画をもって作業を始めると思います（論文や授業課題等）。
+
+多くの初心者向け書籍やサイトでは`setwd()`を用いて作業ディレクトリ（作業をするフォルダ）を指定する方法をまず紹介していますが、あえてそれを飛ばし、Rプロジェクトを用いた始め方をご紹介します。
+
+## Rプロジェクトを作成する
+
+::: callout-note
+## Positronでは
+
+Rプロジェクトについて、2025年2月現在ではRStudioのみサポートされています。Positronでもプロジェクトを用いた作業を行うことができますが、その場合はRプロジェクトとは異なる過程を踏むことになります。それは[次のセクション](#sec-positron-project)でご紹介します。
+:::
+
+早速プロジェクトを作成しましょう。流れは以下のようになります。
+
+1.  RStudioを開きます。
+2.  続いてウィンドウ右上に「![](data:image/png;base64,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) Project: (None)」と書かれた箇所があるので、そこをクリックします。
+3.  一番上に「New Project...」という項目があるのでそれをクリックし、数秒待って出てきたウィンドウから「New Directory」→「New Project」を選択します。
+4.  「Directory name:」のところには任意のプロジェクト名を入れてください。理想は英語で、スペースは`_`で代用していることです（例：`life_with_r`）。
+5.  「Create project as subdirectory of:」で作業フォルダを置く場所を選びます。任意の場所で構いませんが、ユーザー直下（例：`C:/Users/yosuke`）がわかりやすくてよいと思います。
+6.  その下のチェックボックスは一旦飛ばし、「Create Project」をクリックし、Rプロジェクトを作成します。
+
+すると右上がプロジェクト名に変わっていると思います。また、右下のパネルには`.Rproj`ファイルが作られているでしょう。
+
+![プロジェクト名に変わっています](figures/start_project/project_name.png){fig-align="center" width="40%"}
+
+これでプロジェクトが作成され、作業場が出来上がりました。この中にデータを入れたりコードファイルを入れたりと、作業を進めていくことになります。
+
+Positronを使っていない方は[先のセクション](#sec-utilize-project)に飛んで大丈夫です。
+
+## Positronでプロジェクトを始める {#sec-positron-project}
+
+先述の通り、PositronではRプロジェクトを作ることができないので、別の方法をとります。
+
+とはいうものの、プロジェクト自体はPositron上でも作ることができます。ただ、実際は作業ディレクトリを作成しているに過ぎないので、`.Rproj`ファイルを作成するRStudioとは異なります。
+
+まずはプロジェクト作成に先立ち、プロジェクト管理用の拡張機能を入れましょう。
+
+1.  画面左のサイドバーから {{< iconify codicon:extensions >}} をクリックし、検索窓に「alefragnani.project-manager」と入力します。
+2.  出てきた拡張機能（Project Manager）をインストールします。
+
+するとサイドバーの最下部にProject Managerのアイコンが出てきます。
+
+![使用する拡張機能](figures/start_project/project_manager.png){fig-align="center" width="60%"}
+
+一旦これで置いておいて、プロジェクトの作成をしましょう。
+
+1.  画面右上のフォルダアイコンをクリックし、一番上の「New Project...」をクリックします。
+2.  Project Typeは「R Project」を選択し、次へ進みます。
+3.  「Project Name」と「Parent Directory」はRStudioの場合と同様に任意の名前、場所を入れ、チェックボックスは空白のまま次へ進みます。
+4.  使いたいRのバージョンが選択されていることを確認し、ここでもチェックボックスは空白のまま「Create」をクリックします。
+5.  Current WindowかNew Windowは好きな方を選びます[^start_project-1]。
+
+[^start_project-1]: これまで何かファイルを開いていなければCurrent Windowでいいと思います。何か作業をしていたらそれが閉じられてしまうのでNew Windowにした方が無難でしょう。
+
+すると画面左のパネルにプロジェクト名のフォルダが開かれていると思います。また、右上もフォルダアイコンの右がプロジェクト名に変わっています。
+
+![プロジェクトを作成した後の画面です](figures/start_project/positron_project.png){fig-align="center"}
+
+RStudioでは`.Rproj`ファイルを基準にどこが作業ディレクトリなのかを判別できるのですが、このままではファイルが何もないので判断が付きません。そこで活躍するのが先ほどの拡張機能です。
+
+サイドバーからProject Managerのアイコンをクリックし、上部に出てくる「Favorites」にカーソルを合わせると、フロッピーディスク💾のアイコンが出てきます[^start_project-2]。これをクリックするとウィンドウ中央最上部にプロジェクト名が出てきてEnterかEscapeかを選択するよう訊かれるので、Enterキーをクリックすると保存することができます。
+
+[^start_project-2]: カーソルを重ねると「Save Project」と出てきます
+
+![ウィンドウ右下にこれが出てくればOKです](figures/start_project/project_saved.png){fig-align="center" width="60%"}
+
+次回以降、作業ディレクトリを閉じていてもProject Managerから保存したプロジェクトをクリックすれば、プロジェクトのディレクトリに飛んでくることができます。
+
+## プロジェクトを有効活用する {#sec-utilize-project}
+
+ここまでRStudio、Positronそれぞれでプロジェクトを作成する方法を紹介してきましたが、これだけでは作成する意義がわかりにくいと思います。
+
+実際の作業の流れを確認しながら、プロジェクトのメリットや利便性について確認していきましょう。
+
+### 素早くプロジェクトを開く
+
+まず第一の利点として、**PCを立ち上げてから環境を整えるまでの速さ**が挙げられます。
+
+RStudioの場合はエクスプローラー（ないしFinder）から`.Rproj`ファイルを開けば、RStudioが立ち上がりプロジェクトを開いた状態に整えることができます。もうここからは作業を始めればよいだけです。もしくはRStudioを立ち上げた後で、右下のファイルパネルから`.Rproj`ファイルをクリックすれば環境を整えることができます。
+
+Positronの場合はまずPositronを立ち上げ、Project Managerから保存しておいたプロジェクトをクリックすれば環境が整います。
+
+このように、まずは作業環境をスピーディーに立ち上げられるというメリットがあります。
+
+### 作業ディレクトリの統一
+
+続いて**作業ディレクトリの統一ができる**という点です。
+
+Rを使う際はサブフォルダ（フォルダ内にあるフォルダ）に入っているデータを参照することがよくあると思います。例えば以下のような場合です。
+
+```         
+my-r-project/
+├── data/
+│   ├── dataset1.csv
+│   └── dataset2.csv
+└── code/
+    └── analysis.R
+```
+
+この場合、`analysis.R`で`dataset1.csv`を使いたい場合は、
+
+``` r
+df <- readr::read_csv("C://Users/yosuke/my-r-project/data/dataset1.csv")
+```
+
+というような形で、（Windowsであれば）`C://`から始まる絶対パスを用いて読み込む必要があります。これは次の2つの意味ででよくありません。
+
+1つ目はシンプルに長いということです。逐一書くには時間がかかるし、コピペするにしても非効率的です。
+
+2つ目は再現可能性に欠けるということです。これは実証研究全般に言えることですが、再現可能な研究というのは非常に重要です。個人単位で考えても一度出た結果をもう一度出力できないのは問題ですし、より広い観点で言えば、パブリッシュした分析結果を他者が実行して同じ結果にならないのは分析の信憑性を大きく損ないます。絶対パスの問題点は、**そのパスを他の環境（他のPC等）で用いることができない**点にあります。他の人のみならず、もしプロジェクトを含むフォルダを別の場所に移動したとき[^start_project-3]、コードがそのままでは自分のPCですら動かなくなってしまいます。
+
+[^start_project-3]: 例：`C://Users/yosuke/my-r-project`から`C://Users/yosuke/projects/my-r-project`への移動
+
+プロジェクトを使用していればそのフォルダが一つの環境として機能するため、場所を移したとしても`.Rproj`があるディレクトリからの相対的な位置を考えるだけで済みます。コードも`C://Users/yosuke/`の部分は省略できますし、まさにこの部分がユーザーによって異なるので、環境の違いによる読み込めない問題を防ぐことができます。
+
+### `here`パッケージを活用しよう
+
+そこで活躍するのが、`here`というRパッケージです。これは、`.Rpoj`があるディレクトリを認識して相対的なパス、相対パスを使用するのに役立ちます。
+
+まずはパッケージをインストールしておきましょう。
+
+``` r
+pak::pak("here")
+```
+
+続いてプロジェクトを作成したとして、ディレクトリの構造は以下と仮定します。
+
+```         
+my-r-project/
+├── my-r-project.Rproj
+├── data/
+│   ├── dataset1.csv
+│   └── dataset2.csv
+└── code/
+    └── analysis.R
+```
+
+そして、`analysis.R`内で`dataset1.csv`ファイルを読み込むには以下のようにします。
+
+``` r
+# here::here("data", "dataset1.csv")も可
+df <- readr::read_csv(here::here("data/dataset1.csv"))
+```
+
+あるいはあらかじめライブラリを読み込んで以下のようにもできます（こちらの方が一般的かもしれません）。
+
+``` r
+library(tidyverse)
+library(here)
+
+df <- read_csv(here("data/dataset1.csv"))
+```
+
+先ほどと比べてどうでしょうか。コードも短縮でき、なおかつ環境によって左右される絶対パスとは異なりワーキングディレクトリ内の相対パスで指定できています。これであれば環境を移した際にも同じコードで分析を進めることができます。
+
+### さらに活用
+
+例えば読み込みたいファイルがあるフォルダと、作成したファイルを保存したいフォルダが分かれているようなことは多々あります。その際には、あらかじめ`here`を活用して対象となるフォルダをオブジェクトとして保存しておくことができます。
+
+```         
+my-r-project/
+├── my-r-project.Rproj
+├── data/
+│   ├── dataset1.csv
+│   └── dataset2.csv
+├── output/       # 作成したファイルを保存するフォルダ
+│   └── result1.csv
+└── code/
+    └── analysis.R
+```
+
+このような構造であるとして、`result1.csv`を`output`内に出力したいわけです。
+
+このとき、まずは`here::here()`を使ってあらかじめデータを読み込むフォルダと書き出すフォルダを指定します。
+
+``` r
+dir_data <- here::here("data")
+dir_out <- here::here("output")
+```
+
+この`dir_data`と`dir_out`には、該当するフォルダまでのパスが保存されている状態です。そしてこれらと`file.path()`と組み合わせて使います。`file.path()`はファイルへのパスを構築するための関数です。
+
+読み込む際は
+
+``` r
+df <- readr::read_csv(file.path(dir_data, "dataset1.csv"))
+```
+
+書き出す際は
+
+``` r
+# resultは結果を格納したオブジェクト
+readr::write_csv(result, file.path(dir_out, "result1.csv"))
+```
+
+のようにして用いることができます。間に別のフォルダを挟む際は`file.path(dir_out, "results", "result1.csv")`のようにもできます[^start_project-4]。
+
+[^start_project-4]: ただし`results`というフォルダが既に作られているとします。
+
+こうすることで、複数のフォルダを使い分ける際はさらに効率化することができます。これぐらいだとあまり恩恵を感じないかもしれませんが、ディレクトリの構造が複雑で、相対パスすら長くなるような場合には有用です。
+
+Rプロジェクト × `here`で効率的なプロジェクト管理をしていきましょう。

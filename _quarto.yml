@@ -20,6 +20,7 @@ book:
     - install.qmd
     - try_rstudio.qmd
     - try_positron.qmd
+    - start_project.qmd
   page-footer:
     center: |
       © 2025 Life with R
