@@ -2,6 +2,7 @@
 date: 2025-02-05
 date-modified: today
 toc: false
+editor: visual
 ---
 
 # はじめに {.unnumbered}
