@@ -1,4 +1,6 @@
 ---
+date: 2025-02-05
+date-modified: today
 toc: false
 ---
 
@@ -8,36 +10,34 @@ toc: false
 
 本ページでは、Rのダウンロード、インストールから使い方、その応用まで幅広く解説をしていきたいと思います。
 
-既にインターネット上では素晴らしい解説記事が多々公開されていますが、本ページの目的はより包括的な解説ページを作ることです。また、計量経済学を学んでこれからいよいよ実証に入るという初心者の方から、分析で既にRを使用しているけれども細かいことをたびたび忘れてしまう（覚えてられない）というような方のためにもなるようなページを目指します。
+既にインターネット上では素晴らしい解説記事が多々公開されていますが、本ページの目的はより包括的な解説ページを作ることです。また、計量経済学を学んでいてこれから実証に入るという初心者の方から、分析で既にRを使用している方のためにもなるようなページを目指します。
 
 いま計量経済学という言葉を出しましたが、著者のバックグラウンドは経済学ですので、使い方は経済学寄りになると思われます。その点はご了承ください。
 
-::: {.callout-note}
+::: callout-note
+## 執筆環境
 
 ```{r}
 #| include: false
 
 date <- format(Sys.Date(), "%Y年%m月%d日")
 
-win_ver <- utils::win.version()
+ubuntu_ver <- system("lsb_release -rs", intern = TRUE)
 
-positron_ver <- system("positron --version", intern = TRUE)[1]
+rstudio_ver <- system("rstudio-server version", intern = TRUE)
 
 quarto_ver <- system("quarto --version", intern = TRUE)
 ```
 
 最終更新日：`r date`
 
-OS: `r win_ver`
+-   OS: Ubuntu `r ubuntu_ver`
 
-`r R.version.string`
+-   `r R.version.string`
 
-RStudio: 2024.12.0+467 (Kousa Dogwood)
+-   RStudio `r rstudio_ver`
 
-`r positron_ver`
+-   Quarto `r quarto_ver`
 
-Quarto: `r quarto_ver`
-
-WindowsとMacで詳細が若干異なるかもしれませんが、大きな差はないのでここではWindowsベースで話を進めます。大きなところで言えば、`Ctrl`は`command ⌘`に読み替えてください。
+Linux環境ではありますが、PC自体はWindowsを使用しています。ショートカット等はWindowsベースで記述しますので、Macの方は適宜読み替えてください（例：`Ctrl`→`command`）。
 :::
-
