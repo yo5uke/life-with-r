@@ -9,3 +9,5 @@ typography:
   base: Zen Maru Gothic
   headings: Zen Kaku Gothic New
   monospace: Fira Code
+  link: 
+    decoration: none
