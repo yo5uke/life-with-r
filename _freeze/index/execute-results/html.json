@@ -1,9 +1,11 @@
 {
-  "hash": "eb228b7c9dc560592ee8e471f0b5cd78",
+  "hash": "aac5acae024c5f2d235bf944afa0d3c0",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ndate: 2025-02-05\ndate-modified: today\ntoc: false\n---\n\n# はじめに {.unnumbered}\n\n{{< fa brands r-project >}}（アール）は、統計解析用のプログラミング言語です。\n\n本ページでは、Rのダウンロード、インストールから使い方、その応用まで幅広く解説をしていきたいと思います。\n\n既にインターネット上では素晴らしい解説記事が多々公開されていますが、本ページの目的はより包括的な解説ページを作ることです。また、計量経済学を学んでいてこれから実証に入るという初心者の方から、分析で既にRを使用している方のためにもなるようなページを目指します。\n\nいま計量経済学という言葉を出しましたが、著者のバックグラウンドは経済学ですので、使い方は経済学寄りになると思われます。その点はご了承ください。\n\n::: callout-note\n## 執筆環境\n\n\n\n最終更新日：2025年02月23日\n\n-   OS: Ubuntu 24.04\n\n-   R version 4.4.2 (2024-10-31)\n\n-   RStudio 2024.12.1+563 (Kousa Dogwood) for Ubuntu Jammy\n\n-   Quarto 1.7.13\n\nLinux環境ではありますが、PC自体はWindowsを使用しています。ショートカット等はWindowsベースで記述しますので、Macの方は適宜読み替えてください（例：`Ctrl`→`command`）。\n:::\n",
-    "supporting": [],
+    "markdown": "---\ndate: 2025-02-05\ndate-modified: today\ntoc: false\neditor: visual\n---\n\n# はじめに {.unnumbered}\n\n{{< fa brands r-project >}}（アール）は、統計解析用のプログラミング言語です。\n\n本ページでは、Rのダウンロード、インストールから使い方、その応用まで幅広く解説をしていきたいと思います。\n\n既にインターネット上では素晴らしい解説記事が多々公開されていますが、本ページの目的はより包括的な解説ページを作ることです。また、計量経済学を学んでいてこれから実証に入るという初心者の方から、分析で既にRを使用している方のためにもなるようなページを目指します。\n\nいま計量経済学という言葉を出しましたが、著者のバックグラウンドは経済学ですので、使い方は経済学寄りになると思われます。その点はご了承ください。\n\n::: callout-note\n## 執筆環境\n\n\n\n最終更新日：2025年02月23日\n\n-   OS: Ubuntu 24.04\n\n-   R version 4.4.2 (2024-10-31)\n\n-   RStudio 2024.12.1+563 (Kousa Dogwood) for Ubuntu Jammy\n\n-   Quarto 1.7.13\n\nLinux環境ではありますが、PC自体はWindowsを使用しています。ショートカット等はWindowsベースで記述しますので、Macの方は適宜読み替えてください（例：`Ctrl`→`command`）。\n:::\n",
+    "supporting": [
+      "index_files"
+    ],
     "filters": [
       "rmarkdown/pagebreak.lua"
     ],
