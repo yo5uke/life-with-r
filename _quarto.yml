@@ -12,9 +12,10 @@ book:
   date-format: "YYYY年M月D日"
   google-analytics: "G-KN42DSQ0YN"
   site-url: https://life-with-r.netlify.app/
-  sharing: 
-    - twitter
-    - facebook
+  sharing: [twitter, facebook, linkedin]
+  repo-url: https://github.com/yo5uke/life-with-r
+  issue-url: https://github.com/yo5uke/life-with-r/issues
+  repo-actions: [edit, issue]
   chapters:
     - index.qmd
     - install.qmd
@@ -22,8 +23,11 @@ book:
     - try_positron.qmd
     - start_project.qmd
   page-footer:
+    background: "#f8f9fa"
     center: |
       © 2025 Life with R
+    right: |
+      このページは[Quarto](https://quarto.org)で作成されました。
 
 execute: 
   freeze: auto
