@@ -1,0 +1,51 @@
+---
+editor: visual
+---
+
+# 番外編：Gitの導入 {.unnumbered}
+
+## Gitとは何か
+
+使っている方も多いかもしれませんが、この章ではGitについての説明を行いたいと思います。
+
+そもそもですが、Gitとは**ファイルの変更履歴を記録・管理できるバージョン管理システム**です。バージョンを管理するというのは、ファイルの状態を過去の特定の状態に戻したり、変更の履歴を確認するといったことを指します。
+
+また、似たようなものに**GitHub**があります。GitHubとは、Gitを使ったコードやプロジェクトをオンラインで管理・共有できるプラットフォームです。Gitがローカルでプロジェクトを管理するのに対して、GitHubを用いればオンライン上で保存・アクセスができるようになります。これにより複数人で共同のプロジェクトを管理することが容易になったり、どこからでもアクセスができるようになるといったメリットがあります。
+
+ここではローカルへのGitのインストールやGitHubの使い方についてまとめていきます。
+
+## Gitをインストールする
+
+まずはお使いのPCにGitをインストールする必要があります。
+
+**Windows:**
+
+1.  [Gitのダウンロードページ](https://git-scm.com/downloads/win)へアクセスします。
+2.  「Standalone Installer」の「64-bit Git for Windows Setup」を選択し、インストーラーをダウンロードします。
+    -   ほとんどのPCは64-bitに該当しますが、確認したい方は下に書いた方法で確認してください。
+3.  ダウンロードしたファイル（`.exe`ファイル）を開きます。
+4.  「Information」画面が出るのでNextで次へ進みます。
+5.  「Select Components」画面もそのままでNextをクリックします。
+6.  「Choosing the default editor used by Git」画面では自分がよく使うエディターを選択します。
+    -   私はVSCodeをよく使うので「Use Visual Studio Code as Git's default editor」を選択しました。
+7.  「Adjusting the name...」画面では「Override the default branch name...」を選択してNextで進みます。
+8.  「Adjusting your PATH environment」画面では「Git from the command line...」を選択して次へ進みます。
+9.  「Choosing the SSH executable」画面では「Use bundled OpenSSH」を選択して次へ進みます。
+10. 「Choosing HTTPS transport backend」画面では「Use the OpenSSL libraly」を選択して次へ進みます。
+11. 「Configuring the line...」画面では「Checkout Windows-style, ...」を選択して次へ進みます。
+12. 「Configuring the terminal...」画面では「Use MinTTY...」の方を選択して次へ進みます。
+13. 「Choose the default behavior of \`git pull\`」画面では「Fast-forward or merge」を選択して次へ進みます。
+14. 「Choose a credential helper」画面では「Git Credential Manager」を選択して次へ進みます。
+15. 最後の「Configuring extra options」では2項目ともチェックを入れてInstallをクリックします。
+
+以上でインストールは完了です。少々長いですが、辛抱強く頑張りましょう。
+
+**Mac:**
+
+手元にMacがないため現状確かなことが書けません。
+
+ひとまず手順だけまとめておきます。
+
+1.  インストーラーをダウンロード
+    -   Homebrewがインストール済みの場合：ターミナルで`brew install git`を実行してインストールします。
+    -   未インストールの場合：[このリンク](https://sourceforge.net/projects/git-osx-installer/files/latest/download)をクリックしてダウンロードします。

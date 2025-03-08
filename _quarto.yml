@@ -22,6 +22,7 @@ book:
     - try_rstudio.qmd
     - try_positron.qmd
     - start_project.qmd
+    - use_git.qmd
   page-footer:
     background: "#f8f9fa"
     center: |
