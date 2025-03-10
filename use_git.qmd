@@ -22,30 +22,165 @@ editor: visual
 
 1.  [Gitのダウンロードページ](https://git-scm.com/downloads/win)へアクセスします。
 2.  「Standalone Installer」の「64-bit Git for Windows Setup」を選択し、インストーラーをダウンロードします。
-    -   ほとんどのPCは64-bitに該当しますが、確認したい方は下に書いた方法で確認してください。
+    -   ほとんどのPCは64-bitに該当しますが、確認したい方は[下](#note-pc-version)に書いた方法で確認してください。
 3.  ダウンロードしたファイル（`.exe`ファイル）を開きます。
 4.  「Information」画面が出るのでNextで次へ進みます。
 5.  「Select Components」画面もそのままでNextをクリックします。
+
+![](figures/use_git/git-install1.png){fig-align="center" width="60%"}
+
 6.  「Choosing the default editor used by Git」画面では自分がよく使うエディターを選択します。
+
     -   私はVSCodeをよく使うので「Use Visual Studio Code as Git's default editor」を選択しました。
+
+![](figures/use_git/git-install2.png){fig-align="center" width="60%"}
+
 7.  「Adjusting the name...」画面では「Override the default branch name...」を選択してNextで進みます。
+
+![](figures/use_git/git-install3.png){fig-align="center" width="60%"}
+
 8.  「Adjusting your PATH environment」画面では「Git from the command line...」を選択して次へ進みます。
+
+![](figures/use_git/git-install4.png){fig-align="center" width="60%"}
+
 9.  「Choosing the SSH executable」画面では「Use bundled OpenSSH」を選択して次へ進みます。
+
+![](figures/use_git/git-install6.png){fig-align="center" width="60%"}
+
 10. 「Choosing HTTPS transport backend」画面では「Use the OpenSSL libraly」を選択して次へ進みます。
+
+![](figures/use_git/git-install6.png){fig-align="center" width="60%"}
+
 11. 「Configuring the line...」画面では「Checkout Windows-style, ...」を選択して次へ進みます。
+
+![](figures/use_git/git-install7.png){fig-align="center" width="60%"}
+
 12. 「Configuring the terminal...」画面では「Use MinTTY...」の方を選択して次へ進みます。
+
+![](figures/use_git/git-install8.png){fig-align="center" width="60%"}
+
 13. 「Choose the default behavior of \`git pull\`」画面では「Fast-forward or merge」を選択して次へ進みます。
+
+![](figures/use_git/git-install9.png){fig-align="center" width="60%"}
+
 14. 「Choose a credential helper」画面では「Git Credential Manager」を選択して次へ進みます。
+
+![](figures/use_git/git-install10.png){fig-align="center" width="60%"}
+
 15. 最後の「Configuring extra options」では2項目ともチェックを入れてInstallをクリックします。
 
 以上でインストールは完了です。少々長いですが、辛抱強く頑張りましょう。
 
-**Mac:**
+::: {#note-pc-version .callout-note}
+## PCの仕様の確認方法
 
-手元にMacがないため現状確かなことが書けません。
+WindowsでPCの仕様を確認する手順は以下の通りです。
 
-ひとまず手順だけまとめておきます。
+1.  設定を開く
+2.  サイドバーからシステムを開く
+3.  最下部のバージョン情報を開く
+4.  デバイスの仕様→システムの種類を確認する
 
-1.  インストーラーをダウンロード
-    -   Homebrewがインストール済みの場合：ターミナルで`brew install git`を実行してインストールします。
-    -   未インストールの場合：[このリンク](https://sourceforge.net/projects/git-osx-installer/files/latest/download)をクリックしてダウンロードします。
+ここで「64ビット オペレーティングシステム」などと書いてあれば64-bitのものをインストールして大丈夫です。
+:::
+
+## Gitの設定をする
+
+::: callout-note
+## Git Bash上でのコピペ
+
+Git Bashをこれから使っていきますが、`Ctrl` + `C`や`V`を使ったコピペができません。おすすめとしては右クリックを活用した方法があります。通常のPC使用と同じように右クリックでCopyやPasteを選択することでコピペできますので、入力するのが手間な方は試してみてください。
+:::
+
+続いてGitの設定に移ります。WindowsではGit Bashというものがインストールされていますので、それを開いて下さい[^use_git-1]。
+
+[^use_git-1]: Macの方はターミナル上で実行してください。
+
+![Git Bashを開きます](figures/use_git/git-bash.png){fig-align="center" width="80%"}
+
+最初にGitのバージョンを確認してみましょう。
+
+Git Bash上で
+
+``` bash
+git --version
+```
+
+と入力し、`git version 2.46.0.windows.1`のようにバージョンが表示されれば問題ありません。
+
+続いて以下の2つを入力・実行します。`[ ]`も消して文字列だけ入力してください。
+
+``` bash
+git config --global user.name [任意のユーザ名]
+git config --global user.email [任意のメールアドレス]
+```
+
+設定できたら
+
+``` bash
+git config --global --list
+```
+
+を実行して、入力した内容が反映されていればOKです。
+
+ここまでで基本的なGitでの設定は終わりです。しかし後ほど戻ってきますので、ウィンドウは閉じずに開いておきましょう。
+
+## GitHubのアカウント作成
+
+ここであまり複雑な手順はありません。
+
+1.  [GitHub公式サイト](https://github.com/)にアクセスします。
+2.  サインアップから無料アカウントを作成します。
+    -   ユーザー名は先ほどGitで登録したものと同じである必要はありません。
+    -   いろいろ聞かれるかもしれませんが、素直に適当に答えて問題ありません。スキップできるところはしても構いません。
+3.  ログイン状態にしておきます。
+
+以上です。
+
+## SSHキーの設定
+
+SSHキーについての説明は省きますが、GitHubなどのリモートサーバーとの通信を簡単かつ安全に行えるようにするための鍵ペア（秘密鍵[^use_git-2]と公開鍵）を指します。
+
+[^use_git-2]: 秘密鍵は他人に公開してはいけません。
+
+### Git Bash
+
+再びGit Bashを開き、以下のキーを入力します。
+
+``` bash
+ssh-keygen -t ed25519 -C [先ほど登録したメールアドレス]
+```
+
+実行すると、`Enter file in which to save the key (/c/Users/user/.ssh/id_ed25519):`と、`Enter passphrase (empty for no passphrase):`という2つが続いて出てきますが、これらは個人でGitHubとの通信で使うためには特に設定の必要もないので、何も入力しないままどちらもEnterで進めてください。
+
+続いて公開鍵（GitHubに登録する方の鍵）を表示し、それをGitHubに登録します。以下を実行することで公開鍵を表示することができます。
+
+``` bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+公開鍵は`ssh-ed25519`で始まり登録したメールアドレスで終わります。表示されたら最初から最後までコピーしておきます。
+
+### GitHubで登録
+
+続いてこれをGitHubに登録します。[SSHキー登録ページ](https://github.com/settings/keys)へ進み、右上の「New SSH key」から登録をします。
+
+![緑のボタンから登録します](figures/use_git/github_ssh.png){fig-align="center"}
+
+タイトルは「My PC」などの任意の名前、Key typeはそのままにして、Keyの中にはコピーしたものを貼り付けます。繰り返しになりますが`ssh-ed25519`からメールアドレスまでです。最後に「Add SSH key」をクリックして登録完了です。
+
+### Git Bashで確認
+
+再びGit Bashに戻り正常に登録できたか確認します。以下のコマンドを実行してください。
+
+``` bash
+ssh -T git@github.com
+```
+
+実行すると、`Are you sure you want to continue connecting (yes/no/[fingerprint])?`と問われるかもしれません。これは正常な動作ですので、`yes`を入力して進みます。
+
+入力後に`Hi [GitHubのユーザー名]!`で始まる文章が出てくれば登録ができていることを表しています。もしその上にWarningが出ていても、それも問題ありませんので無視してください。
+
+非常に長くなりましたが、ここでGitおよびGitHubの設定は終わりです。
+
+本章ではGitの導入に焦点を当てて説明しました。Gitを用いたプロジェクト管理については後の章でまとめていきます。
