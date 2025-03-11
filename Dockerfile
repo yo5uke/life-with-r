@@ -1,7 +1,7 @@
 FROM rocker/verse:4.4.3
 
 # R packages
-RUN R -e "install.packages(c('renv'))"
+RUN R -e "install.packages(c('renv', 'pak'))"
 
 # Quarto
 ENV QUARTO_MINOR_VERSION=1.7
