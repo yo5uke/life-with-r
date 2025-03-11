@@ -47,13 +47,13 @@ pak::pak("tidyverse")
 ```{r}
 #| include: false
 
-date <- format(Sys.Date(), "%Y年%m月%d日")
+date <- format(Sys.Date(), "%Y年%-m月%-d日")
 
 ubuntu_ver <- system("lsb_release -rs", intern = TRUE)
 
 rstudio_ver <- system("rstudio-server version", intern = TRUE)
 
-quarto_ver <- system("quarto --version", intern = TRUE)
+quarto_ver <- quarto::quarto_version()
 ```
 
 最終更新日：`r date`
