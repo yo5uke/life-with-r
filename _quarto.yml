@@ -23,6 +23,7 @@ book:
     - try_positron.qmd
     - start_project.qmd
     - use_git.qmd
+    - use_quarto.qmd
   page-footer:
     background: "#f8f9fa"
     center: |
