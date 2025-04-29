@@ -1,7 +1,3 @@
----
-editor: visual
----
-
 # RStudioをいじってみる
 
 ## 初期画面

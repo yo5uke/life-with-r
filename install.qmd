@@ -1,7 +1,3 @@
----
-editor: visual
----
-
 # RとIDEの準備
 
 ## その前に…

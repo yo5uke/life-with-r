@@ -1,7 +1,3 @@
----
-editor: visual
----
-
 # Positronをいじってみる
 
 ## Positronの初期画面
