@@ -2,7 +2,6 @@
 date: 2025-02-05
 date-modified: today
 toc: false
-editor: visual
 ---
 
 # はじめに {.unnumbered}
@@ -17,17 +16,25 @@ editor: visual
 
 ## パッケージのインストール
 
-最近、RStudioやPositronを開発しているPosit社の方々は、パッケージのインストールに`pak::pak()`を用いているようです。
+> pak is fast, safe and convenient.
+
+本サイトでは、パッケージのインストールに`pak::pak()`関数を使用していきます。
 
 この関数は公開されたパッケージをダウンロードできるCRANだけでなくCRANには公開されていないGitHub上のパッケージをインストールするのにも便利です。
 
-公式ドキュメントによれば、
+例えば
 
-> pak is fast, safe and convenient.
+``` r
+pak::pak("dplyr")
+```
 
-とのことです。
+としてパッケージをインストールできますし、GitHubリポジトリからも
 
-本ページでもインストールに際しては（私自身も日常的に使っているので）`pak::pak()`を用いてインストールしていきます。
+``` r
+pak::pak("yo5uke/fixes")
+```
+
+のように、`devtools::install_github()`を使わなくても同一の関数でGitHibからインストールすることができます。
 
 はじめに以下のコマンドでインストールしておいてください。
 
