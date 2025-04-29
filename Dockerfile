@@ -1,11 +1,11 @@
-FROM rocker/verse:4.4.3
+FROM rocker/verse:4.5.0
 
 # R packages
-RUN R -e "install.packages(c('renv', 'pak'))"
+RUN R -e "install.packages(c('renv'))"
 
 # Quarto
 ENV QUARTO_MINOR_VERSION=1.7
-ENV QUARTO_PATCH_VERSION=15
+ENV QUARTO_PATCH_VERSION=29
 
 RUN wget "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_MINOR_VERSION}.${QUARTO_PATCH_VERSION}/quarto-${QUARTO_MINOR_VERSION}.${QUARTO_PATCH_VERSION}-linux-amd64.deb" -O quarto.deb && \
     dpkg -i quarto.deb && \
