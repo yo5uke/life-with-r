@@ -1,5 +1,136 @@
----
-title: "use_quarto"
-format: html
----
+# Quartoを使う
 
+このセクションでは、RStudioにも標準搭載されているQuartoを用い、ノートブック形式で出力する方法について説明します。
+
+## Quartoとは
+
+ざっくり一言でいうと、RやPythonなどと組み合わせて使えるドキュメント生成ツールです。このページもまさしくQuartoを用いて作られており、HTML出力をはじめとしてPDFやスライドの形式で出力することが可能です。
+
+R Markdownをお使いになった経験はありますでしょうか？イメージはほとんど同じですが、できることやデザイン、将来性といった観点でQuartoがよりモダンなツールと言えるでしょう[^use_quarto-1]。
+
+[^use_quarto-1]: とはいえここは好みですし、R MarkdownがQuartoより劣っていると言いたいわけではありません。
+
+簡単に、Quartoでできることをまとめましょう。
+
+1.  複数の言語に対応
+    -   R, Python, Juliaなど
+2.  Markdown記法で簡単に入力が可能
+    -   ビジュアルエディターという、Wordのような直感的な操作ができるモードも存在
+3.  さまざまなフォーマットに出力可能
+    -   HTMLページ（このページのように）やPDFなど復讐のフォーマットに対応
+    -   HTMLでもウェブサイト形式やブック形式、PDFでもレジュメ形式やbeamerスライド形式など多様
+
+後のセクションでは例示しながら解説していきます。
+
+## 使い方
+
+実際に出力する前に、使い方を確認しておきましょう。
+
+RStudioの例で説明します。
+
+### ファイルを開く
+
+ウィンドウ左上の![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAkCAYAAADl9UilAAACvElEQVR4Xu2XTWgTQRSA0/wo4k9VghH14MWzB+9S0YMHbxJBsZDdTdJS3aTBghQPKRRUrF6EWIpNtjSKGo0XTS96CA00CUVpmqot2tLGHvTSNDYFE0jGfUkj4bn52e0EL/vBO+3MvI+Zt29nNRoVlf/BQ36nTrB0tvmYYJvALGsEJg+h9TEp/SgT3DvMsedu2tvNZrMOT20dXvaiKLEqBqkXouQPo4e1dfb17Xa73Vq8DD0CZp1WsNzDAo3i/LM7a6Fw9FM4lpidnE4mlEQknryFdf4i7sAQTgqBwc8h7O8fk0zmFykUCnh4U4Ac9ilTPr5/EjYrBuGJT5CNjSwpFot4SkOkxQLmHZo6NYXBzytx6AlPFldWyO9cDk9piKSYzsdcxUmUiEHcDr8ka+m07COVFBNbwmucQKnYmVeDJPV9leRk7pq0mMCkakk0S2W+yc+TL/MLJJvdxEPqIimmKTdPKmL6MY7MJJJkPZPBQ+pSS2yTptiHjzOlOpODpJjYVJdoiZn81+mJ6b3sm8rCUoHBz6vj9IsBeke5Z4TrwgmUivWHBHrF3+Hu3Q8fZJxErphx/BoJT0XptQu4usAtASeSKzYQGieJ2Tl6DRaAq8u+YW4MJ2tW7FLwPonFp0u7Re2TBMB96rLTaWp/xD3FSRsFSEWiMfJtcYnyR3wLUU5vtTpNxx/Y+g2jbM2aq8QRv4O4xeODnQKp1lx7tgA5u/2G8YrDcerEkO3uAQ83ZfCyP8WXI2fwccWjfic5Gxgk7gk/mRR3KZGcKx0f7JRSKaChGADHCjVn5fljbBd/0trd22Hrdl4YEZ4vQ/OEAp9f+FoSgkKHmlJyfNU0JVYB3laXy7WL41wHLT09h9++i3xOp9dLzRP6VD6f39YuVSNLDAOT8YK0UMXkoorJZVti8FMKC7Qi6v7wqqi0iD86M3fnY/LjkAAAAABJRU5ErkJggg==)より「Quarto Document...」を選択します。
+
+![](figures/use_quarto/quarto_document.png){fig-align="center" width="60%"}
+
+すると上のような画面が出てきます。これはR Markdownと同様です。
+
+ここでタイトルと著者（任意）を入力すると、出力したとき自動的に表示されるようになります。
+
+また、PDFを選択しておけば$\LaTeX$を経由してレンダリングされ、PDF出力されます（つまり$\LaTeX$環境が必要です）。これについてはまた別で説明します。
+
+Engineの部分はRユーザーであればknitrのままで問題ありません。Pythonを使う場合はJupyterにする必要があります。
+
+Editorは上で軽く触れましたが、visualに設定することでWordのような直感的な操作ができるようになります。マークダウンに慣れている人であればチェックは外して問題ありませんし、マークダウン記法がよくわからず、苦労したくないような方はチェックを入れておけばよいと思います。
+
+最後にCreateをクリックすればファイルが開きます。
+
+![ビジュアルエディターはオフにしています](figures/use_quarto/quarto_demo.png){fig-align="center" width="70%"}
+
+はじめファイルを開くとテンプレートの文章が表示されていますが、消して書き始めましょう。
+
+記述の際は主に`##`で始まる見出し2でセクションを区切っていきます。`#`1つで表される見出し1はタイトルに該当するためです。
+
+::: callout-note
+マークダウンの書き方自体は、僭越ながら私のウェブサイトのページも参照してみてください。
+
+[【Quarto】マークダウンでできること！](https://yo5uke.com/pages/tips/240802_quarto_markdown/)
+:::
+
+### Rのコードを挿入する
+
+Rのコードを実行する場合、「チャンク」と呼ばれるコードのブロックを作成します。キーボードショートカットの`Ctrl` + `Alt` + `I`で挿入できます[^use_quarto-2]。
+
+[^use_quarto-2]: `Alt`はMacだと`option`です。
+
+![](figures/use_quarto/quarto_chunk.png){fig-align="center" width="70%"}
+
+```` ``` ````で囲まれている部分がチャンクです。チャンク右上に緑の再生ボタンがありますが、これがチャンクの実行ボタンです。これをクリックするとチャンク内のコードが実行され、チャンク下に結果が表示されます（これがいいですよね！）。
+
+私は出力しなくてもコードの下に結果が表示されるというところだけでもQuartoを使う意味があると思っていますが、目的は出力ですので、このままHTML形式にしてみます。
+
+上部の「![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABbElEQVRYhe3WP0scURSH4WdnNyGIlQS/gGyXMkG0Fi2SwmotExBBSLNFUoSgWNit2FvIFoKFRYoQC3HtQ/ALiFilFASLBBI2f4pZYRxmZyfO7izB/cHlztxz7jkvw5xzLyONdN9VentwnjfGKp5gHVdZNzVqVRDkzY4NvMZnTP3r5n4ATHbmagdipmiAUuT5MVpYKBIgrjF8RG1YAPAQ+1jJAlAVEl/jT2xIWIvbu6mMHbxJc6pgD9O9SO+oEhqYwHsJ0AGeDih5VO/QxIMkgHIBAPASnzAeByhS8zjCo2EBwCzqNy8VtxtJkvLaUxXoXWZ57N3GchSgaB0LK2IoAC0s4ncUoF1Q8g94ju/RxQCnBSRvCg+nn3FDgFc4wY8BJd8W/nS/kowVnGEuJUCeMlvDZppDJUfwNLWFd8XdXo6DAPiGJRxmce4HQDsS5xIv8CXr5n70ga+d+ULY5zMnpz9foI5n2BLeqv4v/QUmf1bR1/DM0QAAAABJRU5ErkJggg==) Render」をクリックすると、ページが作成されます[^use_quarto-3]。出力したものが以下です。
+
+[^use_quarto-3]: R MarkdownでいうところのKnitです。
+
+![](figures/use_quarto/quarto_render.png){fig-align="center" width="70%"}
+
+## 少し設定を加える
+
+ここまでで一番シンプルともいえる出力ができました。細かい設定は次以降のセクションに譲りますが、ここで簡単ですぐできるような設定をしてみましょう。
+
+まず、ファイルを開いた時の上部に出ている`---`で囲まれた部分をYAMLヘッダーと言います。この中でファイルについての設定をすることができます。
+
+例えば以下のような設定です。
+
+``` yaml
+---
+title: "デモファイル"
+author: 
+  - name: "阿部洋輔"
+    affiliation: "某シンクタンク"
+    email: "hogehoge@hoge.jp"
+date: 2025-04-29
+format: 
+  html:
+    embed-resources: true
+execute: 
+  warning: false
+---
+```
+
+それぞれの要素をまとめます。
+
+**ポイント：**
+
+1.  `author`の詳細を記述
+    -   名前だけでなく所属やEメールアドレスなどを表記できます。
+    -   名前だけなら`author: "阿部洋輔"`でも十分です。
+    -   同様の書き方を繰り返すことで複数人表記もできます。
+2.  `date`で日付の設定
+    -   `today`で今日の日付を自動設定することもできます。
+3.  `embed-resources`を`true`にして画像を埋め込み
+    -   コードでプロットをしたり画像を貼ったりすると、レンダリングした際に`hogehoge_files`というフォルダが生成され[^use_quarto-4]、HTMLファイルはそれを参照することで画像を表示しています。これを`true`にするとHTMLの中に画像データを含め、`hogehoge_files`というフォルダを生成しなくなります[^use_quarto-5]。
+4.  `execute`内でチャンクオプションを設定
+    -   チャンクオプションとは、チャンクの設定をするもので、`warning: false`であれば警告があっても表示しないということを意味します。チャンクオプションはもともとチャンクそれぞれに個別で設定できるものなのですが、そのページ内のすべてのチャンクに適用したい場合は`execute`内に書くと適用できます。
+
+[^use_quarto-4]: `hogehoge`はファイル名
+
+[^use_quarto-5]: 例えば出力したHTMLファイルを誰かに送る際、この`hogehoge_files`も一緒に送らないと相手は画像を表示できません。しかしHTML内に埋め込んでしまえば、HTMLファイルを送るだけで相手は画像も表示できるようになります。しかしその分HTMLファイルのサイズは大きくなります。
+
+::: callout-note
+他のチャンクオプションについても私の記事でまとめています。ご参考まで。
+
+[【Quarto】チャンクオプションまとめてみた【R Markdown】](https://yo5uke.com/pages/tips/240509_chunk_option/)
+:::
+
+## 次に向けて
+
+ここまでが簡単な使い方です。文章とコードを組み込みながらきれいなファイルを作ることができます。
+
+次のセクションからは、HTMLやPDFそれぞれに絞って使い方を解説します。学生の方であれば特にPDF出力は使うことが多いでしょう（そのくせ$\LaTeX$の設定が難しすぎますが…）。
+
+それでは進んでいきましょう。
+
+（2025年4月29日：鋭意作成中…）
