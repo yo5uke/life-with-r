@@ -1,13 +1,20 @@
+meta:
+  name: Life with R
+  link: https://life-with-r.netlify.app/
+
 typography:
   fonts:
     - family: Zen Maru Gothic
       source: google
+      weight: [400,500,700]
     - family: Zen Kaku Gothic New
       source: google
+      weight: [400,500,700]
     - family: Fira Code
       source: google
+      weight: [400,500,600]
   base: Zen Maru Gothic
   headings: Zen Kaku Gothic New
   monospace: Fira Code
-  link: 
+  link:
     decoration: none

@@ -7,7 +7,7 @@ book:
   author: 
     - name: 阿部洋輔
       affiliation: 某シンクタンク
-      url: https://yo5uke.github.io/
+      url: https://yo5uke.com/
   date: 2025-02-05
   date-format: "YYYY年M月D日"
   google-analytics: "G-KN42DSQ0YN"
@@ -38,12 +38,6 @@ format:
   html:
     theme: 
       - sandstone
-      - styles.scss
     toc: true
     fig-align: center
     link-external-newwindow: true
-
-editor: visual
-
-
-
