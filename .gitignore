@@ -28,3 +28,4 @@
 # Other
 settings.json
 *.Identifier
+**/*.quarto_ipynb
