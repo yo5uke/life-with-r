@@ -16,5 +16,9 @@ typography:
   base: Zen Maru Gothic
   headings: Zen Kaku Gothic New
   monospace: Fira Code
+  monospace-inline:
+    family: Fira Code
+    color: "#d86a85"
+    background-color: "#fcf7f8"
   link:
     decoration: none
