@@ -22,3 +22,10 @@ typography:
     background-color: "#fcf7f8"
   link:
     decoration: none
+
+defaults:
+  bootstrap:
+    rules: |
+      figcaption {
+        text-align: center;
+      }
