@@ -1,9 +1,12 @@
 project:
   type: book
   output-dir: _book
+  resources:
+    - "assets/**/*.png"
 
 book:
   title: "Life with R"
+  description: "Rを始めて使う方への入門書"
   author: 
     - name: 阿部洋輔
       affiliation: 某シンクタンク
@@ -11,6 +14,7 @@ book:
   date: 2025-02-05
   date-format: "YYYY年M月D日"
   google-analytics: "G-KN42DSQ0YN"
+  favicon: assets/icons/abe-r.png
   site-url: https://life-with-r.netlify.app/
   sharing: [twitter, facebook, linkedin]
   repo-url: https://github.com/yo5uke/life-with-r
