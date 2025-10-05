@@ -1,0 +1,15 @@
+{
+  "hash": "8ad8e3b04f0f06cfb7f8bd826a3021f0",
+  "result": {
+    "engine": "knitr",
+    "markdown": "# RとIDEの準備\n\n\n\n\n## その前に…\n\nご存じの方も多いと思いますが、Rを使うためには**R**と、RStudioやVSCode, Positronに代表されるような**IDE（統合開発環境）**が必要となります。\n\n日常的には、「IDEでRを実行すること」を「Rを使う」と言っている気がしますが、Rを使うためにはRの力を発揮できるような場を作ってあげる必要があり、それがIDEです。\n\n一応Rだけでも最低限の機能を備えた環境が用意されてはいるのですが、やはりIDEを使った方が使いやすさも効率も段違いですので、IDEもしっかりインストールしましょう。\n\n今回は最も広く使われているRStudioと、Posit（旧RStudio^[こちらは社名です。]）による新進気鋭のIDEであるPositronのインストールをあわせて説明します。\n\n## Rのダウンロード、インストール\n\nそれではまずRのダウンロード、インストールを行っていきましょう。\n\n1. [こちら](https://cran.rstudio.com/)にアクセスし、Linux, Windows, Macから自分の環境に合わせて「Download R for ~」をクリックします。\n\n![私はWindowsを使用しているのでDownload for Windowsを選択しました](figures/install/download_r.png)\n\n2. 「install R for the first time」をクリック、さらに上部に出てくる「Download R-4.5.1 for ~」^[バージョンは2025年10月4日時点のものです。]をクリックしてインストーラーをダウンロードします。\n\n3. ダウンロードしたインストーラーをダブルクリックで開き、インストールします。\n\n    1. 言語を決めて次へ\n    2. 情報を読んで次へ\n    3. インストール先はデフォルトのまま次へ\n    4. コンポーネントもデフォルトのまま次へ\n    5. 起動時オプションもデフォルトのまま次へ\n    6. スタートメニューフォルダーもデフォルトのまま次へ\n    7. 追加タスクもデフォルトのまま次へ\n        -  先ほども言った通り作業はRStudio上で行い、デスクトップにアイコンを置いたところで使うことはないと思いますので、必要なければそのチェックを外してください。\n    8. インストール完了\n\n以上です。これでR言語を使えるようになりました。\n\n続いてIDEであるRStudioをインストールしていきましょう。\n\n## RStudioのインストール\n\n先ほども書いた通り、RStudioはR界隈で最も広く使われているIDEだと思います。\n\nRに特化したデザインやキーボードショートカットが非常に便利で、Rユーザーはこれを使っておけば間違いありません。\n\nインストール手順は以下の通りです。\n\n1.  [こちら](https://posit.co/download/rstudio-desktop/)より「2: Install RStudio」をクリックしてインストーラーをダウンロードします。\n\n![Install RStudioから進みます](figures/install/download_rstudio.png)\n\n2.  先ほどと同様ダウンロードできたファイルを開いてインストールします。\n\nRほどいろいろ考えることはなく、デフォルトのまま進んでインストールすれば完了です。\n\nこれでRStudioをインストールできました。\n\n## Positronのインストール\n\nPositronはPosit社によるRとPythonの両立を目指した新しいIDEで、MicrosoftのVSCodeをベースに作られています。そのため、RもPythonも頻繁に使うという方はPositronがおすすめです。\n\n2025年に正式版がリリースされたばかりで、まだまだ発展途上のIDEではありますが、RStudioとVSCodeの良いところを合わせたようなIDEで、今後の発展にも期待が持てます。\n\nVSCodeはあらゆる言語に対応しているためにRに特化した環境構築を行うのは少し手間がかかりますが、PositronはRとPythonにフォーカスしているため、Rの環境構築も非常に簡単です。VSCodeでは必要だった拡張機能も最初からより発展した形で組み込まれています。\n\n![Positronの画面](figures/install/positron.png)\n\nVSCodeに比べて使える拡張機能が少ない^[Microsoftが提供する拡張機能は基本使えません。開発コンテナを使用したい方などには不向きです。]のでその点不便なところもあるかもしれませんが、VSCodeとは違ってRとPythonの2つにフォーカスした仕様になっていますし、RStudioのキーボードショートカットを移行する設定もあるためRStudioからの移行も比較的スムーズに行えます。\n\nインストールは以上です。RStudio, Positronの使い方については、後の章で説明します。\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
