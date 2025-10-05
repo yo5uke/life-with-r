@@ -1,6 +1,6 @@
 ---
 date: 2025-02-05
-date-modified: today
+date-modified: last-modified
 toc: false
 ---
 
@@ -10,43 +10,55 @@ toc: false
 
 本ページでは、Rのダウンロード、インストールから使い方、その応用まで幅広く解説をしていきたいと思います。
 
-既にインターネット上では素晴らしい解説記事が多々公開されていますが、本ページの目的はより包括的な解説ページを作ることです。また、計量経済学を学んでいてこれから実証に入るという初心者の方から、分析で既にRを使用している方のためにもなるようなページを目指します。
+既にインターネット上では素晴らしい解説記事が多々公開されていますが、本サイトはよりわかりやすく、なるべく楽しくRの第一歩を踏み出していけるような内容を目指します。
 
-いま計量経済学という言葉を出しましたが、著者のバックグラウンドは経済学ですので、使い方は経済学寄りになると思われます。その点はご了承ください。
+## パッケージのインストール方法について
 
-## パッケージのインストール
+本サイトをご覧いただく前に、パッケージのインストール方法についてのみ簡単にご説明します。
+
+(@) `install.packages()`
+
+最も基本的なパッケージのインストール方法は`install.packages()`を使う方法です。
+
+``` r
+install.packages("tidyverse")
+```
+
+のようにして、インストールしたいパッケージをダブルクォーテーションで囲んで指定します。
+
+(@) `pak::pak()`
+
+Rのパッケージ管理をより便利にするために`pak`パッケージが開発されています。
 
 > pak is fast, safe and convenient.
 
-本サイトでは、パッケージのインストールに`pak::pak()`関数を使用していきます。
+と公式でも謳われており、`pak::pak()`関数を使うことでパッケージのインストールを行ったり、依存関係の解決を自動で行ってくれたりします。
 
-この関数は公開されたパッケージをダウンロードできるCRANだけでなくCRANには公開されていないGitHub上のパッケージをインストールするのにも便利です。
-
-例えば
+以下のコードで`install.packages()`関数と同様にパッケージをインストールできます。
 
 ``` r
-pak::pak("dplyr")
+pak::pak("tidyverse")
 ```
 
-としてパッケージをインストールできますし、GitHubリポジトリからも
+この関数は公開されたパッケージのダウンロード元であるCRANだけでなく、CRANには公開されていないGitHub上のパッケージをインストールするのにも便利です^[こちらは発展的な使い方なので、初めての方は気にする必要はありません。]。
+
+例えば、GitHub上で公開されている`tidyverse/dplyr`パッケージをインストールする場合、
 
 ``` r
-pak::pak("yo5uke/fixes")
+pak::pak("tidyverse/dplyr")
 ```
 
-のように、`devtools::install_github()`を使わなくても同一の関数でGitHibからインストールすることができます。
+のように、通常のインストールと同じ関数でGitHibからインストールすることができます。
 
-はじめに以下のコマンドでインストールしておいてください。
+使いたい場合は、はじめに以下のコマンドでインストールしておいてください。
 
 ``` r
 install.packages("pak")
 ```
 
-また、本ページでは近年R界隈では常識となっているTidyverseパッケージ群をもちいます。Tidyverseは`dplyr`をはじめとした、データハンドリングにおいて極めて有用ないくつかのパッケージをまとめたものです。あらかじめインストールしておいてください。
+2種類の方法をご紹介しましたが、どちらを使っても構いません。
 
-``` r
-pak::pak("tidyverse")
-```
+**それでは始めていきましょう！**
 
 ::: callout-note
 ## 執筆環境
@@ -54,24 +66,22 @@ pak::pak("tidyverse")
 ```{r}
 #| include: false
 
-date <- format(Sys.Date(), "%Y年%-m月%-d日")
+today <- Sys.Date()
+date <- sprintf("%d年%d月%d日", 
+                as.integer(format(today, "%Y")), 
+                as.integer(format(today, "%m")), 
+                as.integer(format(today, "%d")))
 
-ubuntu_ver <- system("lsb_release -rs", intern = TRUE)
-
-rstudio_ver <- system("rstudio-server version", intern = TRUE)
-
-quarto_ver <- quarto::quarto_version()
+positron_ver <- system("positron --version", intern = TRUE)[1]
 ```
 
 最終更新日：`r date`
 
--   OS: Ubuntu `r ubuntu_ver`
+- OS: Windows 11
 
--   `r R.version.string`
+- `r R.version.string`
 
--   RStudio `r rstudio_ver`
+- `r positron_ver`
 
--   Quarto `r quarto_ver`
-
-Linux環境ではありますが、PC自体はWindowsを使用しています。ショートカット等はWindowsベースで記述しますので、Macの方は適宜読み替えてください（例：`Ctrl`→`command`）。
+- Quarto {{< version >}}
 :::
