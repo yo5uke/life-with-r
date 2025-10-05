@@ -19,6 +19,7 @@ book:
   chapters:
     - index.qmd
     - install.qmd
+    - common.qmd
     - try_rstudio.qmd
     - try_positron.qmd
     - start_project.qmd
@@ -33,6 +34,7 @@ book:
 
 execute: 
   freeze: auto
+  warning: false
 
 format:
   html:
