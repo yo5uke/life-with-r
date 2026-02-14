@@ -1,0 +1,412 @@
+# データ可視化入門 - ggplot2基礎
+
+データを数値で見ることも大切ですが、グラフやチャートで視覚化することで、データの特徴やパターンがより明確になります。
+
+Rの`ggplot2`パッケージは、美しく柔軟性の高いグラフを作成するための強力なツールです。この章では、ggplot2の基本を学び、基本的なグラフが作成できるようになります。
+
+## 学習内容
+
+この章を読み終えると、以下ができるようになります。
+
+- ggplot2の基本的な文法を理解する
+- 散布図を作成する
+- 折れ線グラフを作成する
+- 棒グラフを作成する
+- ヒストグラムを作成する
+- グラフにタイトルやラベルを追加する
+
+## ggplot2とは
+
+`ggplot2`は、「Grammar of Graphics」（グラフィックスの文法）という考え方に基づいたパッケージです。
+
+グラフを「データ」「視覚的要素（点、線など）」「座標系」などの部品を組み合わせて作ることで、柔軟で一貫性のある可視化が可能になります。
+
+### パッケージの準備
+
+```{r}
+# tidyverseに含まれています
+library(tidyverse)
+
+# またはggplot2だけを読み込む
+# library(ggplot2)
+```
+
+## ggplot2の基本構造
+
+ggplot2でグラフを作る際の基本的な構造は以下の通りです。
+
+```r
+ggplot(data = データ, aes(x = x軸の変数, y = y軸の変数)) +
+  geom_点や線の種類()
+```
+
+- `ggplot()`: グラフの土台を作る
+- `aes()`: Aesthetics（美的要素）の略。どの変数をx軸・y軸などに割り当てるかを指定
+- `geom_*()`: Geometry（幾何要素）の略。点、線、棒などの表現方法を指定
+
+重要なのは**`+`でレイヤーを重ねていく**という考え方です。
+
+## 散布図（Scatter Plot）
+
+2つの連続変数の関係を見るには散布図が適しています。
+
+### 基本的な散布図
+
+以下のコードでは、`iris`データセットのがく片の長さ（Sepal.Length）と幅（Sepal.Width）の関係を散布図で表示しています。
+
+```{r}
+data(iris)
+
+# がく片の長さと幅の関係を散布図で表示
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point()
+```
+
+### 点の大きさや色を変更
+
+`geom_point()`の中で、`size`や`color`を指定することで、点の大きさや色を変更できます。色は文字列で指定することもできますし、HTMLカラーコード（例: "#FF0000"）などで指定することもできます。
+
+```{r}
+# 点を大きく、赤色に
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(size = 3, color = "red")
+```
+
+### 透明度の調整
+
+点が重なっている場合、透明度を調整すると見やすくなります。`alpha`を使って透明度を指定できます。
+
+```{r}
+# 透明度を設定（0が完全透明、1が不透明）
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(size = 3, alpha = 0.5)
+```
+
+### カテゴリごとに色分け
+
+`aes()`の中で`color`を指定すると、カテゴリごとに自動で色分けされます。
+
+```{r}
+# 品種ごとに色分け
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3, alpha = 0.7)
+```
+
+## 折れ線グラフ（Line Plot）
+
+時系列データや連続的な変化を表現するには折れ線グラフが適しています。
+
+### サンプルデータの作成
+
+```{r}
+# 月次売上データを作成
+monthly_sales <- data.frame(
+  月 = 1:12,
+  売上 = c(120, 135, 150, 145, 160, 175, 190, 185, 200, 210, 230, 250)
+)
+```
+
+### 基本的な折れ線グラフ
+
+同様にデータ、x軸、y軸を指定し、`geom_line()`を使うと折れ線グラフが作成できます。
+
+```{r}
+ggplot(data = monthly_sales, aes(x = 月, y = 売上)) +
+  geom_line()
+```
+
+### 点と線を組み合わせる
+
+わかりやすいように派手な色にしていますが、線と点を組み合わせることもできます。
+
+注意点としては、書いた順にレイヤーが重なっていくため、`geom_point()`を書いた後に`geom_line()`を書くと、線が点の上に重なってしまい、点が見えなくなってしまいます。点を先に書いてから線を書くようにしましょう。
+
+線の太さを調整するには、`linewidth`を指定します。点は`size`でした。
+
+```{r}
+ggplot(data = monthly_sales, aes(x = 月, y = 売上)) +
+  geom_line(color = "blue", linewidth = 1) +
+  geom_point(color = "red", size = 3)
+```
+
+## 棒グラフ（Bar Plot）
+
+カテゴリごとの値を比較するには棒グラフが適しています。
+
+### カウント数の棒グラフ
+
+`geom_bar()`はX軸のカテゴリに対して自動的にカウントを計算します。
+
+```{r}
+# 品種ごとのデータ数
+ggplot(data = iris, aes(x = Species)) +
+  geom_bar()
+```
+
+irisデータセットは各品種が50行ずつあるため、すべての棒が同じ高さになります。
+
+### 値を直接指定する棒グラフ
+
+既に集計済みのデータの場合は`geom_col()`を使います。
+
+```{r}
+# 部署ごとの売上データ
+dept_sales <- data.frame(
+  部署 = c("営業", "開発", "総務"),
+  売上 = c(3500, 2800, 1500)
+)
+
+ggplot(data = dept_sales, aes(x = 部署, y = 売上)) +
+  geom_col()
+```
+
+### 棒の色を変更
+
+`geom_col()`内で`fill`を使うと、棒の塗りつぶしの色を変更できます。
+
+```{r}
+ggplot(data = dept_sales, aes(x = 部署, y = 売上)) +
+  geom_col(fill = "steelblue")
+```
+
+### カテゴリごとに色分け
+
+`aes()`の中で`fill`を指定すると、`fill`に指定した変数のカテゴリごとに自動で色分けされます。
+
+```{r}
+ggplot(data = dept_sales, aes(x = 部署, y = 売上, fill = 部署)) +
+  geom_col()
+```
+
+## ヒストグラム（Histogram）
+
+データの分布を確認するにはヒストグラムが適しています。
+
+### 基本的なヒストグラム
+
+`geom_bar()`と同様に、X軸に連続変数を指定すると、`geom_histogram()`が自動的にビン（区間）を作成してヒストグラムを描いてくれます。
+
+```{r}
+# がく片の長さの分布
+ggplot(data = iris, aes(x = Sepal.Length)) +
+  geom_histogram()
+```
+
+### ビン（区間）の数を調整
+
+`geom_histogram()`の中で`bins`を指定すると、ビンの数を調整できます。ビンの数が多いと細かい分布がわかりますが、少ないと大まかな分布がわかります。
+
+```{r}
+# ビンの数を指定
+ggplot(data = iris, aes(x = Sepal.Length)) +
+  geom_histogram(bins = 20, fill = "lightblue", color = "black")
+```
+
+ちなみに`fill`は棒の塗りつぶしの色、`color`は棒の枠線の色を指定します。
+
+### 品種ごとに重ねて表示
+
+`fill`を指定して、品種ごとに色分けして重ねて表示することもできます。`position = "identity"`を指定すると、重なりをそのまま表示します。
+
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_histogram(alpha = 0.5, position = "identity", bins = 20, color = "black")
+```
+
+`position = "identity"`を指定しない場合、デフォルトでは`position = "stack"`となり、品種ごとに棒が積み上げられて表示されます。
+
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_histogram(alpha = 0.5, bins = 20, color = "black")
+```
+
+
+## タイトルとラベルの追加
+
+`labs()`関数を使って、グラフにタイトルや軸ラベルを追加できます。
+
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "アヤメのがく片の長さと幅",
+    subtitle = "品種ごとの比較",
+    x = "がく片の長さ (cm)",
+    y = "がく片の幅 (cm)",
+    color = "品種"
+  )
+```
+
+- `title`: グラフのタイトル
+- `subtitle`: グラフの副題
+- `x`: x軸のラベル
+- `y`: y軸のラベル
+- `color`: 凡例のタイトル（色分けしている場合）
+
+今回は`aes()`内で`color`を指定しているので、`labs()`の中で`color`としていますが、`fill`を指定している場合は`labs()`の中で`fill`を指定してください。
+
+## テーマの変更
+
+ggplot2には様々な組み込みテーマがあります。
+
+### theme_minimal()
+
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  labs(title = "シンプルなテーマ") +
+  theme_minimal()
+```
+
+### theme_classic()
+
+```{r}
+ggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3) +
+  labs(title = "クラシックなテーマ") +
+  theme_classic()
+```
+
+### その他のテーマ
+
+- `theme_bw()`: 白黒テーマ
+- `theme_dark()`: 暗いテーマ
+- `theme_light()`: 明るいテーマ
+- `theme_void()`: 軸や背景を削除
+
+## 実践例：総合的なグラフ作成
+
+これまで学んだ要素を組み合わせて、見やすいグラフを作成してみましょう。
+
+```{r}
+# 売上データの作成
+sales_data <- data.frame(
+  月 = rep(1:6, times = 2),
+  店舗 = rep(c("東京店", "大阪店"), each = 6),
+  売上 = c(120, 135, 150, 145, 160, 175,  # 東京店
+           100, 115, 130, 140, 155, 170)   # 大阪店
+)
+
+# 店舗別の月次売上推移
+ggplot(data = sales_data, aes(x = 月, y = 売上, color = 店舗)) +
+  geom_line(linewidth = 1.2) +
+  geom_point(size = 3) +
+  labs(
+    title = "店舗別月次売上推移",
+    subtitle = "2025年1月〜6月",
+    x = "月",
+    y = "売上（万円）",
+    color = "店舗名"
+  ) +
+  theme_minimal()
+```
+
+## グラフの保存
+
+作成したグラフは`ggsave()`で保存できます。基本的には最後に作成したグラフが保存されますが、特定のグラフを保存したい場合は、グラフをオブジェクトに保存してから`ggsave()`の`plot`引数に指定します。
+
+```r
+# 最後に作成したグラフを保存
+ggsave("outputs/sales_plot.png", width = 8, height = 6)
+
+# 特定のグラフを保存
+my_plot <- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point()
+
+ggsave("outputs/iris_plot.png", plot = my_plot, width = 8, height = 6)
+```
+
+## 練習問題
+
+::: {.callout-tip collapse="true"}
+## 問題1: 散布図の作成
+
+`iris`データで、`Petal.Length`（x軸）と`Petal.Width`（y軸）の散布図を作成してください。点は品種ごとに色分けしてください。
+
+**解答例**
+```r
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
+  geom_point()
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題2: 棒グラフの作成
+
+以下のデータで棒グラフを作成し、タイトルと軸ラベルを追加してください。
+
+```r
+products <- data.frame(
+  商品名 = c("商品A", "商品B", "商品C", "商品D"),
+  販売数 = c(150, 230, 180, 210)
+)
+```
+
+**解答例**
+```r
+ggplot(products, aes(x = 商品名, y = 販売数)) +
+  geom_col(fill = "steelblue") +
+  labs(
+    title = "商品別販売数",
+    x = "商品名",
+    y = "販売数"
+  )
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題3: 折れ線グラフの作成
+
+以下のデータで折れ線グラフを作成し、点も一緒に表示してください。
+
+```r
+temperature <- data.frame(
+  時刻 = c(0, 6, 12, 18, 24),
+  気温 = c(15, 12, 20, 18, 14)
+)
+```
+
+**解答例**
+```r
+ggplot(temperature, aes(x = 時刻, y = 気温)) +
+  geom_line(color = "red", linewidth = 1) +
+  geom_point(size = 3) +
+  labs(
+    title = "時刻別気温",
+    x = "時刻",
+    y = "気温（℃）"
+  )
+```
+:::
+
+## まとめ
+
+この章では、ggplot2の基本を学びました。
+
+- ✅ ggplot2の基本構造（`ggplot()` + `aes()` + `geom_*()`）
+- ✅ 散布図（`geom_point()`）
+- ✅ 折れ線グラフ（`geom_line()`）
+- ✅ 棒グラフ（`geom_bar()`, `geom_col()`）
+- ✅ ヒストグラム（`geom_histogram()`）
+- ✅ タイトルとラベルの追加（`labs()`）
+- ✅ テーマの変更（`theme_*()`）
+
+これで基本的なグラフが作成できるようになりました。次の章では、さらに高度なカスタマイズ方法を学びます。
+
+::: {.callout-note}
+## 次のステップ
+
+次の章「データ可視化応用 - ggplot2発展」では、以下を学びます。
+
+- ファセット（複数グラフの並べて表示）
+- 軸のスケール調整
+- より細かいテーマのカスタマイズ
+- patchworkによる複数グラフの自由な配置
+
+より洗練されたグラフ作成スキルを身につけましょう。
+:::
+
+## 参考
+
+- [ggplot2公式ドキュメント](https://ggplot2.tidyverse.org/)
+- [【4.0.0対応！】ggplot2使い方ガイド](https://yo5uke.com/pages/tips/2024/11/241117_ggplot2/)

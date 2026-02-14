@@ -1,0 +1,441 @@
+# データハンドリング応用 - dplyr発展
+
+前章で`select()`, `filter()`, `arrange()`を学びました。この章では、さらに強力なデータ操作の方法を学びます。
+
+実務でのデータ分析では、新しい列を作成したり、データを集計したりすることが頻繁にあります。`dplyr`の`mutate()`, `summarize()`, `group_by()`を使うと、これらの操作を簡単に実行できます。
+
+## 学習内容
+
+この章を読み終えると、以下ができるようになります。
+
+- `mutate()`: 新しい列を作成する
+- `summarize()`: データを要約する
+- `group_by()`: グループごとに集計する
+- `count()`: データを数える
+- これらを組み合わせた実践的なデータ分析
+
+## データの準備
+
+引き続き`iris`データセットを使います。
+
+```{r}
+library(tidyverse)
+data(iris)
+```
+
+## mutate(): 新しい列を作成する
+
+`mutate()`関数は、既存の列を使って新しい列を作成したり、既存の列を変換したりします。
+
+### 基本的な使い方
+
+`mutate()`内で新しい列名を指定し、その列に代入する値を計算式で書きます。
+
+```{r}
+# がく片の面積を計算して新しい列として追加
+result <- iris |>
+  mutate(Sepal.Area = Sepal.Length * Sepal.Width) |>
+  select(Species, Sepal.Length, Sepal.Width, Sepal.Area) |>
+  head()
+
+head(result)
+```
+
+### 複数の列を一度に作成
+
+```{r}
+# 複数の計算を一度に実行
+result <- iris |>
+  mutate(
+    Sepal.Area = Sepal.Length * Sepal.Width,
+    Petal.Area = Petal.Length * Petal.Width,
+    Total.Area = Sepal.Area + Petal.Area
+  ) |>
+  select(Species, Sepal.Area, Petal.Area, Total.Area)
+
+head(result)
+```
+
+### 条件による値の変更
+
+`if_else()`や`case_when()`を使うと、条件に応じて値を変更できます。
+
+`if_else()`は、第1引数に条件、第2引数に条件がTRUEの場合の値、第3引数に条件がFALSEの場合の値を指定します。
+
+```{r}
+# Sepal.Lengthが5以上なら"大きい"、そうでなければ"小さい"
+result <- iris |>
+  mutate(
+    Size = if_else(Sepal.Length >= 5, "大きい", "小さい")
+  ) |>
+  select(Species, Sepal.Length, Size)
+
+head(result)
+```
+
+複数の条件がある場合は`case_when()`が便利です。`TRUE`は、上の条件に当てはまらない場合の値を指定するために使います。
+
+```{r}
+# Sepal.Lengthを3段階に分類
+iris |>
+  mutate(
+    Size_Category = case_when(
+      Sepal.Length < 5 ~ "小",
+      Sepal.Length < 6 ~ "中",
+      TRUE ~ "大"  # それ以外（上の条件に当てはまらない場合）
+    )
+  ) |>
+  select(Species, Sepal.Length, Size_Category) |>
+  head(10)
+```
+
+## summarize(): データを要約する
+
+`summarize()`（または`summarise()`）関数は、データを集約して要約統計量を計算します。
+
+`mutate()`の場合と同様に、`summarize()`内で新しい列名を指定し、その列に代入する値を計算式で書きます。
+
+### 基本的な統計量
+
+```{r}
+# がく片の長さの平均値を計算
+iris |>
+  summarize(
+    mean = mean(Sepal.Length)
+  )
+```
+
+### 複数の統計量を一度に計算
+
+```{r}
+# 複数の統計量を計算
+iris |>
+  summarize(
+    mean = mean(Sepal.Length),
+    median = median(Sepal.Length),
+    sd = sd(Sepal.Length),
+    minimum = min(Sepal.Length),
+    maximum = max(Sepal.Length),
+    n = n()
+  )
+```
+
+::: {.callout-note}
+## よく使う集計関数
+
+- `mean()`: 平均値
+- `median()`: 中央値
+- `sd()`: 標準偏差
+- `var()`: 分散
+- `min()`: 最小値
+- `max()`: 最大値
+- `sum()`: 合計
+- `n()`: 行数を数える
+- `n_distinct()`: ユニークな値の数
+:::
+
+## group_by(): グループごとに集計する
+
+`group_by()`と`summarize()`を組み合わせると、**グループごとの集計**ができます。これが非常に強力です。
+
+### 基本的な使い方
+
+```{r}
+# 品種ごとにがく片の長さの平均を計算
+iris |>
+  group_by(Species) |>
+  summarize(
+    mean = mean(Sepal.Length)
+  )
+```
+
+### 複数の統計量をグループごとに計算
+
+```{r}
+# 品種ごとに複数の統計量を計算
+iris |>
+  group_by(Species) |>
+  summarize(
+    n = n(),
+    mean = mean(Sepal.Length),
+    sd = sd(Sepal.Length),
+    minimum = min(Sepal.Length),
+    maximum = max(Sepal.Length)
+  )
+```
+
+### グループ化したまま新しい列を作成
+
+`mutate()`と組み合わせると、グループごとの計算結果を元のデータに追加できます。
+
+```{r}
+# 品種ごとの平均値を各行に追加
+result <- iris |>
+  group_by(Species) |>
+  mutate(
+    Species_Mean = mean(Sepal.Length),
+    Diff_from_Mean = Sepal.Length - Species_Mean
+  ) |>
+  select(Species, Sepal.Length, Species_Mean, Diff_from_Mean)
+
+head(result)
+```
+
+ページの都合上Speciesがsetosaしか表示されていませんが、virginicaとversicolorも同様に平均値と平均との差分が計算されます。ポイントは、`mutate()`はグループ化した状態で計算するため、同じ品種の行はそれぞれ同じ平均値が入ることです。
+
+::: {.callout-caution}
+## ungroup()を忘れずに
+
+`group_by()`を使った後、グループ化を解除したい場合は`ungroup()`を使います。
+
+```r
+iris |>
+  group_by(Species) |>
+  summarize(平均 = mean(Sepal.Length)) |>
+  ungroup()  # グループ化を解除
+```
+
+グループ化したまま次の操作を行うと、予期しない結果になることがあるため注意が必要です。グループ化して計算したい範囲が終わったら、`ungroup()`でグループ化を解除する習慣をつけましょう。
+:::
+
+### `.by`引数でグループ化と集計を同時に行う
+
+`group_by()`と`summarize()`を組み合わせる代わりに、`summarize()`の`.by`引数を使うと、グループ化と集計を同時に行うことができます。
+
+関数内でのみグループ化が行われるため、先述した`ungroup()`を使う必要もなく、コードがシンプルになります。
+
+```{r}
+# .by引数を使ってグループ化と集計を同時に
+iris |>
+  summarize(
+    n = n(),
+    mean = mean(Sepal.Length),
+    sd = sd(Sepal.Length),
+    minimum = min(Sepal.Length),
+    maximum = max(Sepal.Length),
+    .by = Species
+  )
+```
+
+ちなみに`.by`引数は、`summarize()`以外にも`mutate()`や`filter()`などでも使えます。グループ化と集計を同時に行いたい場合は、`.by`引数を活用してコードをシンプルにすることも検討してみてください。
+
+## count(): データを数える
+
+`count()`関数は、値の出現回数を簡単に数えられます。
+
+### 基本的な使い方
+
+以下の例では、`Species`ごとにデータの数を数えています。
+
+```{r}
+# 品種ごとのデータ数を数える
+iris |>
+  count(Species)
+```
+
+これは以下と同じ意味です。
+
+```{r}
+iris |>
+  group_by(Species) |>
+  summarize(n = n())
+```
+
+## 実践例：売上データの分析
+
+実務でよくある売上データの分析を例に、これまでの知識を総合的に使ってみましょう。
+
+### サンプルデータの作成
+
+```{r}
+# 売上データの作成
+sales <- data.frame(
+  日付 = rep(c("2025-01-01", "2025-01-02", "2025-01-03"), each = 4),
+  店舗 = rep(c("東京店", "大阪店", "東京店", "大阪店"), 3),
+  商品 = rep(c("商品A", "商品A", "商品B", "商品B"), 3),
+  売上数量 = c(10, 15, 8, 12, 12, 18, 10, 14, 15, 20, 12, 16),
+  単価 = c(1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500)
+)
+
+print(sales)
+```
+
+### 分析1: 売上金額の計算
+
+```{r}
+# 売上金額を計算
+sales_with_amount <- sales |>
+  mutate(
+    売上金額 = 売上数量 * 単価
+  )
+
+print(sales_with_amount)
+```
+
+### 分析2: 店舗ごとの売上集計
+
+```{r}
+# 店舗ごとの売上を集計
+store_summary <- sales_with_amount |>
+  group_by(店舗) |>
+  summarize(
+    総売上数量 = sum(売上数量),
+    総売上金額 = sum(売上金額),
+    平均売上数量 = mean(売上数量)
+    # group_by()を使わない場合
+    # .by = 店舗
+  )
+
+print(store_summary)
+```
+
+### 分析3: 商品・店舗ごとの売上集計
+
+```{r}
+# 商品と店舗の組み合わせで集計
+product_store_summary <- sales_with_amount |>
+  group_by(商品, 店舗) |>
+  summarize(
+    総売上金額 = sum(売上金額),
+    .groups = "drop"  # グループ化を自動で解除
+  ) |>
+  arrange(desc(総売上金額))
+
+print(product_store_summary)
+```
+
+### 分析4: 日付ごとの売上推移
+
+```{r}
+# 日付ごとの売上推移
+daily_sales <- sales_with_amount |>
+  group_by(日付) |>
+  summarize(
+    日次売上金額 = sum(売上金額),
+    日次販売数量 = sum(売上数量)
+  )
+
+print(daily_sales)
+```
+
+## 応用テクニック
+
+### across()を使った複数列への同じ処理
+
+複数の列に同じ処理を適用したい場合は`across()`が便利です。
+
+少々使い方は難しいですが、例えば数値列（numeric型）すべての平均を品種ごとに計算する場合は以下のように書けます。
+
+```{r}
+# すべての数値列の平均を品種ごとに計算
+iris |>
+  group_by(Species) |>
+  summarize(
+    across(where(is.numeric), mean)
+  )
+```
+
+`where()`は条件に合う列を選択するための関数で、`is.numeric`は数値列を選択する条件です。`across()`は、選択した列すべてに同じ関数（この場合は`mean`）を適用します。
+
+たくさんの列に同じ処理を適用したい場合は、`across()`を使うとコードがシンプルになります。
+
+### slice()で行を選択
+
+グループごとに上位N件を取得する場合は`slice()`が使えます。
+
+```{r}
+# 品種ごとにSepal.Lengthが最も大きい3件を取得
+iris |>
+  group_by(Species) |>
+  arrange(desc(Sepal.Length)) |>
+  slice(1:3)
+```
+
+SpeciesごとにSepal.Lengthが大きい順に並び替えた後、上位3件を取得しています。`slice()`は行番号で指定するため、`1:3`は上位3件を意味します。
+
+ちなみに`ungroup()`をしていないので、`slice()`はグループごとに行を選択します。グループ化していない場合は、全体の上位3件を取得することになります。
+
+```{r}
+# 全体の上位3件を取得（グループ化していない場合）
+iris |>
+  group_by(Species) |>
+  arrange(desc(Sepal.Length)) |>
+  ungroup() |>
+  slice(1:3)
+```
+
+## 練習問題
+
+::: {.callout-tip collapse="true"}
+## 問題1: 新しい列の作成
+
+`iris`データで、がく片とFlowerの長さの合計を`Total.Length`という列名で追加してください。
+
+**解答例**
+```r
+iris |>
+  mutate(Total.Length = Sepal.Length + Petal.Length) |>
+  select(Species, Sepal.Length, Petal.Length, Total.Length)
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題2: グループごとの集計
+
+`iris`データで、品種ごとに`Petal.Width`の平均、最小値、最大値を計算してください。
+
+**解答例**
+```r
+iris |>
+  group_by(Species) |>
+  summarize(
+    平均 = mean(Petal.Width),
+    最小値 = min(Petal.Width),
+    最大値 = max(Petal.Width)
+  )
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題3: 実践的な分析
+
+以下の従業員データで、部署ごとの平均年齢と売上合計を計算し、売上合計の降順に並び替えてください。
+
+```r
+employees <- data.frame(
+  名前 = c("田中", "佐藤", "鈴木", "高橋", "伊藤", "渡辺"),
+  部署 = c("営業", "開発", "営業", "開発", "総務", "営業"),
+  年齢 = c(25, 30, 35, 28, 42, 31),
+  売上 = c(1200, 1500, 980, 1350, 1100, 1450)
+)
+```
+
+**解答例**
+```r
+employees |>
+  group_by(部署) |>
+  summarize(
+    平均年齢 = mean(年齢),
+    売上合計 = sum(売上)
+  ) |>
+  arrange(desc(売上合計))
+```
+:::
+
+## まとめ
+
+この章では、dplyrの発展的な機能を学びました。
+
+- ✅ `mutate()`: 新しい列の作成・既存列の変換
+- ✅ `summarize()`: データの要約統計
+- ✅ `group_by()`: グループごとの集計
+- ✅ `count()`: データのカウント
+- ✅ これらを組み合わせた実践的なデータ分析
+
+これで、データの読み込みから加工、集計まで一連の流れができるようになりました。次の章では、分析結果を視覚的に表現する方法を学びます。
+
+::: {.callout-note}
+## 次のステップ
+
+次の章「データ可視化入門 - ggplot2基礎」では、`ggplot2`パッケージを使ったグラフ作成を学びます。データの特徴を視覚的に理解し、他者に伝える力を身につけましょう。
+:::

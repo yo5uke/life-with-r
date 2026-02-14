@@ -22,17 +22,27 @@ book:
   repo-actions: [edit, issue]
   chapters:
     - index.qmd
-    - install.qmd
-    - common.qmd
-    - try_rstudio.qmd
-    - try_positron.qmd
-    - start_project.qmd
-    - use_git.qmd
-    - use_quarto.qmd
+
+    - part: "第1部：セットアップ"
+      chapters:
+        - install.qmd
+        - common.qmd
+        - try_rstudio.qmd
+        - try_positron.qmd
+        - start_project.qmd
+
+    - part: "第2部：データ分析の基礎"
+      chapters:
+        - data_io.qmd
+        - data_wrangling_basic.qmd
+        - data_wrangling_advanced.qmd
+        - visualization_basic.qmd
+        - visualization_advanced.qmd
+        
   page-footer:
     background: "#f8f9fa"
     center: |
-      © 2025 Life with R
+      © 2025-2026 Life with R
     right: |
       このページは[Quarto](https://quarto.org)で作成されました。
 

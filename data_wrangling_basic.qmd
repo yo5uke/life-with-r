@@ -1,0 +1,496 @@
+# データハンドリング基礎 - dplyr入門
+
+前章でデータの読み込み方を学びました。この章では、読み込んだデータを自在に操作する方法を学びます。
+
+データ分析の実務では、生のデータをそのまま使うことはほとんどありません。必要な行だけを抽出したり、特定の列だけを選んだり、並び替えたりといった**データハンドリング**（データ操作）が必要になります。
+
+`dplyr`パッケージは、データハンドリングを直感的かつ効率的に行うための強力なツールです。これは前の章で使用した`readr`と同じく、`tidyverse`のコアパッケージの一つです。
+
+## 学習内容
+
+この章を読み終えると、以下ができるようになります。
+
+- パイプ演算子（`%>%`もしくは`|>`）を使ったコードの書き方
+- `select()`: 必要な列だけを選択する
+- `filter()`: 条件に合う行だけを抽出する
+- `arrange()`: データを並び替える
+- 複数の操作を組み合わせる
+
+## tidyverseとは
+
+`dplyr`は`tidyverse`というパッケージ群の一部です。`tidyverse`は、データサイエンスのワークフローを統一的な文法で実現するパッケージの集まりです。
+
+```r
+# tidyverseをインストール（初回のみ）
+install.packages("tidyverse")
+
+# tidyverseを読み込む（dplyrも含まれる）
+library(tidyverse)
+```
+
+::: {.callout-note}
+## dplyrだけを使う場合
+
+`tidyverse`全体ではなく、`dplyr`だけを使いたい場合は以下のようにします。
+
+```r
+library(dplyr)
+```
+
+ただし、実務では`tidyverse`をまとめて読み込むことが多いです。
+:::
+
+## 練習用データの準備
+
+まずは練習用のデータを用意しましょう。R標準の`iris`データセット（アヤメの花のデータ）を使います。
+
+```{r}
+library(tidyverse)
+
+# irisデータを読み込む
+data(iris)
+
+# データの最初の数行を確認
+head(iris)
+```
+
+`data(iris)`を実行すると`iris`としてデータが読み込まれます。
+
+`iris`データには以下の列があります。
+
+- `Sepal.Length`: がく片の長さ
+- `Sepal.Width`: がく片の幅
+- `Petal.Length`: 花弁の長さ
+- `Petal.Width`: 花弁の幅
+- `Species`: アヤメの品種（setosa, versicolor, virginica）
+
+## パイプ演算子
+
+`dplyr`を使う上で重要なのが**パイプ演算子**です。パイプ演算子には2種類あります。パイプの使い方を見る前に、まずはそれぞれのパイプ演算子について説明します。
+
+### `%>%`（magrittrパイプ）
+
+`tidyverse`に含まれる従来のパイプ演算子です。
+
+```r
+# パイプなし
+head(iris, 10)
+
+# パイプあり
+iris %>% head(10)
+```
+
+### `|>`（ネイティブパイプ）
+
+R 4.1.0以降で使える新しいパイプ演算子です。
+
+```r
+# ネイティブパイプ
+iris |> head(10)
+```
+
+::: {.callout-tip}
+## どちらを使うべきか？
+
+基本的な使い方ではほぼ同じです。本サイトでは`|>`（ネイティブパイプ）を使いますが、`%>%`を使っても問題ありません。また、`%>%`に関しては`dplyr`を読み込まないと使えない点については注意してください。
+
+RStudioのキーボードショートカット`Ctrl` + `Shift` + `M`は、デフォルトで`%>%`を入力しますが、設定で`|>`に変更できます。  
+RStudioの場合はTools > Global Options > Code > Use native pipe operator (`|>`)にチェックを入れると、`Ctrl` + `Shift` + `M`で`|>`が入力されるようになります。  
+Positronの場合は{{< kbd win="Ctrl-," mac="⌘-," >}}で設定を開き、Positron.R.pipeを検索することで設定を変更することができます。
+:::
+
+### パイプ演算子の利点
+
+さて、パイプ演算子を使うとどんなメリットがあるのでしょうか？
+
+パイプ演算子を使うと、処理の流れが左から右（上から下）に読めるため、コードが理解しやすくなります。
+
+```r
+# パイプなし（内側から外側へ読む必要がある）
+arrange(filter(select(iris, Species, Sepal.Length), Sepal.Length > 5), Sepal.Length)
+
+# パイプあり（上から下に読める）
+iris |>
+  select(Species, Sepal.Length) |>
+  filter(Sepal.Length > 5) |>
+  arrange(Sepal.Length)
+```
+
+いかがでしょうか？パイプを使わない書き方だと、どの関数がどのデータに対して処理をしているのかを理解するために、内側から外側へとコードを読み解く必要があります。一方で、パイプを使うと、処理の流れが自然な順序で書かれているため、コードの意味が直感的に理解しやすくなります。
+
+仕組みを簡単に説明すると、パイプ演算子は左側のオブジェクトを右側の関数の第一引数^[関数の中で最初に指定する引数]に渡す役割を果たしています。つまり、`x |> f()`は`f(x)`と同じ意味になります。これにより、複数の関数を連続して適用する際に、コードが読みやすくなります。
+
+`dplyr`の関数は、第一引数にデータフレームを取るように設計されているので、起点となるデータフレームをパイプの左側に置いて、関数を順番に適用していくスタイルが自然になります。
+
+## select(): 列を選択する
+
+ここからは、`dplyr`の基本的な関数を紹介していきます。まずは`select()`関数です。
+
+`select()`関数は、データフレームから必要な列だけを選び出します。
+
+### 基本的な使い方
+
+```{r}
+# Species列とSepal.Length列だけを選択
+result <- iris |>
+  select(Species, Sepal.Length)
+
+head(result)
+```
+
+### 列名の範囲指定
+
+`:`を使うと、連続した列をまとめて選択できます。
+
+```{r}
+# Sepal.LengthからPetal.Lengthまでの列を選択
+result <- iris |>
+  select(Sepal.Length:Petal.Length)
+
+head(result)
+```
+
+### 列の除外
+
+`-`（マイナス）を使うと、指定した列以外を選択できます。
+
+```{r}
+# Sepal.Width列を除外
+result <- iris |>
+  select(-Sepal.Width)
+
+head(result)
+```
+
+### 便利な選択関数
+
+`select()`では、列名のパターンマッチングもできます。
+
+```r
+# "Sepal"で始まる列を選択
+iris |>
+  select(starts_with("Sepal"))
+
+# "Width"で終わる列を選択
+iris |>
+  select(ends_with("Width"))
+
+# "Length"を含む列を選択
+iris |>
+  select(contains("Length"))
+```
+
+`starts_with()`は列名が指定した文字列で始まる列を選択し、`ends_with()`は列名が指定した文字列で終わる列を選択します。`contains()`は列名に指定した文字列が含まれる列を選択します。
+
+## filter(): 行を抽出する
+
+`filter()`関数は、条件に合う行だけを抽出します。
+
+### 基本的な使い方
+
+```{r}
+# Sepal.Lengthが5より大きい行だけを抽出
+result <- iris |>
+  filter(Sepal.Length > 5)
+
+head(result)
+```
+
+### 複数の条件
+
+複数の条件を組み合わせることもできます。カンマで指定する方法と論理演算子を使う方法がありますが、どちらも同じ意味になります。
+
+```{r}
+# Sepal.Lengthが5より大きく、かつSpeciesがsetosaの行
+result <- iris |>
+  filter(Sepal.Length > 5, Species == "setosa")
+
+# 上と同じ（,はANDの意味）
+# iris |>
+#   filter(Sepal.Length > 5 & Species == "setosa")
+
+head(result)
+```
+
+### OR条件
+
+`|`を使うと「または」の条件を指定できます。`%in%`を使うと、複数の値のいずれかに一致する条件を簡単に書くことができます。
+
+```{r}
+# Speciesがsetosaまたはvirginicaの行
+result <- iris |>
+  filter(Species == "setosa" | Species == "virginica")
+
+# 上と同じ（%in%を使った書き方）
+# iris |>
+#   filter(Species %in% c("setosa", "virginica"))
+
+head(result)
+```
+
+### 否定条件
+
+`!`を使うと、条件に合わない行を抽出できます。
+
+```{r}
+# Sepal.Lengthが5以下の行を抽出
+result <- iris |>
+  filter(!(Sepal.Length > 5))
+
+head(result)
+```
+
+これはSepal.Lengthが5より大きい行を除外する、という意味になります。否定したい条件を`!()`で括ることで、条件に合わない行を抽出できます。
+
+### filter_out(): 特定の行を除外する
+
+dplyr 1.2.0以降では、`filter_out()`関数を使って特定の条件に合う行を除外することもできます。
+
+```{r}
+# Sepal.Lengthが5より大きい行を除外
+result <- iris |>
+  filter_out(Sepal.Length > 5)
+
+# 以下と同義
+# iris |>
+#   filter(!(Sepal.Length > 5))
+
+head(result)
+```
+
+除外したい条件を直接`filter_out()`に指定することで、条件に合う行を簡単に除外できるようになっています。
+
+::: {.callout-note}
+## 比較演算子と論理演算子
+
+**比較演算子**
+- `==`: 等しい
+- `!=`: 等しくない
+- `>`: より大きい
+- `>=`: 以上
+- `<`: より小さい
+- `<=`: 以下
+
+**論理演算子**
+- `&`: かつ（AND）
+- `|`: または（OR）
+- `!`: 否定（NOT）
+
+注意: 等しいは`==`（イコール2つ）です。`=`（イコール1つ）は代入演算子なので注意してください。
+:::
+
+## arrange(): データを並び替える
+
+`arrange()`関数は、指定した列でデータを並び替えます。
+
+### 昇順（小さい順）
+
+```{r}
+# Sepal.Lengthの昇順に並び替え
+result <- iris |>
+  arrange(Sepal.Length)
+
+head(result)
+```
+
+### 降順（大きい順）
+
+`desc()`関数を使うと降順になります。
+
+```{r}
+# Sepal.Lengthの降順に並び替え
+result <- iris |>
+  arrange(desc(Sepal.Length))
+
+head(result)
+```
+
+### 複数の列で並び替え
+
+```{r}
+# まずSpeciesで並び替え、次にその中でSepal.Lengthで並び替え
+result <- iris |>
+  arrange(Species, Sepal.Length)
+
+head(result)
+```
+
+## 複数の操作を組み合わせる
+
+パイプ演算子を使うと、複数の操作を順番に実行できます。
+
+### 実践例1: 基本的な組み合わせ
+
+```{r}
+# setosa品種のデータから、
+# がく片の列だけを選び、
+# がく片の長さが5以上のものを抽出し、
+# 長さの降順に並び替える
+
+result <- iris |>
+  filter(Species == "setosa") |>
+  select(Species, Sepal.Length, Sepal.Width) |>
+  filter(Sepal.Length >= 5) |>
+  arrange(desc(Sepal.Length))
+
+head(result)
+```
+
+### 実践例2: 実務的なデータ処理
+
+従業員データを想定した例です。
+
+```{r}
+# サンプルデータの作成
+employees <- data.frame(
+  名前 = c(
+    "田中太郎",
+    "佐藤花子",
+    "鈴木一郎",
+    "高橋次郎",
+    "伊藤三郎",
+    "渡辺四郎"
+  ),
+  部署 = c("営業", "開発", "営業", "開発", "総務", "営業"),
+  年齢 = c(25, 30, 35, 28, 42, 31),
+  売上 = c(1200, 1500, 980, 1350, 1100, 1450)
+)
+
+# 営業部の社員で、売上が1000以上の人を、売上の降順に表示
+営業成績 <- employees |>
+  filter(部署 == "営業") |>
+  filter(売上 >= 1000) |>
+  select(名前, 売上) |>
+  arrange(desc(売上))
+
+print(営業成績)
+```
+
+## 結果の保存
+
+パイプ処理の結果は、`<-`で変数に代入できます。
+
+```r
+# 処理結果を変数に保存
+setosa_data <- iris |>
+  filter(Species == "setosa") |>
+  select(Sepal.Length, Sepal.Width)
+
+# CSVファイルとして保存
+# dplyrしか読み込んでいない場合はreadrも読み込む
+# library(readr)
+write_csv(setosa_data, "data/setosa_only.csv")
+```
+
+## 練習問題
+
+ここまで学んだ内容を確認しましょう。
+
+::: {.callout-tip collapse="true"}
+## 問題1: 列の選択
+
+`iris`データから、`Petal.Length`、`Petal.Width`、`Species`の3列だけを選択してください。
+
+**解答例**
+```r
+iris |>
+  select(Petal.Length, Petal.Width, Species)
+
+# または
+iris |>
+  select(Petal.Length:Species)
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題2: 条件抽出
+
+`iris`データから、`Petal.Length`が3以上5以下の行を抽出してください。
+
+**解答例**
+```r
+iris |>
+  filter(Petal.Length >= 3, Petal.Length <= 5)
+
+# または
+iris |>
+  filter(Petal.Length >= 3 & Petal.Length <= 5)
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題3: 複数操作の組み合わせ
+
+`iris`データから以下の処理を行ってください。
+
+1. `Species`が"setosa"と"versicolor"である行を抽出
+2. `Sepal`で始まる列のみを選択
+3. `Sepal.Length`の降順に並び替え
+4. 最初の10行だけを表示
+
+**解答例**
+```{r}
+result <- iris |>
+  filter(Species %in% c("setosa", "versicolor")) |>
+  select(starts_with("Sepal")) |>
+  arrange(desc(Sepal.Length)) |>
+  head(10)
+
+result
+```
+
+**参考: filter_outを使った書き方**
+```r
+# virginicaを除外する方法でも可能
+iris |>
+  filter_out(Species == "virginica") |>
+  select(starts_with("Sepal")) |>
+  arrange(desc(Sepal.Length)) |>
+  head(10)
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題4: 実践的な問題
+
+以下のデータを作成し、「開発部で年齢が30歳未満の社員の名前と年齢」を抽出してください。
+
+```r
+employees <- data.frame(
+  名前 = c("田中", "佐藤", "鈴木", "高橋", "伊藤"),
+  部署 = c("営業", "開発", "営業", "開発", "総務"),
+  年齢 = c(25, 30, 35, 28, 42)
+)
+```
+
+**解答例**
+```r
+employees |>
+  filter(部署 == "開発", 年齢 < 30) |>
+  select(名前, 年齢)
+```
+:::
+
+## まとめ
+
+この章では、`dplyr`の基本的な関数を学びました。
+
+- ✅ パイプ演算子（`|>`または`%>%`）で処理を繋げる
+- ✅ `select()`: 必要な列だけを選択
+- ✅ `filter()`: 条件に合う行を抽出
+- ✅ `arrange()`: データを並び替え
+- ✅ 複数の操作を組み合わせて実務的なデータ処理
+
+これらは、データ分析で最も頻繁に使う操作です。次の章では、さらに高度な操作（新しい列の作成、集計など）を学びます。
+
+::: {.callout-note}
+## 次のステップ
+
+次の章「データハンドリング応用 - dplyr発展」では、以下を学びます。
+
+- `mutate()`: 新しい列の作成・計算
+- `summarize()`: データの要約統計量
+- `group_by()`: グループごとの集計
+
+これらをマスターすれば、ほとんどのデータ処理に対応できるようになります。
+:::
