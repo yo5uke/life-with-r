@@ -1,0 +1,1011 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Life with R",
+    "section": "",
+    "text": "はじめに\n（アール）は、統計解析用のプログラミング言語です。\n本ページでは、Rのダウンロード、インストールから使い方、その応用まで幅広く解説をしていきたいと思います。\n既にインターネット上では素晴らしい解説記事が多々公開されていますが、本サイトはよりわかりやすく、なるべく楽しくRの第一歩を踏み出していけるような内容を目指します。",
+    "crumbs": [
+      "はじめに"
+    ]
+  },
+  {
+    "objectID": "index.html#このサイトで学べること",
+    "href": "index.html#このサイトで学べること",
+    "title": "Life with R",
+    "section": "このサイトで学べること",
+    "text": "このサイトで学べること\n本サイトでは、以下のスキルを段階的に習得できます。\n\n 環境構築（第1部）\n\nRとIDE（RStudio/Positron）のインストール\nプロジェクト管理の基礎\n効率的な作業環境の構築\n\n\n\n データ分析の基礎（第2部）\n\nデータの読み込みと書き出し\nデータの加工と集計（dplyr）\nデータの可視化（ggplot2）\n\nこれらのスキルを身につけることで、以下のような分析ができるようになります。\n\n\n\n\n\n\nヒント学習後にできるようになること\n\n\n\n\n\n\nCSVやExcelファイルからデータを読み込む\n必要なデータだけを抽出・集計する\nグラフやチャートで分析結果を可視化する\n分析レポートを作成し、結果を共有する\n\n\n\n\n\n\n Rの基礎を深める（第3部以降）\nさらに、Rプログラミングの基礎やデータ整形の応用テクニックも学べます。\n本サイトを一通り学習することで、実務で使えるデータ分析スキルが身につきます。",
+    "crumbs": [
+      "はじめに"
+    ]
+  },
+  {
+    "objectID": "index.html#本サイトの使い方",
+    "href": "index.html#本サイトの使い方",
+    "title": "Life with R",
+    "section": "本サイトの使い方",
+    "text": "本サイトの使い方\n各章は独立して読めるようになっていますが、初めての方は順番に進めることをおすすめします。特に「第1部：セットアップ」は必ず最初に読んでください。\n各章には実際に手を動かして試せるコード例が含まれています。ぜひ自分のPCで実行しながら学習を進めてください。\n\n\n\n\n\n\nノートパッケージのインストール方法\n\n\n\n本サイトでは、Rの機能を拡張する「パッケージ」を使用します。パッケージのインストールには以下の2つの方法があります。\n方法1: install.packages()\ninstall.packages(\"tidyverse\")\n方法2: pak::pak()（より高速で便利）\npak::pak(\"tidyverse\")\n詳しい使い分けは、各章で必要に応じて説明します。初めての方はinstall.packages()を使えば問題ありません。\n\n\nそれでは始めていきましょう！\n\n\n\n\n\n\nノート執筆環境\n\n\n\n最終更新日：2026年2月14日\n\nOS: Windows 11\nR version 4.5.2 (2025-10-31 ucrt)\nPositron: 2026.02.0 build 139\nQuarto 1.9.20",
+    "crumbs": [
+      "はじめに"
+    ]
+  },
+  {
+    "objectID": "install.html",
+    "href": "install.html",
+    "title": "1  RとIDEの準備",
+    "section": "",
+    "text": "1.1 その前に…\nご存じの方も多いと思いますが、Rを使うためにはRと、RStudioやVSCode, Positronに代表されるようなIDE（統合開発環境）が必要となります。\n日常的には、「IDEでRを実行すること」を「Rを使う」と言っている気がしますが、Rを使うためにはRの力を発揮できるような場を作ってあげる必要があり、それがIDEです。\n一応Rだけでも最低限の機能を備えた環境が用意されてはいるのですが、やはりIDEを使った方が使いやすさも効率も段違いですので、IDEもしっかりインストールしましょう。\n今回は最も広く使われているRStudioと、Posit（旧RStudio1）による新進気鋭のIDEであるPositronのインストールをあわせて説明します。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>RとIDEの準備</span>"
+    ]
+  },
+  {
+    "objectID": "install.html#rのダウンロードインストール",
+    "href": "install.html#rのダウンロードインストール",
+    "title": "1  RとIDEの準備",
+    "section": "1.2 Rのダウンロード、インストール",
+    "text": "1.2 Rのダウンロード、インストール\nそれではまずRのダウンロード、インストールを行っていきましょう。\n\nこちらにアクセスし、Linux, Windows, Macから自分の環境に合わせて「Download R for ~」をクリックします。\n\n\n\n\n私はWindowsを使用しているのでDownload for Windowsを選択しました\n\n\n\n「install R for the first time」をクリック、さらに上部に出てくる「Download R-4.5.1 for ~」2をクリックしてインストーラーをダウンロードします。\nダウンロードしたインストーラーをダブルクリックで開き、インストールします。\n\n言語を決めて次へ\n情報を読んで次へ\nインストール先はデフォルトのまま次へ\nコンポーネントもデフォルトのまま次へ\n起動時オプションもデフォルトのまま次へ\nスタートメニューフォルダーもデフォルトのまま次へ\n追加タスクもデフォルトのまま次へ\n\n先ほども言った通り作業はRStudio上で行い、デスクトップにアイコンを置いたところで使うことはないと思いますので、必要なければそのチェックを外してください。\n\nインストール完了\n\n\n以上です。これでR言語を使えるようになりました。\n続いてIDEであるRStudioをインストールしていきましょう。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>RとIDEの準備</span>"
+    ]
+  },
+  {
+    "objectID": "install.html#rstudioのインストール",
+    "href": "install.html#rstudioのインストール",
+    "title": "1  RとIDEの準備",
+    "section": "1.3 RStudioのインストール",
+    "text": "1.3 RStudioのインストール\n先ほども書いた通り、RStudioはR界隈で最も広く使われているIDEだと思います。\nRに特化したデザインやキーボードショートカットが非常に便利で、Rユーザーはこれを使っておけば間違いありません。\nインストール手順は以下の通りです。\n\nこちらより「2: Install RStudio」をクリックしてインストーラーをダウンロードします。\n\n\n\n\nInstall RStudioから進みます\n\n\n\n先ほどと同様ダウンロードできたファイルを開いてインストールします。\n\nRほどいろいろ考えることはなく、デフォルトのまま進んでインストールすれば完了です。\nこれでRStudioをインストールできました。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>RとIDEの準備</span>"
+    ]
+  },
+  {
+    "objectID": "install.html#positronのインストール",
+    "href": "install.html#positronのインストール",
+    "title": "1  RとIDEの準備",
+    "section": "1.4 Positronのインストール",
+    "text": "1.4 Positronのインストール\nPositronはPosit社によるRとPythonの両立を目指した新しいIDEで、MicrosoftのVSCodeをベースに作られています。そのため、RもPythonも頻繁に使うという方はPositronがおすすめです。\n2025年に正式版がリリースされたばかりで、まだまだ発展途上のIDEではありますが、RStudioとVSCodeの良いところを合わせたようなIDEで、今後の発展にも期待が持てます。\nVSCodeはあらゆる言語に対応しているためにRに特化した環境構築を行うのは少し手間がかかりますが、PositronはRとPythonにフォーカスしているため、Rの環境構築も非常に簡単です。VSCodeでは必要だった拡張機能も最初からより発展した形で組み込まれています。\n\n\n\nPositronの画面\n\n\nVSCodeに比べて使える拡張機能が少ない3のでその点不便なところもあるかもしれませんが、VSCodeとは違ってRとPythonの2つにフォーカスした仕様になっていますし、RStudioのキーボードショートカットを移行する設定もあるためRStudioからの移行も比較的スムーズに行えます。\nインストールは以上です。RStudio, Positronの使い方については、後の章で説明します。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>RとIDEの準備</span>"
+    ]
+  },
+  {
+    "objectID": "install.html#footnotes",
+    "href": "install.html#footnotes",
+    "title": "1  RとIDEの準備",
+    "section": "",
+    "text": "こちらは社名です。↩︎\nバージョンは2025年10月4日時点のものです。↩︎\nMicrosoftが提供する拡張機能は基本使えません。開発コンテナを使用したい方などには不向きです。↩︎",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>RとIDEの準備</span>"
+    ]
+  },
+  {
+    "objectID": "common.html",
+    "href": "common.html",
+    "title": "2  Rをはじめるにあたって",
+    "section": "",
+    "text": "2.1 パッケージと関数\nこのページでは、Rを使うために事前に知っておいた方がいいと思うことを整理したいと思います。\n統合開発環境（IDE; RStudioなど）に依らず、共通して使える知識が中心です。\nRにはパッケージとそれに含まれる関数という2つの重要な概念があります。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#パッケージと関数",
+    "href": "common.html#パッケージと関数",
+    "title": "2  Rをはじめるにあたって",
+    "section": "",
+    "text": "2.1.1 パッケージとは\nパッケージとは、Rの機能を拡張するための追加モジュールのことです。Rには基本的な機能が備わっていますが、特定の分析手法やデータ操作を行うためには、追加のパッケージをインストールして利用する必要があります。\nというより、もはやRの基本機能だけでできることは限られており、実際のデータハンドリングや分析ではパッケージを使わないことはほぼありません。\n例えば有名なものにdplyrパッケージがあります。データに新たな変数を追加したり、特定の行や列だけを抽出したりと、一般にデータを扱う上で非常に便利な機能をたくさん含んだパッケージです。\nはじめにでパッケージのインストールについて説明しました。そこで記した通り、始めて使う場合にはインストールから行う必要があり、先述の通りinstall.packages(\"dplyr\")のようにしてインストールします。\nまた、実際に使う際にはあらかじめ読み込んでおく必要があります1。読み込みは以下のようにします。\nlibrary(dplyr)\n\n\n2.1.2 関数とは\n関数とは、特定の処理を行うための命令のことです。Rでは、データの読み込み、加工、分析、可視化など、さまざまな操作を関数を使って実行します。デフォルトで使えるものもあれば、パッケージを読み込んで初めて使えるようになるものもあります。\n例えば、デフォルトで使えるmean()関数は数値の平均を計算するための関数です。使い方は以下の通りです。\n\nmean(c(1, 2, 3, 4, 5))\n\n[1] 3\n\n\nc(1, 2, 3, 4, 5)は5つの数値をまとめたベクトルで、mean()関数に渡すことでその平均値が計算されます。出力された結果を見てもわかる通り、平均値は3です。\n\n\n\n\n\n\nノートベクトルとは？\n\n\n\n\n\nベクトルとは、複数の値をまとめたものです。c()関数（cは「combine」の意味）を使って作成します。\n\n# 数値のベクトル\nnumbers &lt;- c(1, 2, 3, 4, 5)\nprint(numbers)\n\n[1] 1 2 3 4 5\n\n# 文字列のベクトル\nnames &lt;- c(\"太郎\", \"花子\", \"次郎\")\nprint(names)\n\n[1] \"太郎\" \"花子\" \"次郎\"\n\n\nベクトルは全て同じ型のデータを含む必要があります。Rでは、ベクトルに対して一度に計算を行うことができます（ベクトル化）。\n\n# すべての要素に2を掛ける\nnumbers * 2\n\n[1]  2  4  6  8 10\n\n\nベクトルについて詳しくは「Rの基礎 - データ型とベクトル」の章で学びます。\n\n\n\n先ほど挙げたdplyrパッケージにも多くの関数が含まれており、例えばfilter()関数はデータフレームから特定の条件を満たす行だけを抽出するための関数です。\n\nlibrary(dplyr)\n\ndata &lt;- data.frame(\n  name = c(\"Yosuke\", \"Kosuke\", \"Sosuke\", \"Ryosuke\"),\n  age = c(25, 30, 35, 40)\n)\n\nfiltered_data &lt;- filter(data, age &gt; 30)\nprint(filtered_data)\n\n     name age\n1  Sosuke  35\n2 Ryosuke  40\n\n\ndataには4人の名前と年齢が入ったデータフレームが格納されており、nameという列に4人の名前、age列に年齢を格納しています。filter(data, age &gt; 30)とすることで、dataの中でageが30より大きい行だけを抽出し、filtered_dataに格納しています。最後にprint(filtered_data)で結果を表示しています。\nパッケージを読み込まずにdplyr::filter(data, age &gt; 30)としても同義です。\nここでは大まかにデータを使うためにはパッケージが必要で、そこに含まれる関数を使って処理を行う、ということを理解していただければと思います。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#ワーキングディレクトリ",
+    "href": "common.html#ワーキングディレクトリ",
+    "title": "2  Rをはじめるにあたって",
+    "section": "2.2 ワーキングディレクトリ",
+    "text": "2.2 ワーキングディレクトリ\nRでは、ファイルの読み書きを行う際にワーキングディレクトリという概念が重要になります。\nこの点についてはプロジェクトを始めるの章で発展的に扱いますが、ここをおろそかにするとトラブルのもとですし、より効率的なコードを書くためにも重要ですので、ご存じでなかった方にはぜひご理解いただければと思います。\n\n2.2.1 ワーキングディレクトリとは\nワーキングディレクトリ（以降WDと略します）とは、Rがファイルの読み書きを行う際の基準となるフォルダのことです。大雑把にディレクトリ＝フォルダと考えてください。\nWDはRを起動したときに自動で設定されますが、実際には必要な作業に応じてフォルダを作成して作業をすることになるため、自分で設定し直す必要があります。\nワーキングディレクトリを設定することによる一番の恩恵は、ファイルのパスを短くできることです。\n絶対パスと相対パスをご存じでしょうか？絶対パスとは、WindowsであればC://Users/ユーザー名/Documents/data/dataset1.csvのように、ルートディレクトリ（WindowsであればC://、Macであれば/）から始まる、あるファイルやフォルダのパスのことです。これを指定すると絶対にそのファイルを参照できる一方、非常に長くなってしまうという欠点があります。また、フォルダ整理で場所を移行したり、他のPCで同じコードを実行したりすると、当然そのパスは変わってしまうため、コードが動かなくなってしまいます。\n一方、相対パスとは、現在の場所から見た目的にそのファイルやフォルダがどこにあるかを示すパスです。例えば、data/dataset1.csvのように、現在のフォルダから見てdataフォルダの中にあるdataset1.csvを指します。ここでいう「現在のフォルダ」というのがワーキングディレクトリですが、これは自分で設定する必要があります。\n\n\n\n\n\n\nノート用語の整理\n\n\n\n\nディレクトリ：フォルダのこと\nルートディレクトリ：ディレクトリの最上位。WindowsであればC://、Macであれば/\n絶対パス：ルートディレクトリから始まるパス\n相対パス：現在のディレクトリ（WD）から見たパス\n\n\n\n\n\n2.2.2 ワーキングディレクトリの確認\nRで現在のWDを確認するには、getwd()関数を使います。\nもし「それをどこに打ち込めばいいんだ…？」という方であれば、RStudioをいじってみるの章を先にご確認いただき、RStudioのコンソール画面に打ち込んでみてください。\n\ngetwd()\n\n[1] \"C:/Users/yo5uk/life_with_r\"\n\n\n私はWindowsのローカルでこのページを作成していますので、Cから始まるC:/Users/yo5uk/life_with_rと出力されています。\ngetwd()で表示されたディレクトリ以下のフォルダやファイルを参照する場合、相対パスで指定できます。例えば、dataフォルダの中にあるdataset1.csv2を参照する場合、data/dataset1.csvと書けばよいことになります。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#ワーキングディレクトリの変更",
+    "href": "common.html#ワーキングディレクトリの変更",
+    "title": "2  Rをはじめるにあたって",
+    "section": "2.3 ワーキングディレクトリの変更",
+    "text": "2.3 ワーキングディレクトリの変更\nRでWDを変更するには、setwd()関数を使います。\nもし現在のWDがC://Users/ユーザー名/Documentsで、新たにWDをC://Users/ユーザー名/projects/project1に変更したい場合、以下のようにします。\nsetwd(\"C://Users/ユーザー名/projects/project1\")\nこれでWDが変更されました。ダブルクォーテーションで囲むのを忘れないでください。getwd()で確認すると、設定できていることがわかるかと思います。\n\n\n\n\n\n\nヒントパスの取得方法\n\n\n\n\n\n\nWindowsの場合\n\nエクスプローラーで目的のフォルダを開く\n上部のアドレスバーを右クリックし、「アドレスを（テキストとして）コピー」を選択\nsetwd()の引数にペーストする\n\n\n\n\n\n\n2.3.1 RStudioでのワーキングディレクトリ\nRStudioにおけるWDの確認、変更方法については、第3章で説明します。\n\n\n2.3.2 Positronでのワーキングディレクトリ\nPositronにおけるWDの確認、変更方法については、第4章で説明します。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#スクリプトとコンソールについて",
+    "href": "common.html#スクリプトとコンソールについて",
+    "title": "2  Rをはじめるにあたって",
+    "section": "2.4 スクリプトとコンソールについて",
+    "text": "2.4 スクリプトとコンソールについて\nRでは、コードを書く場所としてスクリプトとコンソールの2つがあります。\n\n2.4.1 スクリプトとは\nスクリプトとは、Rのコードを保存しておくためのファイルのことです。Rでは通常、拡張子が.Rのファイルにコードを書きます。\nスクリプトに書いた内容は、後から読み返したり、修正したり、再実行したりできるため、作業の記録としても非常に重要です。分析を進めるうちに何度も同じ処理を行いたくなることがありますが、そのときにスクリプトを使っておけば、同じ手順を再現するのが簡単になります。\nまた、source()関数を使うと、保存したスクリプトを一括で実行することもできます。例えば、source(\"analysis.R\")と入力すれば、analytics.Rファイルに書かれたコードが上から順に実行されます。使うシーンの例としては、複数のファイルで共通して使うコードや関数などを別ファイルとして作っておき、それをsource()で読み込めば、同じコードをすべてのファイルで毎回書く必要がなくなります。\n\n\n2.4.2 コンソールとは\nコンソールとは、Rに直接コードを入力して、その場で実行できる場所です。スクリプトに書かずに、すぐに結果を見たいときに便利です。\n例えば、コンソールで1 + 1と入力してEnterを押すと、すぐに[1] 2と結果が表示されます。簡単な計算や関数の動作確認など、試し打ちをしたいときに最適です。\nただし、コンソールに入力したコードはファイルとして保存されないため、あとから見返すことはできません3。\nコンソールの場所はIDEによって異なりますが、RStudioとPositronの章で改めて説明します。\n\n\n2.4.3 どちらを使うべきか\nどちらを使っても結果は同じですが、スクリプトに書いておくことで分析を「再現できる」ようになります。 Rでの作業は試行錯誤の連続なので、スクリプト上で書く → 実行する → 修正するという流れを繰り返し、最終的なコードを完成させていきます。\nよって、基本的にはスクリプトに書くことを心がけ、コンソールは試し打ちや動作確認に使うのがよいでしょう。\n\n\n2.4.4 パッケージのドキュメントをみる\nコンソールではもう一つ便利な機能があります。それは、パッケージのドキュメントをすぐに見ることができることです。\nRにはさまざまな関数がありますが、それらの関数がどのような働きをするのか、引数は何を指定すればよいのか、戻り値は何か、といったことがわからなかったり忘れたりすることはよくあります。\nそのようなときは、コンソールで?[パッケージ名]::[関数名]と入力することで、その関数のドキュメントをすぐに確認できます。ドキュメントというのは、その関数の説明書みたいなもので、パッケージの開発者によって引数（関数内で指定する値）の説明や使用例が記載されています。\n例えば、dplyrパッケージのfilter()関数のドキュメントを見たい場合、以下のように入力します4。\n?dplyr::filter\nすると、RStudioであれば右下のヘルプ画面にfilter()関数のドキュメントが表示されます。\n\n\n\nfilter()関数のドキュメント\n\n\n有名な関数であれば日本語の記事がインターネット上にたくさんありますが、マイナーな関数や新しい関数の場合はドキュメントを読むことで理解が深まる場合もよくありますので、ぜひ活用してみてください。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#よくある間違い",
+    "href": "common.html#よくある間違い",
+    "title": "2  Rをはじめるにあたって",
+    "section": "2.5 よくある間違い",
+    "text": "2.5 よくある間違い\nRを始めたばかりでよくつまずくポイントをまとめました。エラーが出たときは、まずこれらを確認してみてください。\n\n\n\n\n\n\n注意チェックリスト\n\n\n\n\nダブルクォーテーション（\"\"）の付け忘れ\n\n# ❌ エラーになる\nsetwd(C:/Users/name/Documents)\n\n# ✅ 正しい\nsetwd(\"C:/Users/name/Documents\")\n\n全角スペースや全角記号の混入\n\n# ❌ 全角スペースが入っている（見た目ではわかりにくい）\nmean(c(1,　2,　3))\n# ✅ 半角スペース\nmean(c(1, 2, 3))\n\nパッケージの読み込み忘れ\n\n# ❌ パッケージを読み込んでいない\nfilter(data, age &gt; 30)  # dplyrのfilter関数が使えない\n# ✅ 先に読み込む\nlibrary(dplyr)\nfilter(data, age &gt; 30)\n\n大文字・小文字の間違い\n\n# Rは大文字・小文字を区別します\nMean(c(1, 2, 3))  # ❌\nmean(c(1, 2, 3))  # ✅",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#練習問題",
+    "href": "common.html#練習問題",
+    "title": "2  Rをはじめるにあたって",
+    "section": "2.6 練習問題",
+    "text": "2.6 練習問題\nここまで学んだ内容を確認しましょう。以下の問題に挑戦してみてください。\n\n\n\n\n\n\nヒント問題1: 現在のワーキングディレクトリを確認する\n\n\n\n\n\nコンソールで現在のワーキングディレクトリを確認してください。\n解答例\ngetwd()\n\n\n\n\n\n\n\n\n\nヒント問題2: 簡単な計算をしてみる\n\n\n\n\n\nmean()関数を使って、10, 20, 30, 40, 50の平均値を計算してください。\n解答例\nmean(c(10, 20, 30, 40, 50))\n# 結果: 30\n\n\n\n\n\n\n\n\n\nヒント問題3: ヘルプを表示する\n\n\n\n\n\nsum()関数（合計を計算する関数）のヘルプを表示してください。\n解答例\n?sum\n# または\nhelp(sum)\n\n\n\n以上でRを使う前に知っておくと有益な基本事項の説明を終わります。それでは次の章からはIDEの使い方を説明していきます。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "common.html#footnotes",
+    "href": "common.html#footnotes",
+    "title": "2  Rをはじめるにあたって",
+    "section": "",
+    "text": "実際はdplyr::filter()のようにパッケージ::関数の形で記述すれば、library()で読み込まずとも使えます。しかし、各関数がどのパッケージのものかが明確である反面、コードが非常に長くなってしまうため、先に読み込むことが一般的です。複数のパッケージで関数名が重複しており、明示的にかき分けたい場合などには役に立ちます。↩︎\n絶対パスの場合はC://Users/ユーザー名/Documents/data/dataset1.csvとなります。↩︎\n細かい話をすれば.Rhistoryというファイルが自動で生成され実行したコードは振り返ることができますが、エラーが出た関数等も保存されるので、見返すのには不向きです。↩︎\nこれは一時的に参照したい類のものですので、スクリプトではなくコンソールに打ち込むのがよいと思います。↩︎",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Rをはじめるにあたって</span>"
+    ]
+  },
+  {
+    "objectID": "try_rstudio.html",
+    "href": "try_rstudio.html",
+    "title": "3  RStudioをいじってみる",
+    "section": "",
+    "text": "3.1 初期画面\nこの章では、RStudioの基本的な使い方を説明します。RStudioをインストールしたばかりの方はぜひ一度試してみてください。\nインストールしたばかりのRStudioは以下のようなレイアウトになっています。\n基本的にコードを書くのはソースコード画面です。コンソール画面に直接入力し実行することもできますが、再現可能性の観点からもあまり使用頻度は高くありません1。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>RStudioをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_rstudio.html#初期画面",
+    "href": "try_rstudio.html#初期画面",
+    "title": "3  RStudioをいじってみる",
+    "section": "",
+    "text": "RStudio\n\n\n\n左上：ソースコード画面\n\nRのスクリプトを書く画面\n\n左下：コンソール画面\n\n入力したスクリプトが実行される画面\n直接入力も可能\n\n右上：環境画面\n\n実行中に作成した変数や関数を表示する画面\n\n右下：ファイル画面\n\nファイルが表示される画面\nここからファイルを開くことが可能",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>RStudioをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_rstudio.html#デザインを変更してみる",
+    "href": "try_rstudio.html#デザインを変更してみる",
+    "title": "3  RStudioをいじってみる",
+    "section": "3.2 デザインを変更してみる",
+    "text": "3.2 デザインを変更してみる\n\n3.2.1 レイアウトを変更してみる\n上下左右にそれぞれ画面（ペインとも呼びます）が分かれていますが、これらの配置を変更することが可能です。\nここでは試しにコンソール画面を右上に配置し、環境画面を左下に配置してみます2。\n画面上部の「Tools」&gt;「Global Options…」と進みます。\n\n続いて左から「Pane Layout」に進み、EnvironmentをConsoleに変更します。\n\n\n\nConsoleを選ぶと、Environmentと入れ替わります\n\n\n変更してウィンドウ下部のOKをクリックすれば、右上と左下が入れ替わった画面になります。他も自由に変更できるので、好みに合わせて変更してみてください。\n\n\n3.2.2 テーマを変更してみる\nRStudioではテーマを変更することもできます。ここでは試しにダークモードに変更してみましょう。\n同様に「Tools」&gt;「Global Options…」と進み、今度は左から「Appearance」を選びます。\n\n\n\nEditor themeから変更できます\n\n\nEditor themeにはたくさんのテーマが用意されており、好みに合わせて変更できます。ここでは試しに「Pastel on Dark」を選択しています。\nまた、Editor fontからはフォントを選択できますので、こちらも好みに合わせて変更してみてください。「Cascadia Code」だと本ページが採用しているような&lt; -が&lt;-のように矢印として表示されるようになり、私自身は面白くて使用しています。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>RStudioをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_rstudio.html#新しいスクリプトファイルを開く",
+    "href": "try_rstudio.html#新しいスクリプトファイルを開く",
+    "title": "3  RStudioをいじってみる",
+    "section": "3.3 新しいスクリプトファイルを開く",
+    "text": "3.3 新しいスクリプトファイルを開く\nデフォルトでは、ソースコード画面にUntitled1というRスクリプトファイルが開いています。ここでは、新しいコードファイルを開く方法を試してみましょう。\nまず、画面左上の をクリックし、「R Script」を選択します。すると、ソースコード画面にUntitled2という新しいファイルが開かれるはずです。\nこのセクションでは、Rスクリプトにコードを書き、保存し、実行する流れを確認します。\n\nスクリプトに1 + 1と書く\n\nコードは何でもよいです\n\n上部にあるをクリックし、任意の場所と名前で保存する\n実行する\n\nコード行をクリックしてカーソルを置き、ソースコード画面右上の「Run」で実行\nコード行をクリックしてカーソルを置き、で実行\n\n\n実行は、2つのいずれでも同じ動作をします。また、カーソルは必ずしもコードの先頭や一番後ろを選択しておく必要はありません。コードの途中にカーソルがあっても、その行（複数行にまたがる場合は一連の関数）が実行されます。\n\n\n\nコードの実行\n\n\nスクリプトファイルは保存すると.Rファイルとして保存されますが、他にもR Markdown（.Rmd）やQuarto Markdown（.qmd）ファイルなどがあります。R MarkdownとQuarto Markdownは似たファイルですが、どちらもRスクリプトファイルとは仕様が異なります。\nこれらのファイルについては後の章で説明しますが、いずれもRコードを保存するためのファイルです3。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>RStudioをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_rstudio.html#データを見る",
+    "href": "try_rstudio.html#データを見る",
+    "title": "3  RStudioをいじってみる",
+    "section": "3.4 データを見る",
+    "text": "3.4 データを見る\nRでは、データを変数に格納して（名前を付けて）扱うことが多いです。ここでは、変数にデータを格納し、その内容を確認する方法を試してみます。\nRにはデフォルトでいくつかのデータセットが用意されており、ファイルを用意していなくてもデータを扱う練習ができます。ここでは、mtcarsデータセットを使ってみます4。\n[@] 新しいスクリプトファイルを開く\n上で書いたように、新しいスクリプトファイルを開きます。\n[@] データを格納\nスクリプトに以下のコードを書きます。\n\ndata &lt;- mtcars\n\n自分のデータを使う場合はread.csv()などの関数でデータを読み込み、名前を付けて格納するのですが、今回はmtcarsが用意されていますので、それをdataという名前の変数に格納しています。格納をはじめとする基本的な関数は後の章で説明しますので、ここではコードをそのまま書いてみてください（現在準備中）。\n[@] コードを実行\nこれをあるいはRunボタンで実行します。\n実行すると、左下の環境変数画面にdataという変数が追加されます。\n\n[@] データを確認\n変数をクリックすると、データの中身を確認できます。dataとある行をクリックしてみてください5。\nスクリプト画面がデータビューアに切り替わり、データの中身が確認できます。\n\n\n\nデータの中身を確認\n\n\nMazda RX4やDatsun 710など、車の名前が行名として表示されているのがわかります。\n画面が小さければ、各ペインの境界をドラッグして大きさを変更するか、ペインの右上にあるウィンドウのアイコンから下の変数画面をたたむことができます。\n慣れは要るかもしれませんが、データビューアでは並び替えができたり、フィルターをかけられたりと便利ですので、ぜひ使ってみてください。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>RStudioをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_rstudio.html#footnotes",
+    "href": "try_rstudio.html#footnotes",
+    "title": "3  RStudioをいじってみる",
+    "section": "",
+    "text": "パッケージのインストールやコードの動作確認など、用途によっては直接入力する場合もあります。↩︎\n私はスクリプトと実行結果を横に並べて見たいのでこのように配置を変更しています。↩︎\nQuarto MarkdownはPythonにも対応しています。↩︎\nmtcarsは自動車の性能に関するデータセットです。↩︎\nこれはクリックすることで自動でView(data)という関数を実行しています。コンソール画面をご確認ください。↩︎",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>RStudioをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_positron.html",
+    "href": "try_positron.html",
+    "title": "4  Positronをいじってみる",
+    "section": "",
+    "text": "4.1 Positronの初期画面\nPositronの初期画面は以下のようになっています。\nRStudioと同様に\nが配置されています。RStudioと異なる点は\nという点です。VSCodeを使ったことがある方にファイル画面（エクスプローラーといいます）はおなじみだと思います。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Positronをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_positron.html#positronの初期画面",
+    "href": "try_positron.html#positronの初期画面",
+    "title": "4  Positronをいじってみる",
+    "section": "",
+    "text": "Positron\n\n\n\n\n左下にコンソール画面\n右上に環境画面\n\n\n\nファイル画面が左側に\n右下がプロット画面に",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Positronをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_positron.html#新しいスクリプトファイルを開く",
+    "href": "try_positron.html#新しいスクリプトファイルを開く",
+    "title": "4  Positronをいじってみる",
+    "section": "4.2 新しいスクリプトファイルを開く",
+    "text": "4.2 新しいスクリプトファイルを開く\n新しいRスクリプトファイルを作成してコードを実行してみましょう。\n\n画面左上の「New」から「New file…」を選択し、「R file」を選ぶ\n開いたスクリプトファイルで、1 + 1と入力する\n\nコードは何でもよいです\n\nコードを実行する\n\nコード行をクリックしてカーソルを置き、ソースコード画面右上の「」横にある「」から「Run Selection in Console」で実行\nコード行をクリックしてカーソルを置き、Ctrl + Enterで実行\n\n\n基本的な実行方法はRStudioと同じです。RStudioと違ってRunですぐ実行というわけにはいかないので、Ctrl + Enterで実行するのがよいかもしれません。\n\n\n\nコードの実行",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Positronをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "try_positron.html#positronのこれから",
+    "href": "try_positron.html#positronのこれから",
+    "title": "4  Positronをいじってみる",
+    "section": "4.3 Positronのこれから",
+    "text": "4.3 Positronのこれから\nPositronは2025年2月現在、まだベータ版です。正式リリースまでさらなる性能の改善や機能の追加が考えられ、さらに使いやすくなると見込まれます。\n個人的に、現時点ではRStudioに優位性があるのかなと感じます。拡張機能は便利ですがVSCodeに比べて限定的だったり、RStudioのいくつかの機能が移行されていないので、そのあたりの改善を期待したいと思います。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Positronをいじってみる</span>"
+    ]
+  },
+  {
+    "objectID": "start_project.html",
+    "href": "start_project.html",
+    "title": "5  プロジェクトを始める",
+    "section": "",
+    "text": "5.1 作業を始めるその前に\nRがインストールできたら早速作業に入りましょう。\nしかしその前に、自分がしたい仕事についてどう進めるか考えることをお勧めします。そして、場合によっては（というよりもほとんどの場合において）Rプロジェクトを作成して進めるべきです。\nまずRプロジェクトとは何かという話ですが、一言でまとめると「RStudio上で作業するための作業スペース」です。この作業スペースを作成し、その中で作業をすることによって他のフォルダやファイルから作業スペースを隔離し、独立したスペースで仕事をすることができるようになります。\n試しに少しコードを打って回す、という程度であればわざわざプロジェクトを作成する必要もないのかもしれませんが、大抵の場合において何らかの計画をもって作業を始めると思います（論文や授業課題等）。\n多くの初心者向け書籍やサイトではsetwd()を用いて作業ディレクトリ（作業をするフォルダ）を指定する方法をまず紹介していますが、あえてそれを飛ばし、Rプロジェクトを用いた始め方をご紹介します。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>プロジェクトを始める</span>"
+    ]
+  },
+  {
+    "objectID": "start_project.html#rプロジェクトを作成する",
+    "href": "start_project.html#rプロジェクトを作成する",
+    "title": "5  プロジェクトを始める",
+    "section": "5.2 Rプロジェクトを作成する",
+    "text": "5.2 Rプロジェクトを作成する\n\n\n\n\n\n\nノートPositronでは\n\n\n\nRプロジェクトについて、2025年2月現在ではRStudioのみサポートされています。Positronでもプロジェクトを用いた作業を行うことができますが、その場合はRプロジェクトとは異なる過程を踏むことになります。それは次のセクションでご紹介します。\n\n\n早速プロジェクトを作成しましょう。流れは以下のようになります。\n\nRStudioを開きます。\n続いてウィンドウ右上に「 Project: (None)」と書かれた箇所があるので、そこをクリックします。\n一番上に「New Project…」という項目があるのでそれをクリックし、数秒待って出てきたウィンドウから「New Directory」→「New Project」を選択します。\n「Directory name:」のところには任意のプロジェクト名を入れてください。理想は英語で、スペースは_で代用していることです（例：life_with_r）。\n「Create project as subdirectory of:」で作業フォルダを置く場所を選びます。任意の場所で構いませんが、ユーザー直下（例：C:/Users/yosuke）がわかりやすくてよいと思います。\nその下のチェックボックスは一旦飛ばし、「Create Project」をクリックし、Rプロジェクトを作成します。\n\nすると右上がプロジェクト名に変わっていると思います。また、右下のパネルには.Rprojファイルが作られているでしょう。\n\n\n\nプロジェクト名に変わっています\n\n\nこれでプロジェクトが作成され、作業場が出来上がりました。この中にデータを入れたりコードファイルを入れたりと、作業を進めていくことになります。\nPositronを使っていない方は先のセクションに飛んで大丈夫です。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>プロジェクトを始める</span>"
+    ]
+  },
+  {
+    "objectID": "start_project.html#sec-positron-project",
+    "href": "start_project.html#sec-positron-project",
+    "title": "5  プロジェクトを始める",
+    "section": "5.3 Positronでプロジェクトを始める",
+    "text": "5.3 Positronでプロジェクトを始める\n先述の通り、PositronではRプロジェクトを作ることができないので、別の方法をとります。\nとはいうものの、プロジェクト自体はPositron上でも作ることができます。ただ、実際は作業ディレクトリを作成しているに過ぎないので、.Rprojファイルを作成するRStudioとは異なります。\nまずはプロジェクト作成に先立ち、プロジェクト管理用の拡張機能を入れましょう。\n\n画面左のサイドバーから  をクリックし、検索窓に「alefragnani.project-manager」と入力します。\n出てきた拡張機能（Project Manager）をインストールします。\n\nするとサイドバーの最下部にProject Managerのアイコンが出てきます。\n\n\n\n使用する拡張機能\n\n\n一旦これで置いておいて、プロジェクトの作成をしましょう。\n\n画面右上のフォルダアイコンをクリックし、一番上の「New Project…」をクリックします。\nProject Typeは「R Project」を選択し、次へ進みます。\n「Project Name」と「Parent Directory」はRStudioの場合と同様に任意の名前、場所を入れ、チェックボックスは空白のまま次へ進みます。\n使いたいRのバージョンが選択されていることを確認し、ここでもチェックボックスは空白のまま「Create」をクリックします。\nCurrent WindowかNew Windowは好きな方を選びます1。\n\nすると画面左のパネルにプロジェクト名のフォルダが開かれていると思います。また、右上もフォルダアイコンの右がプロジェクト名に変わっています。\n\n\n\nプロジェクトを作成した後の画面です\n\n\nRStudioでは.Rprojファイルを基準にどこが作業ディレクトリなのかを判別できるのですが、このままではファイルが何もないので判断が付きません。そこで活躍するのが先ほどの拡張機能です。\nサイドバーからProject Managerのアイコンをクリックし、上部に出てくる「Favorites」にカーソルを合わせると、フロッピーディスク💾のアイコンが出てきます2。これをクリックするとウィンドウ中央最上部にプロジェクト名が出てきてEnterかEscapeかを選択するよう訊かれるので、Enterキーをクリックすると保存することができます。\n\n\n\nウィンドウ右下にこれが出てくればOKです\n\n\n次回以降、作業ディレクトリを閉じていてもProject Managerから保存したプロジェクトをクリックすれば、プロジェクトのディレクトリに飛んでくることができます。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>プロジェクトを始める</span>"
+    ]
+  },
+  {
+    "objectID": "start_project.html#sec-utilize-project",
+    "href": "start_project.html#sec-utilize-project",
+    "title": "5  プロジェクトを始める",
+    "section": "5.4 プロジェクトを有効活用する",
+    "text": "5.4 プロジェクトを有効活用する\nここまでRStudio、Positronそれぞれでプロジェクトを作成する方法を紹介してきましたが、これだけでは作成する意義がわかりにくいと思います。\n実際の作業の流れを確認しながら、プロジェクトのメリットや利便性について確認していきましょう。\n\n5.4.1 素早くプロジェクトを開く\nまず第一の利点として、PCを立ち上げてから環境を整えるまでの速さが挙げられます。\nRStudioの場合はエクスプローラー（ないしFinder）から.Rprojファイルを開けば、RStudioが立ち上がりプロジェクトを開いた状態に整えることができます。もうここからは作業を始めればよいだけです。もしくはRStudioを立ち上げた後で、右下のファイルパネルから.Rprojファイルをクリックすれば環境を整えることができます。\nPositronの場合はまずPositronを立ち上げ、Project Managerから保存しておいたプロジェクトをクリックすれば環境が整います。\nこのように、まずは作業環境をスピーディーに立ち上げられるというメリットがあります。\n\n\n5.4.2 作業ディレクトリの統一\n続いて作業ディレクトリの統一ができるという点です。\nRを使う際はサブフォルダ（フォルダ内にあるフォルダ）に入っているデータを参照することがよくあると思います。例えば以下のような場合です。\nmy-r-project/\n├── data/\n│   ├── dataset1.csv\n│   └── dataset2.csv\n└── code/\n    └── analysis.R\nこの場合、analysis.Rでdataset1.csvを使いたい場合は、\ndf &lt;- readr::read_csv(\"C://Users/yosuke/my-r-project/data/dataset1.csv\")\nというような形で、（Windowsであれば）C://から始まる絶対パスを用いて読み込む必要があります。これは次の2つの意味ででよくありません。\n1つ目はシンプルに長いということです。逐一書くには時間がかかるし、コピペするにしても非効率的です。\n2つ目は再現可能性に欠けるということです。これは実証研究全般に言えることですが、再現可能な研究というのは非常に重要です。個人単位で考えても一度出た結果をもう一度出力できないのは問題ですし、より広い観点で言えば、パブリッシュした分析結果を他者が実行して同じ結果にならないのは分析の信憑性を大きく損ないます。絶対パスの問題点は、そのパスを他の環境（他のPC等）で用いることができない点にあります。他の人のみならず、もしプロジェクトを含むフォルダを別の場所に移動したとき3、コードがそのままでは自分のPCですら動かなくなってしまいます。\nプロジェクトを使用していればそのフォルダが一つの環境として機能するため、場所を移したとしても.Rprojがあるディレクトリからの相対的な位置を考えるだけで済みます。コードもC://Users/yosuke/の部分は省略できますし、まさにこの部分がユーザーによって異なるので、環境の違いによる読み込めない問題を防ぐことができます。\n\n\n5.4.3 hereパッケージを活用しよう\nそこで活躍するのが、hereというRパッケージです。これは、.Rpojがあるディレクトリを認識して相対的なパス、相対パスを使用するのに役立ちます。\nまずはパッケージをインストールしておきましょう。\npak::pak(\"here\")\n続いてプロジェクトを作成したとして、ディレクトリの構造は以下と仮定します。\nmy-r-project/\n├── my-r-project.Rproj\n├── data/\n│   ├── dataset1.csv\n│   └── dataset2.csv\n└── code/\n    └── analysis.R\nそして、analysis.R内でdataset1.csvファイルを読み込むには以下のようにします。\n# here::here(\"data\", \"dataset1.csv\")も可\ndf &lt;- readr::read_csv(here::here(\"data/dataset1.csv\"))\nあるいはあらかじめライブラリを読み込んで以下のようにもできます（こちらの方が一般的かもしれません）。\nlibrary(tidyverse)\nlibrary(here)\n\ndf &lt;- read_csv(here(\"data/dataset1.csv\"))\n先ほどと比べてどうでしょうか。コードも短縮でき、なおかつ環境によって左右される絶対パスとは異なりワーキングディレクトリ内の相対パスで指定できています。これであれば環境を移した際にも同じコードで分析を進めることができます。\n\n\n5.4.4 さらに活用\n例えば読み込みたいファイルがあるフォルダと、作成したファイルを保存したいフォルダが分かれているようなことは多々あります。その際には、あらかじめhereを活用して対象となるフォルダをオブジェクトとして保存しておくことができます。\nmy-r-project/\n├── my-r-project.Rproj\n├── data/\n│   ├── dataset1.csv\n│   └── dataset2.csv\n├── output/       # 作成したファイルを保存するフォルダ\n│   └── result1.csv\n└── code/\n    └── analysis.R\nこのような構造であるとして、result1.csvをoutput内に出力したいわけです。\nこのとき、まずはhere::here()を使ってあらかじめデータを読み込むフォルダと書き出すフォルダを指定します。\ndir_data &lt;- here::here(\"data\")\ndir_out &lt;- here::here(\"output\")\nこのdir_dataとdir_outには、該当するフォルダまでのパスが保存されている状態です。そしてこれらとfile.path()と組み合わせて使います。file.path()はファイルへのパスを構築するための関数です。\n読み込む際は\ndf &lt;- readr::read_csv(file.path(dir_data, \"dataset1.csv\"))\n書き出す際は\n# resultは結果を格納したオブジェクト\nreadr::write_csv(result, file.path(dir_out, \"result1.csv\"))\nのようにして用いることができます。間に別のフォルダを挟む際はfile.path(dir_out, \"results\", \"result1.csv\")のようにもできます4。\nこうすることで、複数のフォルダを使い分ける際はさらに効率化することができます。これぐらいだとあまり恩恵を感じないかもしれませんが、ディレクトリの構造が複雑で、相対パスすら長くなるような場合には有用です。\nRプロジェクト × hereで効率的なプロジェクト管理をしていきましょう。",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>プロジェクトを始める</span>"
+    ]
+  },
+  {
+    "objectID": "start_project.html#footnotes",
+    "href": "start_project.html#footnotes",
+    "title": "5  プロジェクトを始める",
+    "section": "",
+    "text": "これまで何かファイルを開いていなければCurrent Windowでいいと思います。何か作業をしていたらそれが閉じられてしまうのでNew Windowにした方が無難でしょう。↩︎\nカーソルを重ねると「Save Project」と出てきます↩︎\n例：C://Users/yosuke/my-r-projectからC://Users/yosuke/projects/my-r-projectへの移動↩︎\nただしresultsというフォルダが既に作られているとします。↩︎",
+    "crumbs": [
+      "第1部：セットアップ",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>プロジェクトを始める</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html",
+    "href": "data_io.html",
+    "title": "6  データの読み込みと書き出し",
+    "section": "",
+    "text": "6.1 学習内容\nここまでの章で、RとIDEの準備、簡単なRの操作方法を学びました。いよいよ実際のデータを扱う方法のパートに入っていきます。\nデータ分析の第一歩は、データをRに読み込むことです。この章では、CSVファイルやExcelファイルからデータを読み込み、加工したデータを保存する方法について説明します。\nこの章を読み終えると、以下ができるようになります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#学習内容",
+    "href": "data_io.html#学習内容",
+    "title": "6  データの読み込みと書き出し",
+    "section": "",
+    "text": "CSVファイルからデータを読み込む\nデータの内容を確認する\nデータをCSVファイルとして保存する\nExcelファイルからデータを読み込む\n日本語の文字化け問題に対処する（エンコードの指定）",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#使用するパッケージ",
+    "href": "data_io.html#使用するパッケージ",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.2 使用するパッケージ",
+    "text": "6.2 使用するパッケージ\nこの章では以下のパッケージを使用します。c()関数を使ってまとめてインストールできます。\n# パッケージのインストール（初回のみ）\ninstall.packages(c(\"readr\", \"readxl\", \"here\"))",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#csvファイルの読み込み",
+    "href": "data_io.html#csvファイルの読み込み",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.3 CSVファイルの読み込み",
+    "text": "6.3 CSVファイルの読み込み\nCSVファイル（Comma-Separated Values）は、最も一般的なデータ形式の一つです。ExcelやGoogle スプレッドシートでも簡単に作成・保存できます。\n\n6.3.1 readrパッケージを使う\nRにはread.csv()という標準関数もありますが、より高速で使いやすいreadrパッケージのread_csv()を使うことをおすすめします。readrパッケージはtidyverseにも含まれているので、tidyverseをインストールしている場合は追加でインストールする必要はありません。\n\nlibrary(readr)\n\n# CSVファイルを読み込む\ndata &lt;- read_csv(\"data/sample_data.csv\")\n\n\n\n\n\n\n\nノートファイルパスの指定方法\n\n\n\nファイルパスは、プロジェクトのルートディレクトリ（.Rprojファイルがある場所、あるいはPositronで開いているフォルダ）からの相対パスで指定します。\n例えば、プロジェクト内にdataフォルダを作り、その中にsample_data.csvを置いた場合は、\"data/sample_data.csv\"と指定します。\n# 上記の例\nmy_project/\n├── data/\n│   └── sample_data.csv\n└── analysis.Rproj\n\n\n\n\n6.3.2 hereパッケージでパスを管理する\nプロジェクト管理の章で学んだように、hereパッケージを使うとさらに確実です。\n\nlibrary(here)\nlibrary(readr)\n\n# hereを使ってパスを指定\ndata &lt;- read_csv(here(\"data\", \"sample_data.csv\"))\n\nhere()関数は、プロジェクトのルートディレクトリからの相対パスを自動で構築してくれます。WindowsとMac/Linuxでパスの書き方が異なる問題も解決できます。\n上記の例ではルートディレクトリにあるdataフォルダの中のsample_data.csvを読み込む、ということをしています。here(\"data/sample_data.csv\")としても問題ありません。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#データの確認",
+    "href": "data_io.html#データの確認",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.4 データの確認",
+    "text": "6.4 データの確認\nデータを読み込んだら、まず内容を確認しましょう。\n\n6.4.1 head() - 最初の数行を表示\n\n# 最初の6行を表示（デフォルト）\nhead(data)\n\n# A tibble: 5 × 4\n  名前      年齢 部署   売上\n  &lt;chr&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;\n1 田中太郎    25 営業   1200\n2 佐藤花子    30 開発   1500\n3 鈴木一郎    35 営業    980\n4 高橋次郎    28 開発   1350\n5 伊藤三郎    42 総務   1100\n\n\n\n\n6.4.2 glimpse() - データ構造を一覧\ndplyrパッケージのglimpse()関数は、データの構造をコンパクトに表示してくれます。\n\nlibrary(dplyr)\n\n# データ構造を確認\nglimpse(data)\n\nRows: 5\nColumns: 4\n$ 名前 &lt;chr&gt; \"田中太郎\", \"佐藤花子\", \"鈴木一郎\", \"高橋次郎\", \"伊藤三郎\"\n$ 年齢 &lt;dbl&gt; 25, 30, 35, 28, 42\n$ 部署 &lt;chr&gt; \"営業\", \"開発\", \"営業\", \"開発\", \"総務\"\n$ 売上 &lt;dbl&gt; 1200, 1500, 980, 1350, 1100\n\n\nglimpse()を実行すると、以下のような情報が表示されます。\n\n行数と列数\n各列の名前と型（文字列、数値など）\n各列の最初の数個のデータ\n\n\n\n6.4.3 View() - データをスプレッドシート形式で表示\n\n# データビューアーで開く\nView(data)\n\n\n\n\n\n\n\nヒントIDE上でのデータ確認\n\n\n\nRStudioでは、Environmentペインにあるデータ名をクリックすることでもView()と同じ結果が得られます。スプレッドシート形式でデータを確認できるので、非常に便利です。\nPositronの場合は、画面右側にVARIABLESペインがあり、そこにデータが表示されるので、見たいデータをダブルクリックすれば同様に確認できます。Positronの場合は平均値や欠損数も表示されるので便利だと思います。\n\n\n\nPositronのデータビューア",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#実践例サンプルデータを読み込む",
+    "href": "data_io.html#実践例サンプルデータを読み込む",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.5 実践例：サンプルデータを読み込む",
+    "text": "6.5 実践例：サンプルデータを読み込む\n実際にサンプルデータを作成して読み込んでみましょう。\n\n6.5.1 サンプルCSVファイルの作成\nまず、プロジェクト内にdataフォルダを作成します。\n\n# dataフォルダを作成（存在しない場合）\nif (!dir.exists(\"data\")) {\n  dir.create(\"data\")\n}\n\n次に、簡単なサンプルデータを作成して保存します。\n\nlibrary(readr)\n\n# サンプルデータの作成\nsample_data &lt;- data.frame(\n  名前 = c(\"田中太郎\", \"佐藤花子\", \"鈴木一郎\", \"高橋次郎\", \"伊藤三郎\"),\n  年齢 = c(25, 30, 35, 28, 42),\n  部署 = c(\"営業\", \"開発\", \"営業\", \"開発\", \"総務\"),\n  売上 = c(1200, 1500, 980, 1350, 1100)\n)\n\n# CSVファイルとして保存\nwrite_csv(sample_data, \"data/sales_data.csv\")\n\n\n\n6.5.2 データの読み込みと確認\n\n# データを読み込む\nsales_data &lt;- read_csv(\"data/sales_data.csv\")\n\n# データの確認\nprint(sales_data)\n\n# 構造を確認\nglimpse(sales_data)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#データの書き出し",
+    "href": "data_io.html#データの書き出し",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.6 データの書き出し",
+    "text": "6.6 データの書き出し\nデータを加工した後は、結果を保存する必要があります。\n\n6.6.1 CSVファイルとして保存\n\nlibrary(readr)\n\n# データをCSVファイルとして保存\nwrite_csv(sales_data, \"data/processed_sales.csv\")\n\n\n\n\n\n\n\nヒントデータ保存のベストプラクティス\n\n\n\nプロジェクト内でデータを整理する際は、以下のようなフォルダ構成がおすすめです。\nmy_project/\n├── data/\n│   ├── raw/          # 元データ（読み取り専用、編集しない）\n│   └── processed/    # 加工済みデータ\n├── scripts/\n└── outputs/\n元データはrawフォルダに保存し、加工したデータはprocessedフォルダに保存することで、データの管理が容易になります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#日本語データの扱い",
+    "href": "data_io.html#日本語データの扱い",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.7 日本語データの扱い",
+    "text": "6.7 日本語データの扱い\n日本語を含むCSVファイルを扱う際、文字化けが発生することがあります。\n\n6.7.1 文字コードの問題\nWindowsで作成されたCSVファイルは、多くの場合Shift-JISという文字コードで保存されています。一方、R（とreadr）はデフォルトでUTF-8を想定しています。\n\n\n6.7.2 文字化けの対処法\nShift-JISのファイルを読み込む場合は、エンコーディングを指定します。\n\n# Shift-JISのCSVファイルを読み込む\ndata &lt;- read_csv(\n  \"data/japanese_data.csv\",\n  locale = locale(encoding = \"Shift-JIS\")\n)\n\n\n\n\n\n\n\n注意文字コードの確認方法\n\n\n\nファイルの文字コードがわからない場合は、以下を試してください。\n\nまず何も指定せずに読み込んでみる\n文字化けしたら、locale = locale(encoding = \"Shift-JIS\")を追加\nそれでもダメなら、locale = locale(encoding = \"CP932\")を試す\n\nちなみにCP932はShift-JISのMicrosoft拡張版で、Windowsで作成されたファイルはCP932で保存されていることが多いです。\n現代では、可能な限りUTF-8でデータを保存することが推奨されます1。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#excelファイルの読み込み",
+    "href": "data_io.html#excelファイルの読み込み",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.8 Excelファイルの読み込み",
+    "text": "6.8 Excelファイルの読み込み\nExcelファイル（.xlsxや.xls）からデータを読み込むには、readxlパッケージを使います。\n\n6.8.1 readxlパッケージ\n\nlibrary(readxl)\n\n# Excelファイルを読み込む\nexcel_data &lt;- read_excel(\"data/sample_data.xlsx\")\n\n\n\n6.8.2 シートの指定\nExcelファイルに複数のシートがある場合、読み込むシートを指定できます。\n\n# シート名で指定\nexcel_data &lt;- read_excel(\"data/sample_data.xlsx\", sheet = \"売上データ\")\n\n# シート番号で指定（1から始まる）\nexcel_data &lt;- read_excel(\"data/sample_data.xlsx\", sheet = 2)\n\n\n\n6.8.3 範囲の指定\n特定のセル範囲のみを読み込むこともできます。\n\n# A1からD10の範囲を読み込む\nexcel_data &lt;- read_excel(\"data/sample_data.xlsx\", range = \"A1:D10\")\n\n\n\n\n\n\n\nノートExcelファイルとCSVファイルの使い分け\n\n\n\n\nExcelファイル: 複数シート、書式設定、数式などが必要な場合\nCSVファイル: シンプルなデータの保存・共有、他のツールとの互換性が必要な場合\n\nデータ分析では、Excelで作成したデータをCSV形式でエクスポートして使うことも多いです。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#練習問題",
+    "href": "data_io.html#練習問題",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.9 練習問題",
+    "text": "6.9 練習問題\nここまで学んだ内容を確認しましょう。\n\n\n\n\n\n\nヒント問題1: サンプルデータの作成と保存\n\n\n\n\n\n以下の条件でデータを作成し、CSVファイルとして保存してください。\n\n列: 商品名、価格、在庫数\n行: 5つの商品\n\n解答例\nlibrary(readr)\n\n# サンプルデータの作成\nproducts &lt;- data.frame(\n  商品名 = c(\"りんご\", \"バナナ\", \"オレンジ\", \"ぶどう\", \"いちご\"),\n  価格 = c(150, 100, 200, 300, 250),\n  在庫数 = c(50, 80, 30, 20, 40)\n)\n\n# 保存\nwrite_csv(products, \"data/products.csv\")\n\n\n\n\n\n\n\n\n\nヒント問題2: データの読み込みと確認\n\n\n\n\n\n問題1で作成したCSVファイルを読み込み、以下を確認してください。\n\nデータの最初の3行\nデータの構造\n\n解答例\nlibrary(readr)\nlibrary(dplyr)\n\n# データの読み込み\nproducts &lt;- read_csv(\"data/products.csv\")\n\n# 最初の3行\nhead(products, n = 3)\n\n# 構造の確認\nglimpse(products)\n\n\n\n\n\n\n\n\n\nヒント問題3: hereパッケージを使う\n\n\n\n\n\n問題2の読み込みを、hereパッケージを使って書き直してください。\n解答例\nlibrary(readr)\nlibrary(here)\n\n# hereを使ってデータを読み込む\nproducts &lt;- read_csv(here(\"data\", \"products.csv\"))",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#まとめ",
+    "href": "data_io.html#まとめ",
+    "title": "6  データの読み込みと書き出し",
+    "section": "6.10 まとめ",
+    "text": "6.10 まとめ\nこの章では、以下を学びました。\n\n✅ readrパッケージを使ったCSVファイルの読み込み\n✅ head(), glimpse(), View()によるデータ確認\n✅ write_csv()によるデータの保存\n✅ 日本語データの文字化け対策\n✅ readxlパッケージを使ったExcelファイルの読み込み\n✅ hereパッケージによる確実なパス管理\n\nこれで、外部ファイルからデータを読み込み、確認し、保存することができるようになりました。次の章では、読み込んだデータを加工する方法を学びます。\n\n\n\n\n\n\nノート次のステップ\n\n\n\n次の章「データハンドリング基礎 - dplyr入門」では、読み込んだデータを自在に操作する方法を学びます。データの絞り込み、並び替え、列の選択など、実務で頻繁に使う操作を習得しましょう。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_io.html#footnotes",
+    "href": "data_io.html#footnotes",
+    "title": "6  データの読み込みと書き出し",
+    "section": "",
+    "text": "とはいえ、国のオープンデータなどではまだまだShift-JISのデータも多いので要注意です。↩︎",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>データの読み込みと書き出し</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html",
+    "href": "data_wrangling_basic.html",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "",
+    "text": "7.1 学習内容\n前章でデータの読み込み方を学びました。この章では、読み込んだデータを自在に操作する方法を学びます。\nデータ分析の実務では、生のデータをそのまま使うことはほとんどありません。必要な行だけを抽出したり、特定の列だけを選んだり、並び替えたりといったデータハンドリング（データ操作）が必要になります。\ndplyrパッケージは、データハンドリングを直感的かつ効率的に行うための強力なツールです。これは前の章で使用したreadrと同じく、tidyverseのコアパッケージの一つです。\nこの章を読み終えると、以下ができるようになります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#学習内容",
+    "href": "data_wrangling_basic.html#学習内容",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "",
+    "text": "パイプ演算子（%&gt;%もしくは|&gt;）を使ったコードの書き方\nselect(): 必要な列だけを選択する\nfilter(): 条件に合う行だけを抽出する\narrange(): データを並び替える\n複数の操作を組み合わせる",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#tidyverseとは",
+    "href": "data_wrangling_basic.html#tidyverseとは",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.2 tidyverseとは",
+    "text": "7.2 tidyverseとは\ndplyrはtidyverseというパッケージ群の一部です。tidyverseは、データサイエンスのワークフローを統一的な文法で実現するパッケージの集まりです。\n# tidyverseをインストール（初回のみ）\ninstall.packages(\"tidyverse\")\n\n# tidyverseを読み込む（dplyrも含まれる）\nlibrary(tidyverse)\n\n\n\n\n\n\nノートdplyrだけを使う場合\n\n\n\ntidyverse全体ではなく、dplyrだけを使いたい場合は以下のようにします。\nlibrary(dplyr)\nただし、実務ではtidyverseをまとめて読み込むことが多いです。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#練習用データの準備",
+    "href": "data_wrangling_basic.html#練習用データの準備",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.3 練習用データの準備",
+    "text": "7.3 練習用データの準備\nまずは練習用のデータを用意しましょう。R標準のirisデータセット（アヤメの花のデータ）を使います。\n\nlibrary(tidyverse)\n\n# irisデータを読み込む\ndata(iris)\n\n# データの最初の数行を確認\nhead(iris)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\ndata(iris)を実行するとirisとしてデータが読み込まれます。\nirisデータには以下の列があります。\n\nSepal.Length: がく片の長さ\nSepal.Width: がく片の幅\nPetal.Length: 花弁の長さ\nPetal.Width: 花弁の幅\nSpecies: アヤメの品種（setosa, versicolor, virginica）",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#パイプ演算子",
+    "href": "data_wrangling_basic.html#パイプ演算子",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.4 パイプ演算子",
+    "text": "7.4 パイプ演算子\ndplyrを使う上で重要なのがパイプ演算子です。パイプ演算子には2種類あります。パイプの使い方を見る前に、まずはそれぞれのパイプ演算子について説明します。\n\n7.4.1 %&gt;%（magrittrパイプ）\ntidyverseに含まれる従来のパイプ演算子です。\n# パイプなし\nhead(iris, 10)\n\n# パイプあり\niris %&gt;% head(10)\n\n\n7.4.2 |&gt;（ネイティブパイプ）\nR 4.1.0以降で使える新しいパイプ演算子です。\n# ネイティブパイプ\niris |&gt; head(10)\n\n\n\n\n\n\nヒントどちらを使うべきか？\n\n\n\n基本的な使い方ではほぼ同じです。本サイトでは|&gt;（ネイティブパイプ）を使いますが、%&gt;%を使っても問題ありません。また、%&gt;%に関してはdplyrを読み込まないと使えない点については注意してください。\nRStudioのキーボードショートカットCtrl + Shift + Mは、デフォルトで%&gt;%を入力しますが、設定で|&gt;に変更できます。\nRStudioの場合はTools &gt; Global Options &gt; Code &gt; Use native pipe operator (|&gt;)にチェックを入れると、Ctrl + Shift + Mで|&gt;が入力されるようになります。\nPositronの場合はで設定を開き、Positron.R.pipeを検索することで設定を変更することができます。\n\n\n\n\n7.4.3 パイプ演算子の利点\nさて、パイプ演算子を使うとどんなメリットがあるのでしょうか？\nパイプ演算子を使うと、処理の流れが左から右（上から下）に読めるため、コードが理解しやすくなります。\n# パイプなし（内側から外側へ読む必要がある）\narrange(filter(select(iris, Species, Sepal.Length), Sepal.Length &gt; 5), Sepal.Length)\n\n# パイプあり（上から下に読める）\niris |&gt;\n  select(Species, Sepal.Length) |&gt;\n  filter(Sepal.Length &gt; 5) |&gt;\n  arrange(Sepal.Length)\nいかがでしょうか？パイプを使わない書き方だと、どの関数がどのデータに対して処理をしているのかを理解するために、内側から外側へとコードを読み解く必要があります。一方で、パイプを使うと、処理の流れが自然な順序で書かれているため、コードの意味が直感的に理解しやすくなります。\n仕組みを簡単に説明すると、パイプ演算子は左側のオブジェクトを右側の関数の第一引数1に渡す役割を果たしています。つまり、x |&gt; f()はf(x)と同じ意味になります。これにより、複数の関数を連続して適用する際に、コードが読みやすくなります。\ndplyrの関数は、第一引数にデータフレームを取るように設計されているので、起点となるデータフレームをパイプの左側に置いて、関数を順番に適用していくスタイルが自然になります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#select-列を選択する",
+    "href": "data_wrangling_basic.html#select-列を選択する",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.5 select(): 列を選択する",
+    "text": "7.5 select(): 列を選択する\nここからは、dplyrの基本的な関数を紹介していきます。まずはselect()関数です。\nselect()関数は、データフレームから必要な列だけを選び出します。\n\n7.5.1 基本的な使い方\n\n# Species列とSepal.Length列だけを選択\nresult &lt;- iris |&gt;\n  select(Species, Sepal.Length)\n\nhead(result)\n\n  Species Sepal.Length\n1  setosa          5.1\n2  setosa          4.9\n3  setosa          4.7\n4  setosa          4.6\n5  setosa          5.0\n6  setosa          5.4\n\n\n\n\n7.5.2 列名の範囲指定\n:を使うと、連続した列をまとめて選択できます。\n\n# Sepal.LengthからPetal.Lengthまでの列を選択\nresult &lt;- iris |&gt;\n  select(Sepal.Length:Petal.Length)\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length\n1          5.1         3.5          1.4\n2          4.9         3.0          1.4\n3          4.7         3.2          1.3\n4          4.6         3.1          1.5\n5          5.0         3.6          1.4\n6          5.4         3.9          1.7\n\n\n\n\n7.5.3 列の除外\n-（マイナス）を使うと、指定した列以外を選択できます。\n\n# Sepal.Width列を除外\nresult &lt;- iris |&gt;\n  select(-Sepal.Width)\n\nhead(result)\n\n  Sepal.Length Petal.Length Petal.Width Species\n1          5.1          1.4         0.2  setosa\n2          4.9          1.4         0.2  setosa\n3          4.7          1.3         0.2  setosa\n4          4.6          1.5         0.2  setosa\n5          5.0          1.4         0.2  setosa\n6          5.4          1.7         0.4  setosa\n\n\n\n\n7.5.4 便利な選択関数\nselect()では、列名のパターンマッチングもできます。\n# \"Sepal\"で始まる列を選択\niris |&gt;\n  select(starts_with(\"Sepal\"))\n\n# \"Width\"で終わる列を選択\niris |&gt;\n  select(ends_with(\"Width\"))\n\n# \"Length\"を含む列を選択\niris |&gt;\n  select(contains(\"Length\"))\nstarts_with()は列名が指定した文字列で始まる列を選択し、ends_with()は列名が指定した文字列で終わる列を選択します。contains()は列名に指定した文字列が含まれる列を選択します。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#filter-行を抽出する",
+    "href": "data_wrangling_basic.html#filter-行を抽出する",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.6 filter(): 行を抽出する",
+    "text": "7.6 filter(): 行を抽出する\nfilter()関数は、条件に合う行だけを抽出します。\n\n7.6.1 基本的な使い方\n\n# Sepal.Lengthが5より大きい行だけを抽出\nresult &lt;- iris |&gt;\n  filter(Sepal.Length &gt; 5)\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          5.4         3.9          1.7         0.4  setosa\n3          5.4         3.7          1.5         0.2  setosa\n4          5.8         4.0          1.2         0.2  setosa\n5          5.7         4.4          1.5         0.4  setosa\n6          5.4         3.9          1.3         0.4  setosa\n\n\n\n\n7.6.2 複数の条件\n複数の条件を組み合わせることもできます。カンマで指定する方法と論理演算子を使う方法がありますが、どちらも同じ意味になります。\n\n# Sepal.Lengthが5より大きく、かつSpeciesがsetosaの行\nresult &lt;- iris |&gt;\n  filter(Sepal.Length &gt; 5, Species == \"setosa\")\n\n# 上と同じ（,はANDの意味）\n# iris |&gt;\n#   filter(Sepal.Length &gt; 5 & Species == \"setosa\")\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          5.4         3.9          1.7         0.4  setosa\n3          5.4         3.7          1.5         0.2  setosa\n4          5.8         4.0          1.2         0.2  setosa\n5          5.7         4.4          1.5         0.4  setosa\n6          5.4         3.9          1.3         0.4  setosa\n\n\n\n\n7.6.3 OR条件\n|を使うと「または」の条件を指定できます。%in%を使うと、複数の値のいずれかに一致する条件を簡単に書くことができます。\n\n# Speciesがsetosaまたはvirginicaの行\nresult &lt;- iris |&gt;\n  filter(Species == \"setosa\" | Species == \"virginica\")\n\n# 上と同じ（%in%を使った書き方）\n# iris |&gt;\n#   filter(Species %in% c(\"setosa\", \"virginica\"))\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          5.1         3.5          1.4         0.2  setosa\n2          4.9         3.0          1.4         0.2  setosa\n3          4.7         3.2          1.3         0.2  setosa\n4          4.6         3.1          1.5         0.2  setosa\n5          5.0         3.6          1.4         0.2  setosa\n6          5.4         3.9          1.7         0.4  setosa\n\n\n\n\n7.6.4 否定条件\n!を使うと、条件に合わない行を抽出できます。\n\n# Sepal.Lengthが5以下の行を抽出\nresult &lt;- iris |&gt;\n  filter(!(Sepal.Length &gt; 5))\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          4.9         3.0          1.4         0.2  setosa\n2          4.7         3.2          1.3         0.2  setosa\n3          4.6         3.1          1.5         0.2  setosa\n4          5.0         3.6          1.4         0.2  setosa\n5          4.6         3.4          1.4         0.3  setosa\n6          5.0         3.4          1.5         0.2  setosa\n\n\nこれはSepal.Lengthが5より大きい行を除外する、という意味になります。否定したい条件を!()で括ることで、条件に合わない行を抽出できます。\n\n\n7.6.5 filter_out(): 特定の行を除外する\ndplyr 1.2.0以降では、filter_out()関数を使って特定の条件に合う行を除外することもできます。\n\n# Sepal.Lengthが5より大きい行を除外\nresult &lt;- iris |&gt;\n  filter_out(Sepal.Length &gt; 5)\n\n# 以下と同義\n# iris |&gt;\n#   filter(!(Sepal.Length &gt; 5))\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          4.9         3.0          1.4         0.2  setosa\n2          4.7         3.2          1.3         0.2  setosa\n3          4.6         3.1          1.5         0.2  setosa\n4          5.0         3.6          1.4         0.2  setosa\n5          4.6         3.4          1.4         0.3  setosa\n6          5.0         3.4          1.5         0.2  setosa\n\n\n除外したい条件を直接filter_out()に指定することで、条件に合う行を簡単に除外できるようになっています。\n\n\n\n\n\n\nノート比較演算子と論理演算子\n\n\n\n比較演算子 - ==: 等しい - !=: 等しくない - &gt;: より大きい - &gt;=: 以上 - &lt;: より小さい - &lt;=: 以下\n論理演算子 - &: かつ（AND） - |: または（OR） - !: 否定（NOT）\n注意: 等しいは==（イコール2つ）です。=（イコール1つ）は代入演算子なので注意してください。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#arrange-データを並び替える",
+    "href": "data_wrangling_basic.html#arrange-データを並び替える",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.7 arrange(): データを並び替える",
+    "text": "7.7 arrange(): データを並び替える\narrange()関数は、指定した列でデータを並び替えます。\n\n7.7.1 昇順（小さい順）\n\n# Sepal.Lengthの昇順に並び替え\nresult &lt;- iris |&gt;\n  arrange(Sepal.Length)\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          4.3         3.0          1.1         0.1  setosa\n2          4.4         2.9          1.4         0.2  setosa\n3          4.4         3.0          1.3         0.2  setosa\n4          4.4         3.2          1.3         0.2  setosa\n5          4.5         2.3          1.3         0.3  setosa\n6          4.6         3.1          1.5         0.2  setosa\n\n\n\n\n7.7.2 降順（大きい順）\ndesc()関数を使うと降順になります。\n\n# Sepal.Lengthの降順に並び替え\nresult &lt;- iris |&gt;\n  arrange(desc(Sepal.Length))\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width   Species\n1          7.9         3.8          6.4         2.0 virginica\n2          7.7         3.8          6.7         2.2 virginica\n3          7.7         2.6          6.9         2.3 virginica\n4          7.7         2.8          6.7         2.0 virginica\n5          7.7         3.0          6.1         2.3 virginica\n6          7.6         3.0          6.6         2.1 virginica\n\n\n\n\n7.7.3 複数の列で並び替え\n\n# まずSpeciesで並び替え、次にその中でSepal.Lengthで並び替え\nresult &lt;- iris |&gt;\n  arrange(Species, Sepal.Length)\n\nhead(result)\n\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species\n1          4.3         3.0          1.1         0.1  setosa\n2          4.4         2.9          1.4         0.2  setosa\n3          4.4         3.0          1.3         0.2  setosa\n4          4.4         3.2          1.3         0.2  setosa\n5          4.5         2.3          1.3         0.3  setosa\n6          4.6         3.1          1.5         0.2  setosa",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#複数の操作を組み合わせる",
+    "href": "data_wrangling_basic.html#複数の操作を組み合わせる",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.8 複数の操作を組み合わせる",
+    "text": "7.8 複数の操作を組み合わせる\nパイプ演算子を使うと、複数の操作を順番に実行できます。\n\n7.8.1 実践例1: 基本的な組み合わせ\n\n# setosa品種のデータから、\n# がく片の列だけを選び、\n# がく片の長さが5以上のものを抽出し、\n# 長さの降順に並び替える\n\nresult &lt;- iris |&gt;\n  filter(Species == \"setosa\") |&gt;\n  select(Species, Sepal.Length, Sepal.Width) |&gt;\n  filter(Sepal.Length &gt;= 5) |&gt;\n  arrange(desc(Sepal.Length))\n\nhead(result)\n\n  Species Sepal.Length Sepal.Width\n1  setosa          5.8         4.0\n2  setosa          5.7         4.4\n3  setosa          5.7         3.8\n4  setosa          5.5         4.2\n5  setosa          5.5         3.5\n6  setosa          5.4         3.9\n\n\n\n\n7.8.2 実践例2: 実務的なデータ処理\n従業員データを想定した例です。\n\n# サンプルデータの作成\nemployees &lt;- data.frame(\n  名前 = c(\n    \"田中太郎\",\n    \"佐藤花子\",\n    \"鈴木一郎\",\n    \"高橋次郎\",\n    \"伊藤三郎\",\n    \"渡辺四郎\"\n  ),\n  部署 = c(\"営業\", \"開発\", \"営業\", \"開発\", \"総務\", \"営業\"),\n  年齢 = c(25, 30, 35, 28, 42, 31),\n  売上 = c(1200, 1500, 980, 1350, 1100, 1450)\n)\n\n# 営業部の社員で、売上が1000以上の人を、売上の降順に表示\n営業成績 &lt;- employees |&gt;\n  filter(部署 == \"営業\") |&gt;\n  filter(売上 &gt;= 1000) |&gt;\n  select(名前, 売上) |&gt;\n  arrange(desc(売上))\n\nprint(営業成績)\n\n      名前 売上\n1 渡辺四郎 1450\n2 田中太郎 1200",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#結果の保存",
+    "href": "data_wrangling_basic.html#結果の保存",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.9 結果の保存",
+    "text": "7.9 結果の保存\nパイプ処理の結果は、&lt;-で変数に代入できます。\n# 処理結果を変数に保存\nsetosa_data &lt;- iris |&gt;\n  filter(Species == \"setosa\") |&gt;\n  select(Sepal.Length, Sepal.Width)\n\n# CSVファイルとして保存\n# dplyrしか読み込んでいない場合はreadrも読み込む\n# library(readr)\nwrite_csv(setosa_data, \"data/setosa_only.csv\")",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#練習問題",
+    "href": "data_wrangling_basic.html#練習問題",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.10 練習問題",
+    "text": "7.10 練習問題\nここまで学んだ内容を確認しましょう。\n\n\n\n\n\n\nヒント問題1: 列の選択\n\n\n\n\n\nirisデータから、Petal.Length、Petal.Width、Speciesの3列だけを選択してください。\n解答例\niris |&gt;\n  select(Petal.Length, Petal.Width, Species)\n\n# または\niris |&gt;\n  select(Petal.Length:Species)\n\n\n\n\n\n\n\n\n\nヒント問題2: 条件抽出\n\n\n\n\n\nirisデータから、Petal.Lengthが3以上5以下の行を抽出してください。\n解答例\niris |&gt;\n  filter(Petal.Length &gt;= 3, Petal.Length &lt;= 5)\n\n# または\niris |&gt;\n  filter(Petal.Length &gt;= 3 & Petal.Length &lt;= 5)\n\n\n\n\n\n\n\n\n\nヒント問題3: 複数操作の組み合わせ\n\n\n\n\n\nirisデータから以下の処理を行ってください。\n\nSpeciesが”setosa”と”versicolor”である行を抽出\nSepalで始まる列のみを選択\nSepal.Lengthの降順に並び替え\n最初の10行だけを表示\n\n解答例\n\nresult &lt;- iris |&gt;\n  filter(Species %in% c(\"setosa\", \"versicolor\")) |&gt;\n  select(starts_with(\"Sepal\")) |&gt;\n  arrange(desc(Sepal.Length)) |&gt;\n  head(10)\n\nresult\n\n   Sepal.Length Sepal.Width\n1           7.0         3.2\n2           6.9         3.1\n3           6.8         2.8\n4           6.7         3.1\n5           6.7         3.0\n6           6.7         3.1\n7           6.6         2.9\n8           6.6         3.0\n9           6.5         2.8\n10          6.4         3.2\n\n\n参考: filter_outを使った書き方\n# virginicaを除外する方法でも可能\niris |&gt;\n  filter_out(Species == \"virginica\") |&gt;\n  select(starts_with(\"Sepal\")) |&gt;\n  arrange(desc(Sepal.Length)) |&gt;\n  head(10)\n\n\n\n\n\n\n\n\n\nヒント問題4: 実践的な問題\n\n\n\n\n\n以下のデータを作成し、「開発部で年齢が30歳未満の社員の名前と年齢」を抽出してください。\nemployees &lt;- data.frame(\n  名前 = c(\"田中\", \"佐藤\", \"鈴木\", \"高橋\", \"伊藤\"),\n  部署 = c(\"営業\", \"開発\", \"営業\", \"開発\", \"総務\"),\n  年齢 = c(25, 30, 35, 28, 42)\n)\n解答例\nemployees |&gt;\n  filter(部署 == \"開発\", 年齢 &lt; 30) |&gt;\n  select(名前, 年齢)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#まとめ",
+    "href": "data_wrangling_basic.html#まとめ",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "7.11 まとめ",
+    "text": "7.11 まとめ\nこの章では、dplyrの基本的な関数を学びました。\n\n✅ パイプ演算子（|&gt;または%&gt;%）で処理を繋げる\n✅ select(): 必要な列だけを選択\n✅ filter(): 条件に合う行を抽出\n✅ arrange(): データを並び替え\n✅ 複数の操作を組み合わせて実務的なデータ処理\n\nこれらは、データ分析で最も頻繁に使う操作です。次の章では、さらに高度な操作（新しい列の作成、集計など）を学びます。\n\n\n\n\n\n\nノート次のステップ\n\n\n\n次の章「データハンドリング応用 - dplyr発展」では、以下を学びます。\n\nmutate(): 新しい列の作成・計算\nsummarize(): データの要約統計量\ngroup_by(): グループごとの集計\n\nこれらをマスターすれば、ほとんどのデータ処理に対応できるようになります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_basic.html#footnotes",
+    "href": "data_wrangling_basic.html#footnotes",
+    "title": "7  データハンドリング基礎 - dplyr入門",
+    "section": "",
+    "text": "関数の中で最初に指定する引数↩︎",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>データハンドリング基礎 - dplyr入門</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html",
+    "href": "data_wrangling_advanced.html",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "",
+    "text": "8.1 学習内容\n前章でselect(), filter(), arrange()を学びました。この章では、さらに強力なデータ操作の方法を学びます。\n実務でのデータ分析では、新しい列を作成したり、データを集計したりすることが頻繁にあります。dplyrのmutate(), summarize(), group_by()を使うと、これらの操作を簡単に実行できます。\nこの章を読み終えると、以下ができるようになります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#学習内容",
+    "href": "data_wrangling_advanced.html#学習内容",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "",
+    "text": "mutate(): 新しい列を作成する\nsummarize(): データを要約する\ngroup_by(): グループごとに集計する\ncount(): データを数える\nこれらを組み合わせた実践的なデータ分析",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#データの準備",
+    "href": "data_wrangling_advanced.html#データの準備",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.2 データの準備",
+    "text": "8.2 データの準備\n引き続きirisデータセットを使います。\n\nlibrary(tidyverse)\ndata(iris)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#mutate-新しい列を作成する",
+    "href": "data_wrangling_advanced.html#mutate-新しい列を作成する",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.3 mutate(): 新しい列を作成する",
+    "text": "8.3 mutate(): 新しい列を作成する\nmutate()関数は、既存の列を使って新しい列を作成したり、既存の列を変換したりします。\n\n8.3.1 基本的な使い方\nmutate()内で新しい列名を指定し、その列に代入する値を計算式で書きます。\n\n# がく片の面積を計算して新しい列として追加\nresult &lt;- iris |&gt;\n  mutate(Sepal.Area = Sepal.Length * Sepal.Width) |&gt;\n  select(Species, Sepal.Length, Sepal.Width, Sepal.Area) |&gt;\n  head()\n\nhead(result)\n\n  Species Sepal.Length Sepal.Width Sepal.Area\n1  setosa          5.1         3.5      17.85\n2  setosa          4.9         3.0      14.70\n3  setosa          4.7         3.2      15.04\n4  setosa          4.6         3.1      14.26\n5  setosa          5.0         3.6      18.00\n6  setosa          5.4         3.9      21.06\n\n\n\n\n8.3.2 複数の列を一度に作成\n\n# 複数の計算を一度に実行\nresult &lt;- iris |&gt;\n  mutate(\n    Sepal.Area = Sepal.Length * Sepal.Width,\n    Petal.Area = Petal.Length * Petal.Width,\n    Total.Area = Sepal.Area + Petal.Area\n  ) |&gt;\n  select(Species, Sepal.Area, Petal.Area, Total.Area)\n\nhead(result)\n\n  Species Sepal.Area Petal.Area Total.Area\n1  setosa      17.85       0.28      18.13\n2  setosa      14.70       0.28      14.98\n3  setosa      15.04       0.26      15.30\n4  setosa      14.26       0.30      14.56\n5  setosa      18.00       0.28      18.28\n6  setosa      21.06       0.68      21.74\n\n\n\n\n8.3.3 条件による値の変更\nif_else()やcase_when()を使うと、条件に応じて値を変更できます。\nif_else()は、第1引数に条件、第2引数に条件がTRUEの場合の値、第3引数に条件がFALSEの場合の値を指定します。\n\n# Sepal.Lengthが5以上なら\"大きい\"、そうでなければ\"小さい\"\nresult &lt;- iris |&gt;\n  mutate(\n    Size = if_else(Sepal.Length &gt;= 5, \"大きい\", \"小さい\")\n  ) |&gt;\n  select(Species, Sepal.Length, Size)\n\nhead(result)\n\n  Species Sepal.Length   Size\n1  setosa          5.1 大きい\n2  setosa          4.9 小さい\n3  setosa          4.7 小さい\n4  setosa          4.6 小さい\n5  setosa          5.0 大きい\n6  setosa          5.4 大きい\n\n\n複数の条件がある場合はcase_when()が便利です。TRUEは、上の条件に当てはまらない場合の値を指定するために使います。\n\n# Sepal.Lengthを3段階に分類\niris |&gt;\n  mutate(\n    Size_Category = case_when(\n      Sepal.Length &lt; 5 ~ \"小\",\n      Sepal.Length &lt; 6 ~ \"中\",\n      TRUE ~ \"大\"  # それ以外（上の条件に当てはまらない場合）\n    )\n  ) |&gt;\n  select(Species, Sepal.Length, Size_Category) |&gt;\n  head(10)\n\n   Species Sepal.Length Size_Category\n1   setosa          5.1            中\n2   setosa          4.9            小\n3   setosa          4.7            小\n4   setosa          4.6            小\n5   setosa          5.0            中\n6   setosa          5.4            中\n7   setosa          4.6            小\n8   setosa          5.0            中\n9   setosa          4.4            小\n10  setosa          4.9            小",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#summarize-データを要約する",
+    "href": "data_wrangling_advanced.html#summarize-データを要約する",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.4 summarize(): データを要約する",
+    "text": "8.4 summarize(): データを要約する\nsummarize()（またはsummarise()）関数は、データを集約して要約統計量を計算します。\nmutate()の場合と同様に、summarize()内で新しい列名を指定し、その列に代入する値を計算式で書きます。\n\n8.4.1 基本的な統計量\n\n# がく片の長さの平均値を計算\niris |&gt;\n  summarize(\n    mean = mean(Sepal.Length)\n  )\n\n      mean\n1 5.843333\n\n\n\n\n8.4.2 複数の統計量を一度に計算\n\n# 複数の統計量を計算\niris |&gt;\n  summarize(\n    mean = mean(Sepal.Length),\n    median = median(Sepal.Length),\n    sd = sd(Sepal.Length),\n    minimum = min(Sepal.Length),\n    maximum = max(Sepal.Length),\n    n = n()\n  )\n\n      mean median        sd minimum maximum   n\n1 5.843333    5.8 0.8280661     4.3     7.9 150\n\n\n\n\n\n\n\n\nノートよく使う集計関数\n\n\n\n\nmean(): 平均値\nmedian(): 中央値\nsd(): 標準偏差\nvar(): 分散\nmin(): 最小値\nmax(): 最大値\nsum(): 合計\nn(): 行数を数える\nn_distinct(): ユニークな値の数",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#group_by-グループごとに集計する",
+    "href": "data_wrangling_advanced.html#group_by-グループごとに集計する",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.5 group_by(): グループごとに集計する",
+    "text": "8.5 group_by(): グループごとに集計する\ngroup_by()とsummarize()を組み合わせると、グループごとの集計ができます。これが非常に強力です。\n\n8.5.1 基本的な使い方\n\n# 品種ごとにがく片の長さの平均を計算\niris |&gt;\n  group_by(Species) |&gt;\n  summarize(\n    mean = mean(Sepal.Length)\n  )\n\n# A tibble: 3 × 2\n  Species     mean\n  &lt;fct&gt;      &lt;dbl&gt;\n1 setosa      5.01\n2 versicolor  5.94\n3 virginica   6.59\n\n\n\n\n8.5.2 複数の統計量をグループごとに計算\n\n# 品種ごとに複数の統計量を計算\niris |&gt;\n  group_by(Species) |&gt;\n  summarize(\n    n = n(),\n    mean = mean(Sepal.Length),\n    sd = sd(Sepal.Length),\n    minimum = min(Sepal.Length),\n    maximum = max(Sepal.Length)\n  )\n\n# A tibble: 3 × 6\n  Species        n  mean    sd minimum maximum\n  &lt;fct&gt;      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 setosa        50  5.01 0.352     4.3     5.8\n2 versicolor    50  5.94 0.516     4.9     7  \n3 virginica     50  6.59 0.636     4.9     7.9\n\n\n\n\n8.5.3 グループ化したまま新しい列を作成\nmutate()と組み合わせると、グループごとの計算結果を元のデータに追加できます。\n\n# 品種ごとの平均値を各行に追加\nresult &lt;- iris |&gt;\n  group_by(Species) |&gt;\n  mutate(\n    Species_Mean = mean(Sepal.Length),\n    Diff_from_Mean = Sepal.Length - Species_Mean\n  ) |&gt;\n  select(Species, Sepal.Length, Species_Mean, Diff_from_Mean)\n\nhead(result)\n\n# A tibble: 6 × 4\n# Groups:   Species [1]\n  Species Sepal.Length Species_Mean Diff_from_Mean\n  &lt;fct&gt;          &lt;dbl&gt;        &lt;dbl&gt;          &lt;dbl&gt;\n1 setosa           5.1         5.01        0.0940 \n2 setosa           4.9         5.01       -0.106  \n3 setosa           4.7         5.01       -0.306  \n4 setosa           4.6         5.01       -0.406  \n5 setosa           5           5.01       -0.00600\n6 setosa           5.4         5.01        0.394  \n\n\nページの都合上Speciesがsetosaしか表示されていませんが、virginicaとversicolorも同様に平均値と平均との差分が計算されます。ポイントは、mutate()はグループ化した状態で計算するため、同じ品種の行はそれぞれ同じ平均値が入ることです。\n\n\n\n\n\n\n注意ungroup()を忘れずに\n\n\n\ngroup_by()を使った後、グループ化を解除したい場合はungroup()を使います。\niris |&gt;\n  group_by(Species) |&gt;\n  summarize(平均 = mean(Sepal.Length)) |&gt;\n  ungroup()  # グループ化を解除\nグループ化したまま次の操作を行うと、予期しない結果になることがあるため注意が必要です。グループ化して計算したい範囲が終わったら、ungroup()でグループ化を解除する習慣をつけましょう。\n\n\n\n\n8.5.4 .by引数でグループ化と集計を同時に行う\ngroup_by()とsummarize()を組み合わせる代わりに、summarize()の.by引数を使うと、グループ化と集計を同時に行うことができます。\n関数内でのみグループ化が行われるため、先述したungroup()を使う必要もなく、コードがシンプルになります。\n\n# .by引数を使ってグループ化と集計を同時に\niris |&gt;\n  summarize(\n    n = n(),\n    mean = mean(Sepal.Length),\n    sd = sd(Sepal.Length),\n    minimum = min(Sepal.Length),\n    maximum = max(Sepal.Length),\n    .by = Species\n  )\n\n     Species  n  mean        sd minimum maximum\n1     setosa 50 5.006 0.3524897     4.3     5.8\n2 versicolor 50 5.936 0.5161711     4.9     7.0\n3  virginica 50 6.588 0.6358796     4.9     7.9\n\n\nちなみに.by引数は、summarize()以外にもmutate()やfilter()などでも使えます。グループ化と集計を同時に行いたい場合は、.by引数を活用してコードをシンプルにすることも検討してみてください。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#count-データを数える",
+    "href": "data_wrangling_advanced.html#count-データを数える",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.6 count(): データを数える",
+    "text": "8.6 count(): データを数える\ncount()関数は、値の出現回数を簡単に数えられます。\n\n8.6.1 基本的な使い方\n以下の例では、Speciesごとにデータの数を数えています。\n\n# 品種ごとのデータ数を数える\niris |&gt;\n  count(Species)\n\n     Species  n\n1     setosa 50\n2 versicolor 50\n3  virginica 50\n\n\nこれは以下と同じ意味です。\n\niris |&gt;\n  group_by(Species) |&gt;\n  summarize(n = n())\n\n# A tibble: 3 × 2\n  Species        n\n  &lt;fct&gt;      &lt;int&gt;\n1 setosa        50\n2 versicolor    50\n3 virginica     50",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#実践例売上データの分析",
+    "href": "data_wrangling_advanced.html#実践例売上データの分析",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.7 実践例：売上データの分析",
+    "text": "8.7 実践例：売上データの分析\n実務でよくある売上データの分析を例に、これまでの知識を総合的に使ってみましょう。\n\n8.7.1 サンプルデータの作成\n\n# 売上データの作成\nsales &lt;- data.frame(\n  日付 = rep(c(\"2025-01-01\", \"2025-01-02\", \"2025-01-03\"), each = 4),\n  店舗 = rep(c(\"東京店\", \"大阪店\", \"東京店\", \"大阪店\"), 3),\n  商品 = rep(c(\"商品A\", \"商品A\", \"商品B\", \"商品B\"), 3),\n  売上数量 = c(10, 15, 8, 12, 12, 18, 10, 14, 15, 20, 12, 16),\n  単価 = c(1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500, 1000, 1000, 1500, 1500)\n)\n\nprint(sales)\n\n         日付   店舗  商品 売上数量 単価\n1  2025-01-01 東京店 商品A       10 1000\n2  2025-01-01 大阪店 商品A       15 1000\n3  2025-01-01 東京店 商品B        8 1500\n4  2025-01-01 大阪店 商品B       12 1500\n5  2025-01-02 東京店 商品A       12 1000\n6  2025-01-02 大阪店 商品A       18 1000\n7  2025-01-02 東京店 商品B       10 1500\n8  2025-01-02 大阪店 商品B       14 1500\n9  2025-01-03 東京店 商品A       15 1000\n10 2025-01-03 大阪店 商品A       20 1000\n11 2025-01-03 東京店 商品B       12 1500\n12 2025-01-03 大阪店 商品B       16 1500\n\n\n\n\n8.7.2 分析1: 売上金額の計算\n\n# 売上金額を計算\nsales_with_amount &lt;- sales |&gt;\n  mutate(\n    売上金額 = 売上数量 * 単価\n  )\n\nprint(sales_with_amount)\n\n         日付   店舗  商品 売上数量 単価 売上金額\n1  2025-01-01 東京店 商品A       10 1000    10000\n2  2025-01-01 大阪店 商品A       15 1000    15000\n3  2025-01-01 東京店 商品B        8 1500    12000\n4  2025-01-01 大阪店 商品B       12 1500    18000\n5  2025-01-02 東京店 商品A       12 1000    12000\n6  2025-01-02 大阪店 商品A       18 1000    18000\n7  2025-01-02 東京店 商品B       10 1500    15000\n8  2025-01-02 大阪店 商品B       14 1500    21000\n9  2025-01-03 東京店 商品A       15 1000    15000\n10 2025-01-03 大阪店 商品A       20 1000    20000\n11 2025-01-03 東京店 商品B       12 1500    18000\n12 2025-01-03 大阪店 商品B       16 1500    24000\n\n\n\n\n8.7.3 分析2: 店舗ごとの売上集計\n\n# 店舗ごとの売上を集計\nstore_summary &lt;- sales_with_amount |&gt;\n  group_by(店舗) |&gt;\n  summarize(\n    総売上数量 = sum(売上数量),\n    総売上金額 = sum(売上金額),\n    平均売上数量 = mean(売上数量)\n    # group_by()を使わない場合\n    # .by = 店舗\n  )\n\nprint(store_summary)\n\n# A tibble: 2 × 4\n  店舗   総売上数量 総売上金額 平均売上数量\n  &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;\n1 大阪店         95     116000         15.8\n2 東京店         67      82000         11.2\n\n\n\n\n8.7.4 分析3: 商品・店舗ごとの売上集計\n\n# 商品と店舗の組み合わせで集計\nproduct_store_summary &lt;- sales_with_amount |&gt;\n  group_by(商品, 店舗) |&gt;\n  summarize(\n    総売上金額 = sum(売上金額),\n    .groups = \"drop\"  # グループ化を自動で解除\n  ) |&gt;\n  arrange(desc(総売上金額))\n\nprint(product_store_summary)\n\n# A tibble: 4 × 3\n  商品  店舗   総売上金額\n  &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;\n1 商品B 大阪店      63000\n2 商品A 大阪店      53000\n3 商品B 東京店      45000\n4 商品A 東京店      37000\n\n\n\n\n8.7.5 分析4: 日付ごとの売上推移\n\n# 日付ごとの売上推移\ndaily_sales &lt;- sales_with_amount |&gt;\n  group_by(日付) |&gt;\n  summarize(\n    日次売上金額 = sum(売上金額),\n    日次販売数量 = sum(売上数量)\n  )\n\nprint(daily_sales)\n\n# A tibble: 3 × 3\n  日付       日次売上金額 日次販売数量\n  &lt;chr&gt;             &lt;dbl&gt;        &lt;dbl&gt;\n1 2025-01-01        55000           45\n2 2025-01-02        66000           54\n3 2025-01-03        77000           63",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#応用テクニック",
+    "href": "data_wrangling_advanced.html#応用テクニック",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.8 応用テクニック",
+    "text": "8.8 応用テクニック\n\n8.8.1 across()を使った複数列への同じ処理\n複数の列に同じ処理を適用したい場合はacross()が便利です。\n少々使い方は難しいですが、例えば数値列（numeric型）すべての平均を品種ごとに計算する場合は以下のように書けます。\n\n# すべての数値列の平均を品種ごとに計算\niris |&gt;\n  group_by(Species) |&gt;\n  summarize(\n    across(where(is.numeric), mean)\n  )\n\n# A tibble: 3 × 5\n  Species    Sepal.Length Sepal.Width Petal.Length Petal.Width\n  &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;\n1 setosa             5.01        3.43         1.46       0.246\n2 versicolor         5.94        2.77         4.26       1.33 \n3 virginica          6.59        2.97         5.55       2.03 \n\n\nwhere()は条件に合う列を選択するための関数で、is.numericは数値列を選択する条件です。across()は、選択した列すべてに同じ関数（この場合はmean）を適用します。\nたくさんの列に同じ処理を適用したい場合は、across()を使うとコードがシンプルになります。\n\n\n8.8.2 slice()で行を選択\nグループごとに上位N件を取得する場合はslice()が使えます。\n\n# 品種ごとにSepal.Lengthが最も大きい3件を取得\niris |&gt;\n  group_by(Species) |&gt;\n  arrange(desc(Sepal.Length)) |&gt;\n  slice(1:3)\n\n# A tibble: 9 × 5\n# Groups:   Species [3]\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species   \n         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;     \n1          5.8         4            1.2         0.2 setosa    \n2          5.7         4.4          1.5         0.4 setosa    \n3          5.7         3.8          1.7         0.3 setosa    \n4          7           3.2          4.7         1.4 versicolor\n5          6.9         3.1          4.9         1.5 versicolor\n6          6.8         2.8          4.8         1.4 versicolor\n7          7.9         3.8          6.4         2   virginica \n8          7.7         3.8          6.7         2.2 virginica \n9          7.7         2.6          6.9         2.3 virginica \n\n\nSpeciesごとにSepal.Lengthが大きい順に並び替えた後、上位3件を取得しています。slice()は行番号で指定するため、1:3は上位3件を意味します。\nちなみにungroup()をしていないので、slice()はグループごとに行を選択します。グループ化していない場合は、全体の上位3件を取得することになります。\n\n# 全体の上位3件を取得（グループ化していない場合）\niris |&gt;\n  group_by(Species) |&gt;\n  arrange(desc(Sepal.Length)) |&gt;\n  ungroup() |&gt;\n  slice(1:3)\n\n# A tibble: 3 × 5\n  Sepal.Length Sepal.Width Petal.Length Petal.Width Species  \n         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;fct&gt;    \n1          7.9         3.8          6.4         2   virginica\n2          7.7         3.8          6.7         2.2 virginica\n3          7.7         2.6          6.9         2.3 virginica",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#練習問題",
+    "href": "data_wrangling_advanced.html#練習問題",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.9 練習問題",
+    "text": "8.9 練習問題\n\n\n\n\n\n\nヒント問題1: 新しい列の作成\n\n\n\n\n\nirisデータで、がく片とFlowerの長さの合計をTotal.Lengthという列名で追加してください。\n解答例\niris |&gt;\n  mutate(Total.Length = Sepal.Length + Petal.Length) |&gt;\n  select(Species, Sepal.Length, Petal.Length, Total.Length)\n\n\n\n\n\n\n\n\n\nヒント問題2: グループごとの集計\n\n\n\n\n\nirisデータで、品種ごとにPetal.Widthの平均、最小値、最大値を計算してください。\n解答例\niris |&gt;\n  group_by(Species) |&gt;\n  summarize(\n    平均 = mean(Petal.Width),\n    最小値 = min(Petal.Width),\n    最大値 = max(Petal.Width)\n  )\n\n\n\n\n\n\n\n\n\nヒント問題3: 実践的な分析\n\n\n\n\n\n以下の従業員データで、部署ごとの平均年齢と売上合計を計算し、売上合計の降順に並び替えてください。\nemployees &lt;- data.frame(\n  名前 = c(\"田中\", \"佐藤\", \"鈴木\", \"高橋\", \"伊藤\", \"渡辺\"),\n  部署 = c(\"営業\", \"開発\", \"営業\", \"開発\", \"総務\", \"営業\"),\n  年齢 = c(25, 30, 35, 28, 42, 31),\n  売上 = c(1200, 1500, 980, 1350, 1100, 1450)\n)\n解答例\nemployees |&gt;\n  group_by(部署) |&gt;\n  summarize(\n    平均年齢 = mean(年齢),\n    売上合計 = sum(売上)\n  ) |&gt;\n  arrange(desc(売上合計))",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "data_wrangling_advanced.html#まとめ",
+    "href": "data_wrangling_advanced.html#まとめ",
+    "title": "8  データハンドリング応用 - dplyr発展",
+    "section": "8.10 まとめ",
+    "text": "8.10 まとめ\nこの章では、dplyrの発展的な機能を学びました。\n\n✅ mutate(): 新しい列の作成・既存列の変換\n✅ summarize(): データの要約統計\n✅ group_by(): グループごとの集計\n✅ count(): データのカウント\n✅ これらを組み合わせた実践的なデータ分析\n\nこれで、データの読み込みから加工、集計まで一連の流れができるようになりました。次の章では、分析結果を視覚的に表現する方法を学びます。\n\n\n\n\n\n\nノート次のステップ\n\n\n\n次の章「データ可視化入門 - ggplot2基礎」では、ggplot2パッケージを使ったグラフ作成を学びます。データの特徴を視覚的に理解し、他者に伝える力を身につけましょう。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>データハンドリング応用 - dplyr発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html",
+    "href": "visualization_basic.html",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "",
+    "text": "9.1 学習内容\nデータを数値で見ることも大切ですが、グラフやチャートで視覚化することで、データの特徴やパターンがより明確になります。\nRのggplot2パッケージは、美しく柔軟性の高いグラフを作成するための強力なツールです。この章では、ggplot2の基本を学び、基本的なグラフが作成できるようになります。\nこの章を読み終えると、以下ができるようになります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#学習内容",
+    "href": "visualization_basic.html#学習内容",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "",
+    "text": "ggplot2の基本的な文法を理解する\n散布図を作成する\n折れ線グラフを作成する\n棒グラフを作成する\nヒストグラムを作成する\nグラフにタイトルやラベルを追加する",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#ggplot2とは",
+    "href": "visualization_basic.html#ggplot2とは",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.2 ggplot2とは",
+    "text": "9.2 ggplot2とは\nggplot2は、「Grammar of Graphics」（グラフィックスの文法）という考え方に基づいたパッケージです。\nグラフを「データ」「視覚的要素（点、線など）」「座標系」などの部品を組み合わせて作ることで、柔軟で一貫性のある可視化が可能になります。\n\n9.2.1 パッケージの準備\n# tidyverseに含まれています\nlibrary(tidyverse)\n\n# またはggplot2だけを読み込む\nlibrary(ggplot2)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#ggplot2の基本構造",
+    "href": "visualization_basic.html#ggplot2の基本構造",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.3 ggplot2の基本構造",
+    "text": "9.3 ggplot2の基本構造\nggplot2でグラフを作る際の基本的な構造は以下の通りです。\nggplot(data = データ, aes(x = x軸の変数, y = y軸の変数)) +\n  geom_点や線の種類()\n\nggplot(): グラフの土台を作る\naes(): Aesthetics（美的要素）の略。どの変数をx軸・y軸などに割り当てるかを指定\ngeom_*(): Geometry（幾何要素）の略。点、線、棒などの表現方法を指定\n\n重要なのは+でレイヤーを重ねていくという考え方です。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#散布図scatter-plot",
+    "href": "visualization_basic.html#散布図scatter-plot",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.4 散布図（Scatter Plot）",
+    "text": "9.4 散布図（Scatter Plot）\n2つの連続変数の関係を見るには散布図が適しています。\n\n9.4.1 基本的な散布図\n\nlibrary(tidyverse)\ndata(iris)\n\n# がく片の長さと幅の関係を散布図で表示\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n\n9.4.2 点の大きさや色を変更\n\n# 点を大きく、赤色に\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point(size = 3, color = \"red\")\n\n\n\n\n\n\n\n\n\n\n9.4.3 透明度の調整\n点が重なっている場合、透明度を調整すると見やすくなります。\n\n# 透明度を設定（0が完全透明、1が不透明）\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point(size = 3, alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n9.4.4 カテゴリごとに色分け\naes()の中でcolorを指定すると、カテゴリごとに自動で色分けされます。\n\n# 品種ごとに色分け\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3, alpha = 0.7)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#折れ線グラフline-plot",
+    "href": "visualization_basic.html#折れ線グラフline-plot",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.5 折れ線グラフ（Line Plot）",
+    "text": "9.5 折れ線グラフ（Line Plot）\n時系列データや連続的な変化を表現するには折れ線グラフが適しています。\n\n9.5.1 サンプルデータの作成\n\n# 月次売上データを作成\nmonthly_sales &lt;- data.frame(\n  月 = 1:12,\n  売上 = c(120, 135, 150, 145, 160, 175, 190, 185, 200, 210, 230, 250)\n)\n\n\n\n9.5.2 基本的な折れ線グラフ\n\nggplot(data = monthly_sales, aes(x = 月, y = 売上)) +\n  geom_line()\n\n\n\n\n\n\n\n\n\n\n9.5.3 点と線を組み合わせる\n\nggplot(data = monthly_sales, aes(x = 月, y = 売上)) +\n  geom_line(color = \"blue\", linewidth = 1) +\n  geom_point(color = \"red\", size = 3)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#棒グラフbar-plot",
+    "href": "visualization_basic.html#棒グラフbar-plot",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.6 棒グラフ（Bar Plot）",
+    "text": "9.6 棒グラフ（Bar Plot）\nカテゴリごとの値を比較するには棒グラフが適しています。\n\n9.6.1 カウント数の棒グラフ\ngeom_bar()は自動的にカウントを計算します。\n\n# 品種ごとのデータ数\nggplot(data = iris, aes(x = Species)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\n9.6.2 値を直接指定する棒グラフ\n既に集計済みのデータの場合はgeom_col()を使います。\n\n# 部署ごとの売上データ\ndept_sales &lt;- data.frame(\n  部署 = c(\"営業\", \"開発\", \"総務\"),\n  売上 = c(3500, 2800, 1500)\n)\n\nggplot(data = dept_sales, aes(x = 部署, y = 売上)) +\n  geom_col()\n\n\n\n\n\n\n\n\n\n\n9.6.3 棒の色を変更\n\nggplot(data = dept_sales, aes(x = 部署, y = 売上)) +\n  geom_col(fill = \"steelblue\")\n\n\n\n\n\n\n\n\n\n\n9.6.4 カテゴリごとに色分け\n\nggplot(data = dept_sales, aes(x = 部署, y = 売上, fill = 部署)) +\n  geom_col()",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#ヒストグラムhistogram",
+    "href": "visualization_basic.html#ヒストグラムhistogram",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.7 ヒストグラム（Histogram）",
+    "text": "9.7 ヒストグラム（Histogram）\nデータの分布を確認するにはヒストグラムが適しています。\n\n9.7.1 基本的なヒストグラム\n\n# がく片の長さの分布\nggplot(data = iris, aes(x = Sepal.Length)) +\n  geom_histogram()\n\n\n\n\n\n\n\n\n\n\n9.7.2 ビン（区間）の数を調整\n\n# ビンの数を指定\nggplot(data = iris, aes(x = Sepal.Length)) +\n  geom_histogram(bins = 20, fill = \"lightblue\", color = \"black\")\n\n\n\n\n\n\n\n\n\n\n9.7.3 品種ごとに重ねて表示\n\nggplot(data = iris, aes(x = Sepal.Length, fill = Species)) +\n  geom_histogram(alpha = 0.5, position = \"identity\", bins = 20)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#タイトルとラベルの追加",
+    "href": "visualization_basic.html#タイトルとラベルの追加",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.8 タイトルとラベルの追加",
+    "text": "9.8 タイトルとラベルの追加\nlabs()関数を使って、グラフにタイトルや軸ラベルを追加できます。\n\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3, alpha = 0.7) +\n  labs(\n    title = \"アヤメのがく片の長さと幅\",\n    subtitle = \"品種ごとの比較\",\n    x = \"がく片の長さ (cm)\",\n    y = \"がく片の幅 (cm)\",\n    color = \"品種\"\n  )",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#テーマの変更",
+    "href": "visualization_basic.html#テーマの変更",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.9 テーマの変更",
+    "text": "9.9 テーマの変更\nggplot2には様々な組み込みテーマがあります。\n\n9.9.1 theme_minimal()\n\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(title = \"シンプルなテーマ\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n9.9.2 theme_classic()\n\nggplot(data = iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(title = \"クラシックなテーマ\") +\n  theme_classic()\n\n\n\n\n\n\n\n\n\n\n9.9.3 その他のテーマ\n\ntheme_bw(): 白黒テーマ\ntheme_dark(): 暗いテーマ\ntheme_light(): 明るいテーマ\ntheme_void(): 軸や背景を削除",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#実践例総合的なグラフ作成",
+    "href": "visualization_basic.html#実践例総合的なグラフ作成",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.10 実践例：総合的なグラフ作成",
+    "text": "9.10 実践例：総合的なグラフ作成\nこれまで学んだ要素を組み合わせて、見やすいグラフを作成してみましょう。\n\n# 売上データの作成\nsales_data &lt;- data.frame(\n  月 = rep(1:6, times = 2),\n  店舗 = rep(c(\"東京店\", \"大阪店\"), each = 6),\n  売上 = c(120, 135, 150, 145, 160, 175,  # 東京店\n           100, 115, 130, 140, 155, 170)   # 大阪店\n)\n\n# 店舗別の月次売上推移\nggplot(data = sales_data, aes(x = 月, y = 売上, color = 店舗)) +\n  geom_line(linewidth = 1.2) +\n  geom_point(size = 3) +\n  labs(\n    title = \"店舗別月次売上推移\",\n    subtitle = \"2025年1月〜6月\",\n    x = \"月\",\n    y = \"売上（万円）\",\n    color = \"店舗名\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 16, face = \"bold\"),\n    legend.position = \"top\"\n  )",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#グラフの保存",
+    "href": "visualization_basic.html#グラフの保存",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.11 グラフの保存",
+    "text": "9.11 グラフの保存\n作成したグラフはggsave()で保存できます。\n# 最後に作成したグラフを保存\nggsave(\"outputs/sales_plot.png\", width = 8, height = 6)\n\n# 特定のグラフを保存\nmy_plot &lt;- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point()\n\nggsave(\"outputs/iris_plot.png\", plot = my_plot, width = 8, height = 6)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#練習問題",
+    "href": "visualization_basic.html#練習問題",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.12 練習問題",
+    "text": "9.12 練習問題\n\n\n\n\n\n\nヒント問題1: 散布図の作成\n\n\n\n\n\nirisデータで、Petal.Length（x軸）とPetal.Width（y軸）の散布図を作成してください。点は品種ごとに色分けしてください。\n解答例\nggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nヒント問題2: 棒グラフの作成\n\n\n\n\n\n以下のデータで棒グラフを作成し、タイトルと軸ラベルを追加してください。\nproducts &lt;- data.frame(\n  商品名 = c(\"商品A\", \"商品B\", \"商品C\", \"商品D\"),\n  販売数 = c(150, 230, 180, 210)\n)\n解答例\nggplot(products, aes(x = 商品名, y = 販売数)) +\n  geom_col(fill = \"steelblue\") +\n  labs(\n    title = \"商品別販売数\",\n    x = \"商品名\",\n    y = \"販売数\"\n  )\n\n\n\n\n\n\n\n\n\nヒント問題3: 折れ線グラフの作成\n\n\n\n\n\n以下のデータで折れ線グラフを作成し、点も一緒に表示してください。\ntemperature &lt;- data.frame(\n  時刻 = c(0, 6, 12, 18, 24),\n  気温 = c(15, 12, 20, 18, 14)\n)\n解答例\nggplot(temperature, aes(x = 時刻, y = 気温)) +\n  geom_line(color = \"red\", linewidth = 1) +\n  geom_point(size = 3) +\n  labs(\n    title = \"時刻別気温\",\n    x = \"時刻\",\n    y = \"気温（℃）\"\n  )",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_basic.html#まとめ",
+    "href": "visualization_basic.html#まとめ",
+    "title": "9  データ可視化入門 - ggplot2基礎",
+    "section": "9.13 まとめ",
+    "text": "9.13 まとめ\nこの章では、ggplot2の基本を学びました。\n\n✅ ggplot2の基本構造（ggplot() + aes() + geom_*()）\n✅ 散布図（geom_point()）\n✅ 折れ線グラフ（geom_line()）\n✅ 棒グラフ（geom_bar(), geom_col()）\n✅ ヒストグラム（geom_histogram()）\n✅ タイトルとラベルの追加（labs()）\n✅ テーマの変更（theme_*()）\n\nこれで基本的なグラフが作成できるようになりました。次の章では、さらに高度なカスタマイズ方法を学びます。\n\n\n\n\n\n\nノート次のステップ\n\n\n\n次の章「データ可視化応用 - ggplot2発展」では、以下を学びます。\n\nファセット（複数グラフの並べて表示）\n軸のスケール調整\nより細かいテーマのカスタマイズ\n日本語フォントの設定\n\nより洗練されたグラフ作成スキルを身につけましょう。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>データ可視化入門 - ggplot2基礎</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html",
+    "href": "visualization_advanced.html",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "",
+    "text": "10.1 学習内容\n前章でggplot2の基本的なグラフ作成を学びました。この章では、より高度なテクニックを使って、プレゼンテーションやレポートで使える洗練されたグラフを作成する方法を学びます。\nこの章を読み終えると、以下ができるようになります。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#学習内容",
+    "href": "visualization_advanced.html#学習内容",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "",
+    "text": "ファセット機能で複数のグラフを並べて表示する\n色や塗りつぶしでデータをグループ化する\n軸のスケールを調整する\nテーマを細かくカスタマイズする\npatchworkで異なるグラフを組み合わせる\nグラフを保存して共有する",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#ファセット-複数グラフの並べて表示",
+    "href": "visualization_advanced.html#ファセット-複数グラフの並べて表示",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.2 ファセット: 複数グラフの並べて表示",
+    "text": "10.2 ファセット: 複数グラフの並べて表示\nファセット機能を使うと、カテゴリごとにグラフを分割して表示できます。\n\n10.2.1 facet_wrap()\n1つの変数でグラフを分割します。facet_wrap(~ 変数)で、指定した変数のカテゴリごとにグラフが作成されます。\n\nlibrary(tidyverse)\ndata(iris)\n\n# 品種ごとにグラフを分割\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  facet_wrap(~ Species) +\n  labs(title = \"品種別のがく片の長さと幅\")\n\n\n\n\n\n\n\n\n\n\n10.2.2 分割数の調整\nncol引数を使って、列数を指定できます。\n\n# 列数を指定（2列で表示）\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  facet_wrap(~ Species, ncol = 2)\n\n\n\n\n\n\n\n\nまた、nrow引数を使って行数を指定することもできます。\n\n# 行数を指定（1行で表示）\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  facet_wrap(~ Species, nrow = 3)\n\n\n\n\n\n\n\n\n\n\n10.2.3 facet_grid()\n2つの変数で行と列に分割します。facet_grid(行の変数 ~ 列の変数)で、指定した2つの変数の組み合わせごとにグラフが作成されます。\n\n# サンプルデータの作成\nsales_data &lt;- data.frame(\n  四半期 = rep(c(\"Q1\", \"Q2\", \"Q3\", \"Q4\"), each = 6),\n  地域 = rep(c(\"東日本\", \"西日本\"), times = 12),\n  商品 = rep(c(\"商品A\", \"商品B\", \"商品C\"), times = 8),\n  売上 = sample(100:500, 24)\n)\n\n# 四半期（行）× 地域（列）でグラフを分割\nggplot(sales_data, aes(x = 商品, y = 売上)) +\n  geom_col() +\n  facet_grid(四半期 ~ 地域)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#色と塗りつぶしの活用",
+    "href": "visualization_advanced.html#色と塗りつぶしの活用",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.3 色と塗りつぶしの活用",
+    "text": "10.3 色と塗りつぶしの活用\n\n10.3.1 color vs fill\n\ncolor: 点や線の色\nfill: 棒や領域の塗りつぶし色\n\n\n# 棒グラフでfillを使用\niris_summary &lt;- iris |&gt;\n  group_by(Species) |&gt;\n  summarize(平均 = mean(Sepal.Length))\n\nggplot(iris_summary, aes(x = Species, y = 平均, fill = Species)) +\n  geom_col() +\n  labs(title = \"品種別平均がく片長\")\n\n\n\n\n\n\n\n\n\n\n10.3.2 手動で色を指定\n手動で色を指定するには、scale_color_manual()やscale_fill_manual()を使います。\n選び方として、colorを指定している場合はscale_color_manual()、fillを指定している場合はscale_fill_manual()を使います。\n関数内のvalues引数に、カテゴリごとの色を指定します。\n\n# 色を手動で指定\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  scale_color_manual(\n    values = c(\n      \"setosa\" = \"red\",\n      \"versicolor\" = \"blue\",\n      \"virginica\" = \"green\"\n    )\n  )\n\n\n\n\n\n\n\n\n\n\n10.3.3 カラーパレットの使用\n既に用意されているカラーパレットを使うこともできます。RColorBrewerパッケージのカラーパレットを利用するには、scale_color_brewer()やscale_fill_brewer()を使います。\n\n# Brewerカラーパレットを使用\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point(size = 3) +\n  scale_color_brewer(palette = \"Set1\")\n\n\n\n\n\n\n\n\n“Set1”の他にも、“Set2”, “Set3”, “Pastel1”, “Dark2”など、様々なカラーパレットが用意されています。\n参考：R Color Brewer’s palettes",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#軸のスケール調整",
+    "href": "visualization_advanced.html#軸のスケール調整",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.4 軸のスケール調整",
+    "text": "10.4 軸のスケール調整\n\n10.4.1 軸の範囲を指定\nxlim()やylim()を使って、軸の表示範囲を指定できます。\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  xlim(4, 8) +  # x軸の範囲を4〜8に\n  ylim(2, 5)    # y軸の範囲を2〜5に\n\n\n\n\n\n\n\n\n\n\n10.4.2 軸の目盛りをカスタマイズ\nscale_x_continuous()やscale_y_continuous()を使って、軸の目盛りをカスタマイズできます。breaks引数で目盛りの位置を指定します。byを使うと、指定した幅で等間隔の目盛りを振ることができます。\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point() +\n  scale_x_continuous(breaks = seq(4, 8, by = 0.5)) +\n  scale_y_continuous(breaks = seq(2, 4.5, by = 0.5))",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#テーマのカスタマイズ",
+    "href": "visualization_advanced.html#テーマのカスタマイズ",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.5 テーマのカスタマイズ",
+    "text": "10.5 テーマのカスタマイズ\ntheme()関数を使うと、グラフの細部まで調整できます。\n\n10.5.1 フォントサイズの調整\ntheme()には様々な要素があり、タイトルや軸ラベル、凡例のフォントサイズを調整できます。axis.*は軸のテキスト、legend.*は凡例のテキストを調整するための要素です。\nelement_text()はテキストのスタイルを指定するための関数で、face引数で文字のスタイル（例: “bold”, “italic”）を指定できます。size引数でフォントサイズを指定します。\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point() +\n  labs(title = \"がく片の長さと幅\", x = \"長さ (cm)\", y = \"幅 (cm)\") +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(face = \"bold\", size = 18),\n    axis.title = element_text(size = 14),\n    axis.text = element_text(size = 12),\n    legend.title = element_text(size = 14),\n    legend.text = element_text(size = 12)\n  )\n\n\n\n\n\n\n\n\n\n\n10.5.2 凡例の位置を変更\nlegend.positionで凡例の位置を変更できます。指定できる値は、“top”, “bottom”, “left”, “right”, “none”（凡例を表示しない）などがあります。\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point() +\n  theme_minimal() +\n  theme(\n    legend.position = \"top\"  # \"bottom\", \"left\", \"right\", \"none\"も可\n  )\n\n\n\n\n\n\n\n\n\n\n10.5.3 背景色の変更\nグラフの背景色を変更するには、panel.backgroundやplot.backgroundを調整します。panel.backgroundはグラフの背景、plot.backgroundはグラフ全体の背景を指定します。\nelement_rect()は矩形のスタイルを指定するための関数で、fill引数で背景色を指定します。\n\nggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point() +\n  theme_minimal() +\n  theme(\n    panel.background = element_rect(fill = \"lightgray\"),\n    plot.background = element_rect(fill = \"gray\")\n  )",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#patchwork-複数グラフの配置",
+    "href": "visualization_advanced.html#patchwork-複数グラフの配置",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.6 patchwork: 複数グラフの配置",
+    "text": "10.6 patchwork: 複数グラフの配置\npatchworkパッケージを使うと、複数のggplot2グラフを自由にレイアウトして配置できます。ファセット機能では同じデータから自動的に分割しますが、patchworkでは異なるグラフを組み合わせることができます。\n\n10.6.1 patchworkのインストール\n# パッケージのインストール（初回のみ）\ninstall.packages(\"patchwork\")\n\n# パッケージの読み込み\nlibrary(patchwork)\n\n\n10.6.2 基本的な配置\nグラフを変数に保存してから、演算子を使って配置します。\n\nlibrary(patchwork)\n\n# 複数のグラフを作成\np1 &lt;- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) +\n  geom_point(color = \"steelblue\") +\n  labs(title = \"がく片\")\n\np2 &lt;- ggplot(iris, aes(x = Petal.Length, y = Petal.Width)) +\n  geom_point(color = \"coral\") +\n  labs(title = \"花弁\")\n\np3 &lt;- ggplot(iris, aes(x = Species, fill = Species)) +\n  geom_bar() +\n  labs(title = \"品種別データ数\") +\n  theme(legend.position = \"none\")\n\np4 &lt;- ggplot(iris, aes(x = Sepal.Length, fill = Species)) +\n  geom_histogram(bins = 15, alpha = 0.7) +\n  labs(title = \"がく片長の分布\")\n\n\n\n10.6.3 横に並べる（+演算子）\n+演算子を使うと、グラフを横に並べることができます。\n\n# 横に並べる\np1 + p2\n\n\n\n\n\n\n\n\n\n\n10.6.4 縦に並べる（/演算子）\n/演算子を使うと、グラフを縦に並べることができます。\n\n# 縦に並べる\np1 / p2\n\n\n\n\n\n\n\n\n\n\n10.6.5 2行2列に配置\n括弧を使って配置を制御できます。\n\n# 2行2列に配置\n(p1 + p2) / (p3 + p4)\n\n\n\n\n\n\n\n\n\n\n10.6.6 1つのグラフを大きく配置\n|演算子を使うと、垂直方向の配置をより細かく制御できます。\n\n# 左に大きなグラフ、右に2つのグラフを縦に配置\np1 | (p2 / p3)\n\n\n\n\n\n\n\n\n\n\n10.6.7 レイアウトの制御\nplot_layout()で列数や行数、サイズ比を指定できます。\n\n# 列数を指定\np1 + p2 + p3 + plot_layout(ncol = 2)\n\n\n\n\n\n\n\n\n\n# サイズ比を指定（左のグラフを2倍の幅に）\np1 + p2 + plot_layout(widths = c(2, 1))\n\n\n\n\n\n\n\n\n\n\n10.6.8 共通のタイトルと凡例\nplot_annotation()で全体のタイトルを追加できます。\n\n# 共通のタイトルを追加\n(p1 + p2) / (p3 + p4) +\n  plot_annotation(\n    title = \"アヤメデータの総合分析\",\n    subtitle = \"4つの観点からの可視化\",\n    caption = \"データ: iris dataset\"\n  )\n\n\n\n\n\n\n\n\n\n\n10.6.9 凡例の統一\n複数のグラフで共通の凡例を使う場合、plot_layout(guides = \"collect\")で凡例をまとめることができます。\n\n# 品種で色分けしたグラフを作成\np_sepal &lt;- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point() +\n  labs(title = \"がく片\")\n\np_petal &lt;- ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +\n  geom_point() +\n  labs(title = \"花弁\")\n\n# 凡例を1つにまとめる\np_sepal + p_petal + plot_layout(guides = \"collect\")",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#グラフの保存",
+    "href": "visualization_advanced.html#グラフの保存",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.7 グラフの保存",
+    "text": "10.7 グラフの保存\n\n10.7.1 基本的な保存方法\n# 最後に表示したグラフを保存\nggsave(\"outputs/my_plot.png\")\n\n# サイズを指定（インチ単位）\nggsave(\"outputs/my_plot.png\", width = 8, height = 6)\n\n# 解像度を指定（dpi）\nggsave(\"outputs/my_plot.png\", width = 8, height = 6, dpi = 300)\n\n\n10.7.2 複数のファイル形式で保存\n# PNG形式\nggsave(\"outputs/plot.png\", width = 8, height = 6)\n\n# PDF形式（ベクター形式、拡大しても綺麗）\nggsave(\"outputs/plot.pdf\", width = 8, height = 6)\n\n# JPEG形式\nggsave(\"outputs/plot.jpg\", width = 8, height = 6)\n\n\n10.7.3 グラフを変数に保存してから保存\n# グラフを変数に保存\nmy_plot &lt;- ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +\n  geom_point() +\n  labs(title = \"がく片の長さと幅\")\n\n# 変数からグラフを保存\nggsave(\"outputs/iris_plot.png\", plot = my_plot, width = 8, height = 6)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#実践例完成度の高いグラフ",
+    "href": "visualization_advanced.html#実践例完成度の高いグラフ",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.8 実践例：完成度の高いグラフ",
+    "text": "10.8 実践例：完成度の高いグラフ\nこれまで学んだテクニックを組み合わせて、レポートやプレゼンで使える完成度の高いグラフを作成してみましょう。\n\n# データの準備\nsales_summary &lt;- data.frame(\n  月 = rep(1:12, times = 3),\n  商品 = rep(c(\"商品A\", \"商品B\", \"商品C\"), each = 12),\n  売上 = c(\n    # 商品A\n    120, 135, 150, 145, 160, 175, 190, 185, 200, 210, 230, 250,\n    # 商品B\n    100, 110, 125, 130, 140, 155, 160, 165, 175, 185, 195, 210,\n    # 商品C\n    80, 90, 95, 100, 110, 120, 125, 130, 140, 150, 160, 175\n  )\n)\n\n# グラフの作成\nfinal_plot &lt;- ggplot(sales_summary, aes(x = 月, y = 売上, color = 商品)) +\n  geom_line(linewidth = 1.2) +\n  geom_point(size = 3) +\n  scale_x_continuous(breaks = 1:12) +\n  scale_color_brewer(palette = \"Set1\") +\n  labs(\n    title = \"2025年 商品別月次売上推移\",\n    subtitle = \"全店舗合計\",\n    x = \"月\",\n    y = \"売上（万円）\",\n    color = \"商品カテゴリ\",\n    caption = \"データ：社内売上システムより\"\n  ) +\n  theme_minimal() +\n  theme(\n    plot.title = element_text(size = 18, face = \"bold\"),\n    plot.subtitle = element_text(size = 14, color = \"gray40\"),\n    axis.title = element_text(size = 14),\n    axis.text = element_text(size = 12),\n    legend.position = \"top\",\n    legend.title = element_text(size = 12),\n    legend.text = element_text(size = 11),\n    panel.grid.minor = element_blank(),  # 細かい補助線を削除\n    plot.caption = element_text(size = 10, hjust = 0, color = \"gray50\")\n  )\n\nprint(final_plot)",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#練習問題",
+    "href": "visualization_advanced.html#練習問題",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.9 練習問題",
+    "text": "10.9 練習問題\n\n\n\n\n\n\nヒント問題1: ファセットグラフの作成\n\n\n\n\n\nirisデータで、品種ごとにヒストグラムをファセット表示してください。x軸はSepal.Lengthです。\n解答例\nggplot(iris, aes(x = Sepal.Length)) +\n  geom_histogram(bins = 15, fill = \"steelblue\") +\n  facet_wrap(~ Species) +\n  labs(title = \"品種別がく片長の分布\")\n\n\n\n\n\n\n\n\n\nヒント問題2: カスタマイズされた散布図\n\n\n\n\n\nirisデータで以下の条件を満たす散布図を作成してください。\n\nx軸: Petal.Length, y軸: Petal.Width\n品種ごとに色分け\nタイトル、軸ラベルを日本語で追加\nテーマをtheme_classic()に設定\n凡例を下に配置\n\n解答例\nggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +\n  geom_point(size = 3) +\n  labs(\n    title = \"花弁の長さと幅の関係\",\n    x = \"花弁の長さ (cm)\",\n    y = \"花弁の幅 (cm)\",\n    color = \"品種\"\n  ) +\n  theme_classic() +\n  theme(legend.position = \"bottom\")",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  },
+  {
+    "objectID": "visualization_advanced.html#まとめ",
+    "href": "visualization_advanced.html#まとめ",
+    "title": "10  データ可視化応用 - ggplot2発展",
+    "section": "10.10 まとめ",
+    "text": "10.10 まとめ\nこの章では、ggplot2の発展的なテクニックを学びました。\n\n✅ ファセット（facet_wrap(), facet_grid()）で複数グラフを並べて表示\n✅ 色とカラーパレットの活用\n✅ 軸のスケール調整\n✅ theme()による細かいカスタマイズ\n✅ patchworkで異なるグラフを自由に配置\n✅ ggsave()によるグラフの保存\n\nこれで、プレゼンテーションやレポートで使える、洗練されたグラフを作成できるようになりました。\n\n\n\n\n\n\nノートデータ分析の流れ\n\n\n\nここまでで、データ分析の基本的な流れを習得しました。\n\nデータの読み込み（data_io.qmd）\nデータの加工（data_wrangling_basic.qmd, data_wrangling_advanced.qmd）\nデータの可視化（visualization_basic.qmd, visualization_advanced.qmd）\n\n2026年2月現在、作成済みの章はここまでですが、今後内容の拡充を予定しています。特に、データの加工や再現可能な研究の章を充実させていく予定です。",
+    "crumbs": [
+      "第2部：データ分析の基礎",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>データ可視化応用 - ggplot2発展</span>"
+    ]
+  }
+]
