@@ -1,0 +1,361 @@
+# データの読み込みと書き出し
+
+ここまでの章で、RとIDEの準備、簡単なRの操作方法を学びました。いよいよ実際のデータを扱う方法のパートに入っていきます。
+
+データ分析の第一歩は、データをRに読み込むことです。この章では、CSVファイルやExcelファイルからデータを読み込み、加工したデータを保存する方法について説明します。
+
+## 学習内容
+
+この章を読み終えると、以下ができるようになります。
+
+- CSVファイルからデータを読み込む
+- データの内容を確認する
+- データをCSVファイルとして保存する
+- Excelファイルからデータを読み込む
+- 日本語の文字化け問題に対処する（エンコードの指定）
+
+## 使用するパッケージ
+
+この章では以下のパッケージを使用します。`c()`関数を使ってまとめてインストールできます。
+
+```r
+# パッケージのインストール（初回のみ）
+install.packages(c("readr", "readxl", "here"))
+```
+
+## CSVファイルの読み込み
+
+CSVファイル（Comma-Separated Values）は、最も一般的なデータ形式の一つです。ExcelやGoogle スプレッドシートでも簡単に作成・保存できます。
+
+### readrパッケージを使う
+
+Rには`read.csv()`という標準関数もありますが、より高速で使いやすい`readr`パッケージの`read_csv()`を使うことをおすすめします。`readr`パッケージは`tidyverse`にも含まれているので、`tidyverse`をインストールしている場合は追加でインストールする必要はありません。
+
+```{r}
+library(readr)
+
+# CSVファイルを読み込む
+data <- read_csv("data/sample_data.csv")
+```
+
+::: {.callout-note}
+## ファイルパスの指定方法
+
+ファイルパスは、プロジェクトのルートディレクトリ（.Rprojファイルがある場所、あるいはPositronで開いているフォルダ）からの相対パスで指定します。
+
+例えば、プロジェクト内に`data`フォルダを作り、その中に`sample_data.csv`を置いた場合は、`"data/sample_data.csv"`と指定します。
+
+```
+# 上記の例
+my_project/
+├── data/
+│   └── sample_data.csv
+└── analysis.Rproj
+```
+:::
+
+### hereパッケージでパスを管理する
+
+プロジェクト管理の章で学んだように、`here`パッケージを使うとさらに確実です。
+
+```{r}
+library(here)
+library(readr)
+
+# hereを使ってパスを指定
+data <- read_csv(here("data", "sample_data.csv"))
+```
+
+`here()`関数は、プロジェクトのルートディレクトリからの相対パスを自動で構築してくれます。WindowsとMac/Linuxでパスの書き方が異なる問題も解決できます。
+
+上記の例ではルートディレクトリにある`data`フォルダの中の`sample_data.csv`を読み込む、ということをしています。`here("data/sample_data.csv")`としても問題ありません。
+
+## データの確認
+
+データを読み込んだら、まず内容を確認しましょう。
+
+### head() - 最初の数行を表示
+
+```{r}
+# 最初の6行を表示（デフォルト）
+head(data)
+```
+
+### glimpse() - データ構造を一覧
+
+`dplyr`パッケージの`glimpse()`関数は、データの構造をコンパクトに表示してくれます。
+
+```{r}
+library(dplyr)
+
+# データ構造を確認
+glimpse(data)
+```
+
+`glimpse()`を実行すると、以下のような情報が表示されます。
+
+- 行数と列数
+- 各列の名前と型（文字列、数値など）
+- 各列の最初の数個のデータ
+
+### View() - データをスプレッドシート形式で表示
+
+```{r}
+#| eval: false
+# データビューアーで開く
+View(data)
+```
+
+::: {.callout-tip}
+## IDE上でのデータ確認
+
+RStudioでは、Environmentペインにあるデータ名をクリックすることでも`View()`と同じ結果が得られます。スプレッドシート形式でデータを確認できるので、非常に便利です。  
+Positronの場合は、画面右側にVARIABLESペインがあり、そこにデータが表示されるので、見たいデータをダブルクリックすれば同様に確認できます。Positronの場合は平均値や欠損数も表示されるので便利だと思います。
+
+![Positronのデータビューア](figures/data_io/data_viewer.png)
+:::
+
+## 実践例：サンプルデータを読み込む
+
+実際にサンプルデータを作成して読み込んでみましょう。
+
+### サンプルCSVファイルの作成
+
+まず、プロジェクト内に`data`フォルダを作成します。
+
+```{r}
+#| eval: false
+# dataフォルダを作成（存在しない場合）
+if (!dir.exists("data")) {
+  dir.create("data")
+}
+```
+
+次に、簡単なサンプルデータを作成して保存します。
+
+```{r}
+#| eval: false
+library(readr)
+
+# サンプルデータの作成
+sample_data <- data.frame(
+  名前 = c("田中太郎", "佐藤花子", "鈴木一郎", "高橋次郎", "伊藤三郎"),
+  年齢 = c(25, 30, 35, 28, 42),
+  部署 = c("営業", "開発", "営業", "開発", "総務"),
+  売上 = c(1200, 1500, 980, 1350, 1100)
+)
+
+# CSVファイルとして保存
+write_csv(sample_data, "data/sales_data.csv")
+```
+
+### データの読み込みと確認
+
+```{r}
+#| eval: false
+# データを読み込む
+sales_data <- read_csv("data/sales_data.csv")
+
+# データの確認
+print(sales_data)
+
+# 構造を確認
+glimpse(sales_data)
+```
+
+## データの書き出し
+
+データを加工した後は、結果を保存する必要があります。
+
+### CSVファイルとして保存
+
+```{r}
+#| eval: false
+library(readr)
+
+# データをCSVファイルとして保存
+write_csv(sales_data, "data/processed_sales.csv")
+```
+
+::: {.callout-tip}
+## データ保存のベストプラクティス
+
+プロジェクト内でデータを整理する際は、以下のようなフォルダ構成がおすすめです。
+
+```
+my_project/
+├── data/
+│   ├── raw/          # 元データ（読み取り専用、編集しない）
+│   └── processed/    # 加工済みデータ
+├── scripts/
+└── outputs/
+```
+
+元データは`raw`フォルダに保存し、加工したデータは`processed`フォルダに保存することで、データの管理が容易になります。
+:::
+
+## 日本語データの扱い
+
+日本語を含むCSVファイルを扱う際、文字化けが発生することがあります。
+
+### 文字コードの問題
+
+Windowsで作成されたCSVファイルは、多くの場合Shift-JISという文字コードで保存されています。一方、R（とreadr）はデフォルトでUTF-8を想定しています。
+
+### 文字化けの対処法
+
+Shift-JISのファイルを読み込む場合は、エンコーディングを指定します。
+
+```{r}
+#| eval: false
+# Shift-JISのCSVファイルを読み込む
+data <- read_csv(
+  "data/japanese_data.csv",
+  locale = locale(encoding = "Shift-JIS")
+)
+```
+
+::: {.callout-caution}
+## 文字コードの確認方法
+
+ファイルの文字コードがわからない場合は、以下を試してください。
+
+1. まず何も指定せずに読み込んでみる
+2. 文字化けしたら、`locale = locale(encoding = "Shift-JIS")`を追加
+3. それでもダメなら、`locale = locale(encoding = "CP932")`を試す
+
+ちなみにCP932はShift-JISのMicrosoft拡張版で、Windowsで作成されたファイルはCP932で保存されていることが多いです。  
+現代では、可能な限りUTF-8でデータを保存することが推奨されます^[とはいえ、国のオープンデータなどではまだまだShift-JISのデータも多いので要注意です。]。
+:::
+
+## Excelファイルの読み込み
+
+Excelファイル（.xlsxや.xls）からデータを読み込むには、`readxl`パッケージを使います。
+
+### readxlパッケージ
+
+```{r}
+#| eval: false
+library(readxl)
+
+# Excelファイルを読み込む
+excel_data <- read_excel("data/sample_data.xlsx")
+```
+
+### シートの指定
+
+Excelファイルに複数のシートがある場合、読み込むシートを指定できます。
+
+```{r}
+#| eval: false
+# シート名で指定
+excel_data <- read_excel("data/sample_data.xlsx", sheet = "売上データ")
+
+# シート番号で指定（1から始まる）
+excel_data <- read_excel("data/sample_data.xlsx", sheet = 2)
+```
+
+### 範囲の指定
+
+特定のセル範囲のみを読み込むこともできます。
+
+```{r}
+#| eval: false
+# A1からD10の範囲を読み込む
+excel_data <- read_excel("data/sample_data.xlsx", range = "A1:D10")
+```
+
+::: {.callout-note}
+## ExcelファイルとCSVファイルの使い分け
+
+- **Excelファイル**: 複数シート、書式設定、数式などが必要な場合
+- **CSVファイル**: シンプルなデータの保存・共有、他のツールとの互換性が必要な場合
+
+データ分析では、Excelで作成したデータをCSV形式でエクスポートして使うことも多いです。
+:::
+
+## 練習問題
+
+ここまで学んだ内容を確認しましょう。
+
+::: {.callout-tip collapse="true"}
+## 問題1: サンプルデータの作成と保存
+
+以下の条件でデータを作成し、CSVファイルとして保存してください。
+
+- 列: 商品名、価格、在庫数
+- 行: 5つの商品
+
+**解答例**
+```r
+library(readr)
+
+# サンプルデータの作成
+products <- data.frame(
+  商品名 = c("りんご", "バナナ", "オレンジ", "ぶどう", "いちご"),
+  価格 = c(150, 100, 200, 300, 250),
+  在庫数 = c(50, 80, 30, 20, 40)
+)
+
+# 保存
+write_csv(products, "data/products.csv")
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題2: データの読み込みと確認
+
+問題1で作成したCSVファイルを読み込み、以下を確認してください。
+
+1. データの最初の3行
+2. データの構造
+
+**解答例**
+```r
+library(readr)
+library(dplyr)
+
+# データの読み込み
+products <- read_csv("data/products.csv")
+
+# 最初の3行
+head(products, n = 3)
+
+# 構造の確認
+glimpse(products)
+```
+:::
+
+::: {.callout-tip collapse="true"}
+## 問題3: hereパッケージを使う
+
+問題2の読み込みを、`here`パッケージを使って書き直してください。
+
+**解答例**
+```r
+library(readr)
+library(here)
+
+# hereを使ってデータを読み込む
+products <- read_csv(here("data", "products.csv"))
+```
+:::
+
+## まとめ
+
+この章では、以下を学びました。
+
+- ✅ `readr`パッケージを使ったCSVファイルの読み込み
+- ✅ `head()`, `glimpse()`, `View()`によるデータ確認
+- ✅ `write_csv()`によるデータの保存
+- ✅ 日本語データの文字化け対策
+- ✅ `readxl`パッケージを使ったExcelファイルの読み込み
+- ✅ `here`パッケージによる確実なパス管理
+
+これで、外部ファイルからデータを読み込み、確認し、保存することができるようになりました。次の章では、読み込んだデータを加工する方法を学びます。
+
+::: {.callout-note}
+## 次のステップ
+
+次の章「データハンドリング基礎 - dplyr入門」では、読み込んだデータを自在に操作する方法を学びます。データの絞り込み、並び替え、列の選択など、実務で頻繁に使う操作を習得しましょう。
+:::

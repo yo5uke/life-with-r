@@ -125,12 +125,189 @@ execute:
 [【Quarto】チャンクオプションまとめてみた【R Markdown】](https://yo5uke.com/pages/tips/240509_chunk_option/)
 :::
 
-## 次に向けて
+## HTML出力の詳細設定
 
-ここまでが簡単な使い方です。文章とコードを組み込みながらきれいなファイルを作ることができます。
+HTML形式で出力する際の便利な設定をいくつか紹介します。
 
-次のセクションからは、HTMLやPDFそれぞれに絞って使い方を解説します。学生の方であれば特にPDF出力は使うことが多いでしょう（そのくせ$\LaTeX$の設定が難しすぎますが…）。
+### 目次（Table of Contents）の追加
 
-それでは進んでいきましょう。
+長い文書では目次があると便利です。YAMLヘッダーに以下を追加します。
 
-（2025年4月29日：鋭意作成中…）
+```yaml
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: left
+```
+
+- `toc: true`: 目次を表示
+- `toc-depth: 3`: 見出しレベル3まで目次に含める
+- `toc-location: left`: 目次を左側に配置（`right`や`body`も選択可能）
+
+### コードの折りたたみ
+
+コードを折りたたんで表示することもできます。
+
+```yaml
+format:
+  html:
+    code-fold: true
+    code-tools: true
+```
+
+- `code-fold: true`: コードを折りたたんで表示（クリックで展開可能）
+- `code-tools: true`: コードの表示/非表示を切り替えるボタンを追加
+
+### テーマの変更
+
+Quartoには多くの組み込みテーマがあります。
+
+```yaml
+format:
+  html:
+    theme: cosmo
+```
+
+利用可能なテーマ: `default`, `cosmo`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `yeti`など
+
+::: {.callout-tip}
+## おすすめテーマ
+
+- `cosmo`: モダンで読みやすい
+- `flatly`: シンプルでプロフェッショナル
+- `sandstone`: 温かみのあるデザイン（このサイトでも使用）
+:::
+
+## PDF出力について
+
+PDF出力には$\LaTeX$環境が必要です。最も簡単な方法は、TinyTeXをインストールすることです。
+
+### TinyTeXのインストール
+
+Rコンソールで以下を実行します。
+
+```r
+install.packages("tinytex")
+tinytex::install_tinytex()
+```
+
+インストール後、Quarto文書のYAMLヘッダーで`format: pdf`を指定します。
+
+```yaml
+---
+title: "PDFドキュメント"
+author: "阿部洋輔"
+format: pdf
+---
+```
+
+### 日本語PDFの出力
+
+日本語を含むPDFを出力する場合、追加の設定が必要です。
+
+```yaml
+format:
+  pdf:
+    pdf-engine: lualatex
+    documentclass: ltjsarticle
+```
+
+- `pdf-engine: lualatex`: 日本語対応のLaTeXエンジン
+- `documentclass: ltjsarticle`: 日本語用の文書クラス
+
+::: {.callout-caution}
+## PDF出力の注意点
+
+PDF出力は環境によって問題が発生することがあります。エラーが出た場合は、まずHTML出力で動作確認することをおすすめします。PDF出力は慣れてから挑戦しても遅くありません。
+:::
+
+## 実践例：データ分析レポートを作成する
+
+ここまで学んだことを使って、簡単なデータ分析レポートを作成してみましょう。
+
+以下は`iris`データセットを使った分析レポートの例です。
+
+````markdown
+---
+title: "アヤメデータの分析レポート"
+author: "あなたの名前"
+date: today
+format:
+  html:
+    toc: true
+    code-fold: true
+    theme: cosmo
+execute:
+  warning: false
+---
+
+## はじめに
+
+このレポートでは、R標準の`iris`データセットを使って、
+アヤメの品種ごとの特徴を分析します。
+
+## データの読み込みと確認
+
+```{{r}}
+# データを読み込む
+data(iris)
+
+# データの最初の6行を表示
+head(iris)
+
+# データの構造を確認
+str(iris)
+```
+
+## 記述統計
+
+品種ごとのがく片の長さの平均値を計算します。
+
+```{{r}}
+library(dplyr)
+
+iris |>
+  group_by(Species) |>
+  summarize(
+    平均 = mean(Sepal.Length),
+    標準偏差 = sd(Sepal.Length)
+  )
+```
+
+## 可視化
+
+がく片の長さと幅の関係を品種ごとに可視化します。
+
+```{{r}}
+library(ggplot2)
+
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point(size = 3, alpha = 0.7) +
+  labs(
+    title = "アヤメのがく片の長さと幅",
+    x = "がく片の長さ (cm)",
+    y = "がく片の幅 (cm)"
+  ) +
+  theme_minimal()
+```
+
+## まとめ
+
+品種ごとに明確な違いが見られました。特に setosa は他の2品種と
+異なる特徴を持っていることが確認できました。
+````
+
+この例をコピーして新しいQuarto文書に貼り付け、Renderしてみてください。データの読み込みから可視化まで、一連の流れを含んだレポートが完成します。
+
+## まとめ
+
+Quartoを使うことで、以下のことが簡単にできるようになります。
+
+- コードと結果を含む文書の作成
+- HTML、PDF、スライドなど多様な形式での出力
+- 再現可能な分析レポートの作成
+
+データ分析の結果を共有する際、Quartoは非常に強力なツールです。ぜひ活用してみてください。
+
+今後のデータ分析の章で学ぶ内容を、Quartoでレポートにまとめることで、より実践的なスキルが身につきます。
